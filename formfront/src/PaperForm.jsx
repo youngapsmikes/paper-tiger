@@ -26,7 +26,7 @@ class PaperForm extends React.Component{
               '\nAn author was submitted ' + this.state.author +
               '\nAn abstract was submitted ' + this.state.abstract);
         event.preventDefault();
-        fetch('/', {
+        fetch('/backend/create', {
           method: 'post',
           headers: {'Content-Type':'application/json'},
           body: {
