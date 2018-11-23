@@ -18,25 +18,7 @@ def create(request):
 	print("hello world")
 	return JsonResponse([{'author':'Michael Li', 'title': 'KGLQ'}], safe = False)
 
-	# if request.method == 'GET':
-	# 	print("hello fuck")
-	# 	return JsonResponse({'author':'Michael Li', 'title': 'Fuck'})
-	# return HttpResponse("MICHAEL IS SEXY")
-	# return render_to_response('createform.html',  RequestContext(request))
-	# return render(request, 'createform.html')
-	# if request.method == 'POST':
-	#     if request.POST.get('author') and request.POST.get('title') and request.POST.get('abstract'):
-	#     	return JsonResponse({'author':'Michael Li', 'title': 'Fuck'})
-	#         form = SearchForm()
-	#         form.title = request.POST.get('title')
-	#         form.author = request.POST.get('author')
-	#         form.abstract = request.POST.get('abstract')
-	        # form.save()
-
-	#         return render(request, 'createform.html')  
-
-	# else:
-	#         return render(request,'createform.html')
+	
 
 def test(request):
 	# num_articles = SearchForm.objects.all().count()
