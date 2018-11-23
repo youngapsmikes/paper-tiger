@@ -1,0 +1,18 @@
+<head>
+<title>Create a Entry </title>
+</head>
+
+<body>
+<h1>Create a Entry </h1>
+<form action="" method="POST">
+{% csrf_token %}
+Title: <input type="text" name="title"/><br/>
+Author: <input type="text" name="author"/><br/>
+Abstract: <br/>
+<textarea cols="35" rows="8" name="abstract">
+</textarea><br/>
+<input type="submit" value="Post"/>
+</form>
+</body>
+
+</html>
