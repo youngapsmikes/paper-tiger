@@ -2,11 +2,41 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core import serializers
 from django.http import HttpResponse
-from .models import SearchForm
-from databaseML import Database 
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
+
+from .models import SearchForm
+from .models import Profile
+from .forms import ProfileForm
+
+from databaseML import Database 
 from django.http import JsonResponse
+from django.conf import settings
+
+def profile(request):
+   return render(request, 'profile.html')
+
+def SaveProfile(request):
+
+   saved = False
+   if request.method == "POST":
+
+      #Get the posted form
+      MyProfileForm = ProfileForm(request.POST, request.FILES)
+      print("hello world")
+      
+      if MyProfileForm.is_valid():
+         profile = Profile()
+         print("hello world2")
+         profile.name = MyProfileForm.cleaned_data["name"]
+         profile.file = MyProfileForm.cleaned_data["file"]
+         profile.save()
+         saved = True
+   else:
+      MyProfileForm = ProfileForm()
+		
+   return render(request, 'saved.html', locals())
+
 
 def index(request):
     objs = SearchForm.objects.all()
@@ -18,11 +48,6 @@ def create(request):
 	print("hello world")
 	return JsonResponse([{'author':'Michael Li', 'title': 'KGLQ'}], safe = False)
 
-	
-
-def test(request):
-	# num_articles = SearchForm.objects.all().count()
-	return render(request, 'test.html')
 
 def searchresults(request):
 	database = Database()
@@ -60,7 +85,3 @@ def searchresults(request):
 	response = HttpResponse(html)
 	# response.set_cookie('prevAuthor', author)
 	return response
-
-# Create your views here.
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the backend index now.")
