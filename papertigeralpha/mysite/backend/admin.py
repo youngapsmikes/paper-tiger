@@ -4,5 +4,4 @@ from .models import SearchForm, Profile
 from django.contrib import admin
 
 admin.site.register(SearchForm)
-
 admin.site.register(Profile)
