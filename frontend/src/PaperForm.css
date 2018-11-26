@@ -1,0 +1,14 @@
+.control {
+    padding-left: 0;
+    padding-bottom: 20px;
+}
+.label {
+    padding-left: 5px;
+
+}
+.input {
+    margin-bottom: 25px;
+}
+.textarea {
+    margin-bottom: 0px;
+}
