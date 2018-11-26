@@ -55,7 +55,7 @@ class PaperForm extends React.Component{
         <div className="column">
           <form onSubmit={this.handleSubmit}>
             <div className="field">
-              <label className="label">Title: </label>
+              <label className="label">Title:  </label>
                 <input
                   className="input"
                   type="text"
@@ -66,7 +66,7 @@ class PaperForm extends React.Component{
                 />
             </div>
             <div className="field">
-              <label className="label">Author: </label>
+              <label className="label">Author:  </label>
                 <input
                   className="input"
                   type="text"
@@ -77,7 +77,7 @@ class PaperForm extends React.Component{
                 />
             </div>
             <div className="field">
-              <label className="label">Abstract: </label>
+              <label className="label">Abstract:  </label>
                 <textarea
                   className="textarea"
                   type="text"

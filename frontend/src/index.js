@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import PaperForm from './PaperForm'
 import * as serviceWorker from './serviceWorker';
 
 // ReactDOM.render(element, document.getElementById('root'));
