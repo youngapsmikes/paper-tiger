@@ -24,13 +24,8 @@ class RecommendationsTable extends Component {
 
         for (let i = 0; i < this.props.articles.length; i++) {
             let article = this.props.articles[i];
+            rows.push(<PaperRow author={article.author} title={article.title}/>);
 
-            rows.push(
-                <PaperRow
-                    author={article.author}
-                    title={article.title}
-                />
-            );
         }
 
         return (
@@ -51,31 +46,28 @@ export default class Results extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles: [
-                {author: "Michelle Yuen", title: "Frontend warrior: How to work at Microsoft (and then go on to facebook)"},
-                {author: "Michael Li", title: "Why I prefer handling the backend"},
-                {author: "Bisrat Moges", title: "The art of the Backend"},
-                {author: "Quinn Donohue", title: "How to react to the fact you barely know javascript"}
-              ],
+            articles:  [
+  {author: "Quinn Donohue made this", title: "He messed up so click on the button to get results (don't worry we will fix in the beta)"}
+],
         };
     }
 
-    fetchResult() {
-        console.log("A request was made")
+    fetchResult = () => {
+        console.log("DATA REQUEST MADE");
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`/backend/results?messageID=${messageID}`)
+        fetch(`backend/results?messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
-                this.setState({ articles: data });
+                this.setState({articles: data});
             }).catch((error) => console.log(error));
     }
 
     render() {
-        this.fetchResult();
         return (
             <div>
                 <RecommendationsTable articles={this.state.articles} />
+                <button onClick= {this.fetchResult}>Get results</button>
             </div>
         );
     }

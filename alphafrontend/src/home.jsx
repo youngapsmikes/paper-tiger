@@ -17,14 +17,9 @@ export default class Home extends Component {
             <div className="App-body">  
             <h1 className="modalTitle">File Submission</h1>
             </div>
-            <div className = "filepond">
-            <FilePond server="http://localhost:5000/backend/saved" />
+            <div className = "fileupload">
+            <FileUpload />
             </div>
-            <Link to="/results">
-            <button>
-               Continue 
-            </button>
-             </Link>
     
             </Modal.Body>
             </Modal.Dialog>

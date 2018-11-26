@@ -4,15 +4,16 @@ import pandas as pd
 import numpy as np
 from joblib import dump, load
 
-def recommend_lda(model, lda_X, tf_article, papers):
+def recommend_lda(model, lda_X, tf_article, papers, authors):
     dists = np.zeros((lda_X.shape[0],))
     article = model.transform(tf_article)
     
     for idx, row in enumerate(lda_X):
         dists[idx] = np.linalg.norm(row-article)
-    index = np.argsort(dists)[10]
-    
-    return papers['title'][index]
+    index = list(np.argsort(dists)[1:10])
+    authors = list(authors[authors['id'].isin(index)]['name'])
+
+    return zip(list(papers['title'][index]), authors)
     
 
 
@@ -31,6 +32,7 @@ def recommendMain():
 	tf_vectorizer = load('tf_vectorizer.joblib')
 	lda_X = load('lda_X.joblib')
 	papers = pd.read_csv('papers.csv')
+	authors = pd.read_csv('authors.csv')
 
 	## For now, assume that the only files in the pdf directory 
 	## are the ones we're interested in
@@ -46,7 +48,7 @@ def recommendMain():
 		tf_text = tf_vectorizer.transform([text])
 
 	print("success")
-	return recommend_lda(lda, lda_X, tf_text, papers)
+	return recommend_lda(lda, lda_X, tf_text, papers, authors)
 
 # if __name__ == '__main__':
 # 	print(recommendMain())

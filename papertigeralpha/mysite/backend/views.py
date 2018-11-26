@@ -18,6 +18,8 @@ import sys
 sys.path.insert(0, 'C:\\Users\\myli\\Desktop\\paper-tiger\\papertigeralpha\\mysite\\ML')
 from ML import recommend 
 
+json_list = []
+
 def profile(request):
    return render(request, 'profile.html')
 
@@ -25,26 +27,34 @@ def profile(request):
 def SaveProfile(request):
 
     saved = False
-    if request.method == "POST":
+    # if request.method == "POST":
 
-        #Get the posted form
-        MyProfileForm = ProfileForm(request.POST, request.FILES)
-        print("hello world")
+    #Get the posted form
+    MyProfileForm = ProfileForm(request.POST, request.FILES)
+    print("hello world")
 
-        if MyProfileForm.is_valid():
-             profile = Profile()
-             print("hello world2")
-             profile.name = MyProfileForm.cleaned_data["name"]
-             profile.file = MyProfileForm.cleaned_data["file"]
-             profile.save()
-             saved = True
-        else:
-            MyProfileForm = ProfileForm()
+    if MyProfileForm.is_valid():
+         profile = Profile()
+         print("hello world2")
+         # profile.name = MyProfileForm.cleaned_data["name"]
+         profile.file = MyProfileForm.cleaned_data["file"]
+         profile.save()
+         saved = True
+    else:
+        MyProfileForm = ProfileForm()
 
-    print(recommend.recommendMain())
+    pairs = recommend.recommendMain()
+    for (title, author) in pairs:
+        json_list.append({'author': author, 'title': title})
 
-    return render(request, 'saved.html', locals())
-
+    print(json_list)
+    return HttpResponse(200)
+@csrf_exempt
+def results(request):
+    if json_list is None:
+        return JsonResponse([{'author':'', 'title': 'no prior POST'}], safe = False)
+    else:
+        return JsonResponse(json_list, safe = False)
 
 def index(request):
     objs = SearchForm.objects.all()

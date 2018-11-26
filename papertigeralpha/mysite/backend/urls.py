@@ -10,4 +10,5 @@ urlpatterns = [
 	path('searchresults', views.searchresults, name='searchresults'),
 	path('saved', views.SaveProfile, name='saved'),
 	path('profile/', TemplateView.as_view(template_name="profile.html")),
+	path('results', views.results, name='results'),
 ]
