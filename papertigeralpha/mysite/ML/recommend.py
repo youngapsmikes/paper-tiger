@@ -10,9 +10,8 @@ def recommend_lda(model, lda_X, tf_article, papers, authors):
     
     for idx, row in enumerate(lda_X):
         dists[idx] = np.linalg.norm(row-article)
-    index = list(np.argsort(dists)[1:10])
+    index = list(np.argsort(dists)[1:20])
     authors = list(authors[authors['id'].isin(index)]['name'])
-
     return zip(list(papers['title'][index]), authors)
     
 
