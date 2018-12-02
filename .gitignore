@@ -5,3 +5,7 @@ node_modules/
 *.txt
 *.sqlite
 *.sql
+src/*
+public/*
+build/static/css/*.map
+build/static/js/*.map
