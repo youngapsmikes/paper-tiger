@@ -1,4 +1,8 @@
 import React from 'react';
+import './bootstrap.css';
+import './FileUpload.css';
+import { Button } from 'react-bootstrap';
+
 class FileUpload extends React.Component {
     constructor(props) {
       super(props);
@@ -16,7 +20,7 @@ class FileUpload extends React.Component {
       const data = new FormData();
       data.append('file', this.uploadInput.files[0]);
   
-      fetch('http://localhost:8000/upload', {
+      fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: data,
       }).then((response) => {
@@ -29,12 +33,12 @@ class FileUpload extends React.Component {
     render() {
       return (
         <form onSubmit={this.handleUploadImage}>
-          <div>
+          <div className="fileSelector">
             <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
           </div>
           <br />
           <div>
-            <button>Upload</button>
+            <Button>Upload</Button>
           </div>
         </form>
       );

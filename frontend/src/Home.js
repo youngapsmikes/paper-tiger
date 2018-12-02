@@ -4,6 +4,7 @@ import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import './bootstrap.css';
 import { Button } from 'react-bootstrap';
+import FileUpload from './FileUpload.jsx';
 
 class Home extends Component {
   render() {
@@ -16,7 +17,7 @@ class Home extends Component {
         {/* <PaperForm textChange={this.handleChange} /> */}
         </div>
         <div className = "filepond">
-        <FilePond server="http://localhost:5000/" />
+        <FileUpload />
         </div>
         <h2>or</h2>
         <div className = "button1">
