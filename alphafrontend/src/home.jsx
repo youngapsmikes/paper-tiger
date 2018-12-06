@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import FileUpload from './FileUpload.jsx';
-<<<<<<< HEAD
-import { Modal } from 'react-bootstrap';
-import './home.css';
-=======
 import 'filepond/dist/filepond.min.css';
 import { Modal } from 'react-bootstrap';
 import './home.css';
@@ -29,7 +25,6 @@ const responseGoogle = (googleUser) => {
         };
         xhr.send('idtoken=' + id_token);
 }
->>>>>>> 92b405bb3b9cd2c2bf08cabaebc8c3e9e59957b4
 
 export default class Home extends Component {
     render() {
