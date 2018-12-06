@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
-import PaperForm from './PaperForm.jsx';
-import FileUpload from './FileUpload.jsx';
-import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
-import { Modal } from 'react-bootstrap';
 import PaperTigerHeader from './PaperTigerHeader.js';
 import Results from './results.jsx';
-import ResultPage from './resultsPage.jsx';
 import Home from './home.jsx';
 
 

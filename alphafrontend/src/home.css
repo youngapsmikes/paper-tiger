@@ -1,6 +1,18 @@
 
 .toplevel {
     clear: both;
-    background: white;
-    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    background-color:transparent !important;
 }
+.testmodal {
+    position: absolute !important;
+    margin: 0 auto !important;
+    
+}
+.modal {
+    position: inherit !important;
+    margin: 0 auto !important;
+    background-color: transparent !important;
+}
+
