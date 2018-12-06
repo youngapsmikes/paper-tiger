@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'backend.apps.BackendConfig', # <- Main section of the app forms recommendations 
+    'account.apps.AccountConfig', # <- Handles user authentication and user data 
+    'django.contrib.admin', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend.apps.BackendConfig'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'account.authenticators.GoogleBackend', 
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'

@@ -15,8 +15,15 @@ const responseGoogle = (googleUser) => {
         console.log("Email: " + profile.getEmail());
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
+        // Sending the token to the backend
         console.log("ID Token: " + id_token);
-
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/account/login/');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+          console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('idtoken=' + id_token);
 }
 
 export default class Home extends Component {
