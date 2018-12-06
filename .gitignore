@@ -5,12 +5,6 @@ node_modules/
 *.txt
 *.sqlite
 *.sql
-<<<<<<< HEAD
-src/*
-public/*
-build/static/css/*.map
-build/static/js/*.map
-=======
 
 
 # Logs
@@ -29,4 +23,3 @@ __pycache__/
 
 # Jupyter Notebook
 .ipynb_checkpoints
->>>>>>> 92b405bb3b9cd2c2bf08cabaebc8c3e9e59957b4
