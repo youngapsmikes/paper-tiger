@@ -5,7 +5,28 @@ node_modules/
 *.txt
 *.sqlite
 *.sql
+<<<<<<< HEAD
 src/*
 public/*
 build/static/css/*.map
 build/static/js/*.map
+=======
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+node_modules/
+
+# Byte-compiled / optimized / DLL files from Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+>>>>>>> 92b405bb3b9cd2c2bf08cabaebc8c3e9e59957b4

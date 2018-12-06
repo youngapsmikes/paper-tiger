@@ -15,8 +15,10 @@ from django.conf import settings
 
 
 import sys 
-sys.path.insert(0, 'C:\\Users\\myli\\Desktop\\paper-tiger\\papertigeralpha\\mysite\\ML')
-from ML import recommend 
+
+# FIX ME PLEASE 
+# sys.path.insert(0, 'C:\\Users\\myli\\Desktop\\paper-tiger\\papertigeralpha\\mysite\\ML')
+# from ML import recommend 
 
 json_list = []
 
@@ -43,9 +45,11 @@ def SaveProfile(request):
     else:
         MyProfileForm = ProfileForm()
 
-    pairs = recommend.recommendMain()
-    for (title, author) in pairs:
-        json_list.append({'author': author, 'title': title})
+
+
+    # pairs = recommend.recommendMain()
+    # for (title, author) in pairs:
+    #     json_list.append({'author': author, 'title': title})
 
     print(json_list)
     return HttpResponse(200)
