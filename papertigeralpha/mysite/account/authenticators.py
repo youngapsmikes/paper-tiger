@@ -35,7 +35,7 @@ class GoogleBackend(object):
 		    	return user 
 		    except User.DoesNotExist:
 		    	print("USER DOES NOT EXIST")
-		    	user = User.objects.create_user(username = name, email = user_email, password = 'johnpassword')
+		    	user = User.objects.create_user(username = name, email = user_email)
 		    	user.save()
 		    	return user 
 		    
