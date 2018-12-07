@@ -6,12 +6,16 @@ import PaperTigerHeader from './PaperTigerHeader.js';
 import ResultsPage from './resultsPage.jsx';
 import Results from './results.jsx';
 import Home from './home.jsx';
+import LoginPage from './LoginPage.jsx';
 
 
 const MainMenu = () => {
   return (
     <div>
     <Link to="/">
+    <button>Login</button>
+    </Link>
+    <Link to="/home">
     <button>Home</button>
     </Link>
     <Link to="/results">
@@ -33,8 +37,9 @@ class App extends Component {
         <MainMenu/>
         </header>
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route exact path="/results" component={ResultsPage} />
+          <Route exact path="/" component={LoginPage} />
+          <Route exact path="/home" component={Home} />
         </Switch>
         
       </div>

@@ -14,5 +14,8 @@
     position: inherit !important;
     margin: 0 auto !important;
     background-color: transparent !important;
+    width: 300px !important;
+    height: 40% !important;
+
 }
 

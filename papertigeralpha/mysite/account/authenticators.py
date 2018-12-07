@@ -24,18 +24,28 @@ class GoogleBackend(object):
 
 		    # ID token is valid. Get the user's Google Account ID from the decoded token.
 		    userid = idinfo['sub']
+		    user_email = idinfo['email'] 
+		    name = idinfo['name']
 
-		    user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
+		    # Check if authenticated person is a new user. 
+		    # If new, create new user object and return. 
+		    # If its an old user, get old user object.
+		    try:
+		    	user = User.objects.get(email = user_email)
+		    	return user 
+		    except User.DoesNotExist:
+		    	print("USER DOES NOT EXIST")
+		    	user = User.objects.create_user(username = name, email = user_email)
+		    	user.save()
+		    	return user 
 		    
-		    return user 
-
 		except ValueError:
 		    # Invalid token
 		    return None 
 
+
 	def get_user(self, user_id):
-		return None
-		# try:
-		# 	return User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
-		# except User.DoesNotExist:
-		# 	return None 
+	    try:
+	        return User.objects.get(pk=user_id)
+	    except User.DoesNotExist:
+	        return None
