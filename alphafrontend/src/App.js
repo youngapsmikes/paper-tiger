@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import 'filepond/dist/filepond.min.css';
 import PaperTigerHeader from './PaperTigerHeader.js';
+import ResultsPage from './resultsPage.jsx';
 import Results from './results.jsx';
 import Home from './home.jsx';
 
@@ -33,7 +34,7 @@ class App extends Component {
         </header>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/results" component={Results} />
+          <Route exact path="/results" component={ResultsPage} />
         </Switch>
         
       </div>

@@ -1,0 +1,45 @@
+.sideheader {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.sidemenu {
+    list-style-type: none;
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.sidebar {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 33%;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    text-align: center;
+    border-bottom: .05rem solid #ddd;
+    width: 25vw;
+    border-right: .05rem solid #ddd;
+    background: white;
+    opacity: .9;
+}
+
+.headerText {
+  flex: 0 0 66%;
+  font-size: 1.5rem;
+}
+
+.fileresult {
+    border: .05rem solid black;
+    font-size: .8rem;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.filename {
+  flex: 0 0 66%;
+}
+
+.addbutton .removebutton {
+  flex: 0 0 33%;
+}

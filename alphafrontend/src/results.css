@@ -1,9 +1,15 @@
+.results {
+    flex: 1 1 66%;
+    flex-grow: 1;
+}
+
 .resultsTable {
     border: 3px solid darkblue;
     border-collapse: collapse;
     margin: 0 auto;
     clear: both;
     background: white;
+    opacity: .9;
 
 }
 
@@ -36,4 +42,5 @@
 
 table tbody tr:nth-child(4n-1), table tbody tr:nth-child(4n) {
     background: darkgray;
+    opacity: .90;
 }

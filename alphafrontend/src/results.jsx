@@ -47,7 +47,7 @@ export default class Results extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Quinn Donohue made this", title: "He messed up so click on the button to get results (don't worry we will fix in the beta)"}
+  {author: "Quinn Donohue made this", title: "He messed up so click on is this workings (don't worry we will fix in the beta)"}
 ],
         };
     }
@@ -65,7 +65,7 @@ export default class Results extends Component {
 
     render() {
         return (
-            <div>
+            <div class="results">
                 <RecommendationsTable articles={this.state.articles} />
                 <button onClick= {this.fetchResult}>Get results</button>
             </div>
