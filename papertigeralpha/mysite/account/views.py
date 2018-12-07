@@ -15,5 +15,6 @@ def user_login(request):
 		if user is None :
 			print("USER INVALID!!!")
 		else:
+			login(request, user) 
 			print("USER IS SIGNED IN")
 		return HttpResponse("LOGIN HAS FINISHED")

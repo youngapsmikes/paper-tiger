@@ -1,6 +1,7 @@
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth.models import User 
+from .models import Researcher
 
 
 class GoogleBackend(object):
@@ -31,12 +32,15 @@ class GoogleBackend(object):
 		    # If new, create new user object and return. 
 		    # If its an old user, get old user object.
 		    try:
-		    	user = User.objects.get(email = user_email)
+		    	user = User.objects.get(username = name)
 		    	return user 
 		    except User.DoesNotExist:
 		    	print("USER DOES NOT EXIST")
 		    	user = User.objects.create_user(username = name, email = user_email)
 		    	user.save()
+		    	# create researcher model to store user and additonal information 
+		    	user_details = Researcher(user = user)
+		    	user_details.save()
 		    	return user 
 		    
 		except ValueError:
