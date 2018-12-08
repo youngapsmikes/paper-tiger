@@ -1,0 +1,16 @@
+.header img {
+    float: left;
+    width: 280px;
+    height: 200px;
+    background: #555;
+}
+
+.header h1 {
+    color: orange;
+    text-align: center;
+    font-size:4em; 
+  }
+
+.header {
+    float: left;
+}

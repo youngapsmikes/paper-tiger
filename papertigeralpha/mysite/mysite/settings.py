@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'backend.apps.BackendConfig', # <- Main section of the app forms recommendations 
+    'account.apps.AccountConfig', # <- Handles user authentication and user data 
+    'django.contrib.admin', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend.apps.BackendConfig'
 ]
 
 MIDDLEWARE = [
@@ -63,9 +64,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'account.authenticators.GoogleBackend', # <- Custom backend using Google API
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
@@ -119,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
+MEDIA_URL= "/media/"
