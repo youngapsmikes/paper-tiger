@@ -16,9 +16,11 @@ from django.conf import settings
 
 import sys 
 
-# FIX ME PLEASE 
-# sys.path.insert(0, 'C:\\Users\\myli\\Desktop\\paper-tiger\\papertigeralpha\\mysite\\ML')
-# from ML import recommend 
+# insert the absolute path of ML directory
+sys.path.insert(0, str(settings.BASE_DIR) + '\\ML')
+
+# os.path.join(BASE_DIR, ...)
+from ML import recommend 
 
 json_list = []
 
@@ -47,12 +49,12 @@ def SaveProfile(request):
 
 
 
-    # pairs = recommend.recommendMain()
-    # for (title, author) in pairs:
-    #     json_list.append({'author': author, 'title': title})
-
-    print(json_list)
+    pairs = recommend.recommendMain()
+    for (title, author) in pairs:
+        json_list.append({'author': author, 'title': title})
+    # print(json_list)
     return HttpResponse(200)
+
 @csrf_exempt
 def results(request):
     if json_list is None:
