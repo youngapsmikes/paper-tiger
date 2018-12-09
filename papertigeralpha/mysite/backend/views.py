@@ -47,9 +47,9 @@ def SaveProfile(request):
 
 
 
-    # pairs = recommend.recommendMain()
-    # for (title, author) in pairs:
-    #     json_list.append({'author': author, 'title': title})
+    pairs = recommend.recommendMain()
+    for (title, author) in pairs:
+        json_list.append({'author': author, 'title': title})
 
     print(json_list)
     return HttpResponse(200)
