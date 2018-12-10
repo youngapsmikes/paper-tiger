@@ -1,12 +1,8 @@
-.ResultsPage {
+.ProjectPage {
     opacity: .9  !important;
     border: 1px black;
     background-color: aliceblue;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
     overflow: hidden;
-    align-items: stretch;
     width: 80%;
     position: fixed;
     top: 25%;

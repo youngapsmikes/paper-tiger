@@ -2,10 +2,15 @@
     flex: 0 0 auto;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid black;
 }
 
 .sidemenu {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
     flex: 1 1 auto;
     overflow-y: auto;
 }
@@ -13,33 +18,60 @@
 .sidebar {
     box-sizing: border-box;
     display: flex;
-    flex: 0 0 33%;
+    flex: 0 0 34%;
     flex-flow: column nowrap;
     justify-content: flex-start;
     text-align: center;
     border-bottom: .05rem solid #ddd;
     width: 25vw;
-    border-right: .05rem solid #ddd;
-    background: white;
-    opacity: .9;
+    border-right: .1rem solid black;
 }
 
 .headerText {
-  flex: 0 0 66%;
-  font-size: 1.5rem;
+  flex: 0 0 auto;
+  font-size: 2rem;
 }
 
 .fileresult {
-    border: .05rem solid black;
+    border-bottom: .05rem solid black;
     font-size: .8rem;
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .filename {
   flex: 0 0 66%;
 }
 
-.addbutton .removebutton {
+.UploadPopup > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+  opacity: 100% !important;
+}
+
+.UploadPopup > .actions {
+    width: 100%;
+    padding: 10px 5 px;
+    margin: auto;
+    text-align: center;
+}
+
+.addbutton {
+    flex: 0 0 33%;
+    vertical-align: middle;
+}
+
+.removebutton {
   flex: 0 0 33%;
 }
