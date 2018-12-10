@@ -1,0 +1,10 @@
+.ProjectPage {
+    opacity: .9  !important;
+    border: 1px black;
+    background-color: aliceblue;
+    overflow: hidden;
+    width: 80%;
+    position: fixed;
+    top: 25%;
+    left: 10%;
+}

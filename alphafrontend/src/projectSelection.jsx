@@ -3,14 +3,22 @@ import './projectSelection.css';
 import { Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Popup from "reactjs-popup";
 
 class Project extends Component {
 
+    
+
     render() {
+
+        const newTo = {
+            pathname: "/results/" + this.props.id
+        }
+
         return (
             <React.Fragment>
                 <li class="project">
-                <Link to={'/results/${this.props.id}'}>
+                <Link to={newTo}>
                 {this.props.name}
                 </Link>
                 </li>
@@ -81,10 +89,10 @@ class ProjectSelection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [{name: "Computer Science paper A", id="1234"},
-            {name: "Computer Science paper B", id="1234"},
-            {name: "Computer Science paper C", id="1234"},
-            {name: "Computer Science paper D", id="1234"},]
+            projects: [{name: "Computer Science paper A", id:"1234"},
+            {name: "Computer Science paper B", id:"1234"},
+            {name: "Computer Science paper C", id:"1234"},
+            {name: "Computer Science paper D", id:"1234"},]
         };
     }
 

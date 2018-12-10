@@ -1,13 +1,13 @@
 .project {
     border-bottom: .05rem solid black;
-    font-size: .8rem;
+    font-size: 1rem;
 }
 
 .ProjectTable {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    flex: 1 1 auto;
+    flex: 1 1 100%;
     overflow-y: auto;
 }
 
@@ -15,8 +15,10 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    flex: 1 1 auto;
+    flex: 1 1 100%;
     overflow-y: auto;
+    border: 2px solid black;
+    width: 100%;
 }
 
 .ProjectHeader {
@@ -28,8 +30,8 @@
     border-bottom: 2px solid black;
 }
 
-.projectheadertext {
-    flex: 0 0 auto;
+.projectheaderText {
+    flex: 0 0 80%;
     font-size: 2rem;
 }
 
@@ -44,6 +46,7 @@
     flex: 1 1 100%;
     flex-flow: column nowrap;
     justify-content: flex-start;
+    align-items: stretch;
     text-align: center;
     border: .1rem solid black;
 }
@@ -74,4 +77,5 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+    align-items: stretch;
 }
