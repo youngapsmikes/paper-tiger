@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import "./uploadsidebar.css";
+import FileUpload from './FileUpload.jsx';
 
 class PDFupload extends Component {
+
+    deleterequest = () => {
+        const data = this.props.filename
+        fetch('http://localhost:5000/backend/removefile', {
+        method: 'POST',
+        body: data,
+      }).then((response) => {
+        response.json().then((body) => {
+            console.log("File deletion request" + this.props.filename)
+        });
+        });
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -12,9 +26,37 @@ class PDFupload extends Component {
                 </span>
                 <span class = "removeButton">
                 <Popup trigger={<button className="removebutton"> &times; </button>} 
-                modal
-                closeOnDocumentClick>
-                <span> Uh oh. WIP. Come back next week for the beta</span>
+                modal>
+                {close => (
+                <div class="UploadPopup">
+                    <a className="close" onClick={close}> &times; </a>
+
+                    <div class="UploadPopupHeader"><h2>Are you sure you want to delete this file?</h2></div>
+                    This action can't be undone (you'll have to reupload the file).
+                    <hr></hr>
+                    <div className="actions">
+                        <button
+                        className="button"
+                        onClick={() => {
+                        this.deleterequest()
+                        this.props.update()
+                        close()
+                        }}
+                        >
+                        Yes 
+                        </button>
+                        <button
+                        className="button"
+                        onClick={() => {
+                        close()
+                        }}
+                        >
+                        No 
+                        </button>
+                    </div>
+                
+                </div>
+            )}
                 </Popup>
                 </span>
                 </li>
@@ -30,9 +72,28 @@ class Sideheader extends Component {
             <span class="headerText"> Uploaded Files </span>
             <span class="addbutton">
             <Popup trigger={<button className="addbutton"> + </button>} 
-            modal
-            closeOnDocumentClick>
-                <span>WIP. Sorry this stuff is hard. Come back next week.</span>
+            modal>
+            {close => (
+                <div class="UploadPopup">
+                    <a className="close" onClick={close}> &times; </a>
+
+                    <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
+                    <FileUpload />
+                    <hr></hr>
+                    <div className="actions">
+                        <button
+                        className="button"
+                        onClick={() => {
+                        this.props.update()
+                        close()
+                        }}
+                        >
+                        Continue 
+                        </button>
+                    </div>
+                
+                </div>
+            )}
                 </Popup>
             </span>
             </div>
@@ -46,7 +107,7 @@ class FileTable extends Component {
 
         for (let i = 0; i < this.props.files.length; i++) {
             let file = this.props.files[i];
-            rows.push(<PDFupload filename = {file.name}/>);
+            rows.push(<PDFupload filename = {file.name} update={this.props.update}/>);
         }
 
         return (
@@ -73,11 +134,26 @@ export default class UploadSideBar extends Component {
         };
     }
 
+    fetchResult = () => {
+        console.log("DATA REQUEST MADE");
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
+        fetch(`backend/saved?messageID=${messageID}`)
+            .then(resp => resp.json()).then(data => {
+                this.setState({files: data});
+            }).catch((error) => console.log(error));
+    }
+
+    componentDidMount() {
+        this.fetchResult();
+    }
+
     render() {
         return (
             <div class="sidebar">
-                <Sideheader />
-                <FileTable files={this.state.files} />
+                <Sideheader update={this.fetchResult}/>
+                <FileTable files={this.state.files} update={this.fetchResult} />
             </div>
         );
     }

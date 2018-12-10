@@ -7,6 +7,7 @@ import ResultsPage from './resultsPage.jsx';
 import Results from './results.jsx';
 import Home from './home.jsx';
 import LoginPage from './LoginPage.jsx';
+import ProjectPage from './projectPage.jsx';
 
 
 const MainMenu = () => {
@@ -18,9 +19,14 @@ const MainMenu = () => {
     <Link to="/home">
     <button>Home</button>
     </Link>
-    <Link to="/results">
+    <Link to="/results/000">
     <button>
       Results page 
+    </button>
+    </Link>
+    <Link to="/projects">
+    <button>
+      Projects page 
     </button>
     </Link>
   </div>
@@ -37,9 +43,10 @@ class App extends Component {
         <MainMenu/>
         </header>
         <Switch>
-          <Route exact path="/results" component={ResultsPage} />
+          <Route path="/results/:id" component={ResultsPage} />
           <Route exact path="/" component={LoginPage} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/projects" component={ProjectPage} />
         </Switch>
         
       </div>

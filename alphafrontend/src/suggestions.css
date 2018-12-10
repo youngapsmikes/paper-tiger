@@ -1,0 +1,40 @@
+.Article {
+    border-bottom: .05rem solid black;
+    text-align: left;
+    width: 100%;
+}
+
+.Title {
+    font-size: 1rem;
+
+}
+
+.Author {
+    font-size: .5rem;
+    font-style: italic;
+
+}
+
+.Header {
+    text-align: center;
+    font-size: 2em;
+    border-bottom: 2px solid black;
+
+}
+
+.Suggestionlist {
+    list-style-type: none;
+    flex: 1 1 auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+.Results {
+    flex: 1 1 66%;
+    border: .05rem solid #ddd;
+    display: inline-flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
