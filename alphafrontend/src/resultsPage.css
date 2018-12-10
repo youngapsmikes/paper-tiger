@@ -1,8 +1,14 @@
-.toplevel {
+.ResultsPage {
     opacity: .9  !important;
+    border: 1px black;
+    background-color: aliceblue;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
-    overflow: auto;
-    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
+    align-items: stretch;
+    width: 80%;
+    position: fixed;
+    top: 25%;
+    left: 10%;
 }

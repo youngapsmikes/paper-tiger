@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import "./uploadsidebar.css";
+import FileUpload from './FileUpload.jsx';
 
 class PDFupload extends Component {
     render() {
@@ -30,9 +31,28 @@ class Sideheader extends Component {
             <span class="headerText"> Uploaded Files </span>
             <span class="addbutton">
             <Popup trigger={<button className="addbutton"> + </button>} 
-            modal
-            closeOnDocumentClick>
-                <span>WIP. Sorry this stuff is hard. Come back next week.</span>
+            modal>
+            {close => (
+                <div class="UploadPopup">
+                    <a className="close" onClick={close}> &times; </a>
+
+                    <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
+                    <FileUpload />
+                    <hr></hr>
+                    <div className="actions">
+                        <button
+                        className="button"
+                        onClick={() => {
+                        this.props.update()
+                        close()
+                        }}
+                        >
+                        Continue 
+                        </button>
+                    </div>
+                
+                </div>
+            )}
                 </Popup>
             </span>
             </div>
@@ -73,10 +93,25 @@ export default class UploadSideBar extends Component {
         };
     }
 
+    fetchResult = () => {
+        console.log("DATA REQUEST MADE");
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
+        fetch(`backend/saved?messageID=${messageID}`)
+            .then(resp => resp.json()).then(data => {
+                this.setState({files: data});
+            }).catch((error) => console.log(error));
+    }
+
+    componentDidMount() {
+        this.fetchResult();
+    }
+
     render() {
         return (
             <div class="sidebar">
-                <Sideheader />
+                <Sideheader update={this.fetchResult}/>
                 <FileTable files={this.state.files} />
             </div>
         );
