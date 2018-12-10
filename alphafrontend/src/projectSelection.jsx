@@ -48,6 +48,50 @@ class ProjectTable extends Component {
 
 }
 
+class ProjectForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: ''};
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+      handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        event.preventDefault();
+        const data = this.state.value;
+
+        fetch('http://localhost:5000/backend/newproject', {
+        method: 'POST',
+        body: data,
+      }).then((response) => {
+        response.json().then((body) => {
+            console.log("New Project Created")
+        });
+        });
+
+        this.props.cleanup();
+        this.props.update();
+      }
+    
+      render() {
+        return (
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Project Title: <br />
+              <input type="text" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            <br></br>
+            <input type="submit" value="Submit" />
+          </form>
+        );
+      }
+}
+
 
 class ProjectHeader extends Component {
     render() {
@@ -61,20 +105,8 @@ class ProjectHeader extends Component {
                 <div class="UploadPopup">
                     <a className="close" onClick={close}> &times; </a>
 
-                    <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
-                    This is still WIP. Come back later.
-                    <hr></hr>
-                    <div className="actions">
-                        <button
-                        className="button"
-                        onClick={() => {
-                        this.props.update()
-                        close()
-                        }}
-                    > 
-                        Continue 
-                        </button>
-                    </div>
+                    <div class="UploadPopupHeader"><h2>Create New Project</h2></div>
+                    <ProjectForm cleanup = {close} update = {this.props.update}/>
                 
                 </div>
             )}

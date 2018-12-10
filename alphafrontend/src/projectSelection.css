@@ -23,10 +23,6 @@
 
 .ProjectHeader {
     flex: 0 0 auto;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
     border-bottom: 2px solid black;
 }
 
@@ -35,8 +31,10 @@
     font-size: 2rem;
 }
 
-.addbutton {
-    flex: 0 0 33%;
+.ProjectHeader > .addbutton {
+    position: absolute;
+    top: 5%;
+    left: 80%;
     vertical-align: middle;
 }
 
@@ -52,7 +50,7 @@
 }
 
 .UploadPopup > .close {
-    cursor: pointer;
+    cursor: pointer;0
     position: absolute;
     display: block;
     padding: 2px 5px;
