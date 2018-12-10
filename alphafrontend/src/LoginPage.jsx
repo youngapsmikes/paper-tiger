@@ -4,6 +4,8 @@ import './home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
 import { Redirect } from 'react-router';
+import paperTigerlogofinal from './paperTigerlogofinal.png'
+
 
 class LoginPage extends Component {
   constructor(props) {
@@ -47,11 +49,13 @@ class LoginPage extends Component {
             <Modal.Dialog>
             <Modal.Body>
             <div className="App-body">  
-            <h1 className="modalTitle">Paper Tiger</h1>
+            <img src={paperTigerlogofinal} height="227.2" width="320"/>
+
             </div>
             <GoogleLogin
               clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
               buttonText="Login"
+              theme="dark"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
             />
