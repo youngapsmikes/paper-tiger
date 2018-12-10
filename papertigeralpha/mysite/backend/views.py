@@ -48,7 +48,6 @@ def SaveProfile(request):
         MyProfileForm = ProfileForm()
 
 
-
     pairs = recommend.recommendMain()
     for (title, author) in pairs:
         json_list.append({'author': author, 'title': title})
