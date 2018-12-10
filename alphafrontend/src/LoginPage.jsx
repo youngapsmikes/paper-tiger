@@ -40,7 +40,7 @@ class LoginPage extends Component {
     render() {
       const { redirect } = this.state;
       if (redirect) {
-        return <Redirect to='/home'/>;
+        return <Redirect to='/projects'/>;
       }
         return (
           <div className="toplevel">
