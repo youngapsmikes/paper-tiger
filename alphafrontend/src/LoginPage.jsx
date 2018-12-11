@@ -32,17 +32,23 @@ class LoginPage extends Component {
           };
           xhr.send('idtoken=' + id_token);
           console.log(this);
-          this.setState({redirect: true});
+          var email = profile.getEmail();
+          var user = email.substring(0, email.lastIndexOf("@"));
+          this.setState({redirect: true, userID: user});
   
   }
       state = {
-      redirect: false
+      redirect: false,
+      userID: ''
     }
 
     render() {
       const { redirect } = this.state;
       if (redirect) {
-        return <Redirect to='/projects'/>;
+        const newTo = {
+          pathname: "/projects/" + this.state.userID
+        }
+        return <Redirect to={newTo}/>;
       }
         return (
           <div className="toplevel">

@@ -14,8 +14,15 @@ class FileUpload extends React.Component {
   
     handleUploadImage(ev) {
       ev.preventDefault();
+
+      const user = this.props.keyInfo.userID;
+      const project = this.props.keyInfo.projectID;
+
+      // We need to pass the user and project to the backend so that it knows 
+      // who is uploading this and for what project. But I don't know how to do that and
+      // don't wanna fuck with this formdata object b/c its a binary stream
   
-      const data = new FormData();
+     /*  const data = new FormData();
       data.append('file', this.uploadInput.files[0]);
   
       fetch('http://localhost:5000/backend/saved', {
@@ -25,9 +32,21 @@ class FileUpload extends React.Component {
         response.json().then((body) => {
           this.setState({ imageURL: `http://localhost:5000/${body.file}` });
         });
-      });
+      }); */
 
-      this.props.history.push('/results');
+      const data = new FormData();
+      data.append('file', this.uploadInput.files[0]);
+      data.append('userID', user);
+      data.append('projectID', project);
+  
+      fetch('http://localhost:5000/backend/saved', {
+        method: 'POST',
+        body: data,
+      }).then((response) => {
+        response.json().then((body) => {
+          this.setState({ imageURL: `http://localhost:5000/${body.file}` });
+        });
+      });
     }
   
     render() {

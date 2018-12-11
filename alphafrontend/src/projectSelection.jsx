@@ -7,12 +7,15 @@ import Popup from "reactjs-popup";
 
 class Project extends Component {
 
+    componentDidMount() {
+        console.log("USER ID: " + this.props.userID);
+    }
     
 
     render() {
 
         const newTo = {
-            pathname: "/results/" + this.props.id
+            pathname: "/results/" + this.props.userID + '/' + this.props.id
         }
 
         return (
@@ -33,7 +36,7 @@ class ProjectTable extends Component {
 
         for (let i = 0; i < this.props.projects.length; i++) {
             let project = this.props.projects[i];
-            rows.push(<Project name = {project.name} id={project.id}/>);
+            rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID}/>);
         }
 
         return (
@@ -63,7 +66,9 @@ class ProjectForm extends Component {
     
       handleSubmit(event) {
         event.preventDefault();
-        const data = this.state.value;
+        const data = JSON.stringify({
+            project: this.state.value,
+            userID: this.props.userID});
 
         fetch('http://localhost:5000/backend/newproject', {
         method: 'POST',
@@ -106,7 +111,7 @@ class ProjectHeader extends Component {
                     <a className="close" onClick={close}> &times; </a>
 
                     <div class="UploadPopupHeader"><h2>Create New Project</h2></div>
-                    <ProjectForm cleanup = {close} update = {this.props.update}/>
+                    <ProjectForm cleanup = {close} update = {this.props.update} userID = {this.props.userID}/>
                 
                 </div>
             )}
@@ -129,11 +134,8 @@ class ProjectSelection extends Component {
     }
 
     fetchResult = () => {
-        console.log("DATA REQUEST MADE");
-        let seed = (new Date()).getSeconds();
-        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`backend/projects?messageID=${messageID}`)
+        fetch(`backend/projects?userID=${this.props.userID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({projects: data});
             }).catch((error) => console.log(error));
@@ -146,8 +148,8 @@ class ProjectSelection extends Component {
     render() {
         return (
             <div class="Projects">
-                <ProjectHeader update={this.fetchResult} />
-                <ProjectTable projects={this.state.projects} />
+                <ProjectHeader update={this.fetchResult} userID = {this.props.userID} />
+                <ProjectTable projects={this.state.projects} userID = {this.props.userID}/>
             </div>
         );
     }

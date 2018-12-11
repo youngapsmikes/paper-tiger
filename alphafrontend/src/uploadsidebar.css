@@ -1,10 +1,7 @@
 .sideheader {
     flex: 0 0 auto;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
     border-bottom: 2px solid black;
+    text-align: center;
 }
 
 .sidemenu {
@@ -28,7 +25,6 @@
 }
 
 .headerText {
-  flex: 0 0 auto;
   font-size: 2rem;
 }
 
@@ -67,8 +63,10 @@
     text-align: center;
 }
 
-.addbutton {
-    flex: 0 0 33%;
+.sideheader > .addbutton {
+    position: absolute;
+    top: 5%;
+    left: 27%;
     vertical-align: middle;
 }
 
