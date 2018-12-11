@@ -6,7 +6,14 @@ import FileUpload from './FileUpload.jsx';
 class PDFupload extends Component {
 
     deleterequest = () => {
-        const data = this.props.filename
+        const project = this.props.keyInfo.projectID;
+        const user = this.props.keyInfo.userID;
+
+        const data = JSON.stringify({
+            fileName: this.props.filename,
+            projectID: project,
+            userID: user});
+
         fetch('http://localhost:5000/backend/removefile', {
         method: 'POST',
         body: data,
@@ -78,7 +85,7 @@ class Sideheader extends Component {
                     <a className="close" onClick={close}> &times; </a>
 
                     <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
-                    <FileUpload />
+                    <FileUpload keyInfo = {this.props.keyInfo} />
                     <hr></hr>
                     <div className="actions">
                         <button
@@ -107,7 +114,7 @@ class FileTable extends Component {
 
         for (let i = 0; i < this.props.files.length; i++) {
             let file = this.props.files[i];
-            rows.push(<PDFupload filename = {file.name} update={this.props.update}/>);
+            rows.push(<PDFupload keyInfo = {this.props.keyInfo} filename = {file.name} update={this.props.update}/>);
         }
 
         return (
@@ -122,38 +129,12 @@ class FileTable extends Component {
 }
 
 export default class UploadSideBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            files: [
-                {name: "file1.pdf"},
-                {name: "file2.pdf"},
-                {name: "file3.pdf"},
-                {name: "file4.pdf"}
-            ],
-        };
-    }
-
-    fetchResult = () => {
-        console.log("DATA REQUEST MADE");
-        let seed = (new Date()).getSeconds();
-        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
-
-        fetch(`backend/saved?messageID=${messageID}`)
-            .then(resp => resp.json()).then(data => {
-                this.setState({files: data});
-            }).catch((error) => console.log(error));
-    }
-
-    componentDidMount() {
-        this.fetchResult();
-    }
 
     render() {
         return (
             <div class="sidebar">
-                <Sideheader update={this.fetchResult}/>
-                <FileTable files={this.state.files} update={this.fetchResult} />
+                <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} />
+                <FileTable keyInfo = {this.props.keyInfo} files={this.props.files} update={this.props.update} />
             </div>
         );
     }

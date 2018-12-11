@@ -16,15 +16,12 @@ const MainMenu = () => {
     <Link to="/">
     <button>Login</button>
     </Link>
-    <Link to="/home">
-    <button>Home</button>
-    </Link>
-    <Link to="/results/000">
+    <Link to="/results/userxyz/000">
     <button>
       Results page 
     </button>
     </Link>
-    <Link to="/projects">
+    <Link to="/projects/userxyz">
     <button>
       Projects page 
     </button>
@@ -43,10 +40,9 @@ class App extends Component {
         <MainMenu/>
         </header>
         <Switch>
-          <Route path="/results/:id" component={ResultsPage} />
+          <Route path="/results/:userID/:projectID" component={ResultsPage} />
           <Route exact path="/" component={LoginPage} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/projects" component={ProjectPage} />
+          <Route path="/projects/:userID" component={ProjectPage} />
         </Switch>
         
       </div>
