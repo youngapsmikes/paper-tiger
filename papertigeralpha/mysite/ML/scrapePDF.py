@@ -32,6 +32,7 @@ def convert(fname, pages=None):
 #going to need to order them properly 
 def convertMultiple(pdfDir):
     pdf_list = []
+    pdf_names = []
     if pdfDir == "": pdfDir = os.getcwd() + "\\" #if no pdfDir passed in 
     for pdf in os.listdir(pdfDir): #iterate through pdfs in pdf directory
         fileExtension = pdf.split(".")[-1]
@@ -39,6 +40,8 @@ def convertMultiple(pdfDir):
             pdfFilename = pdfDir + pdf 
             text = convert(pdfFilename) #get string of text content of pdf
             pdf_list.append(text)
-    return ("".join(pdf_list), pdf_list)
+            pdf_names.append(pdf)
+
+    return ("".join(pdf_list), pdf_list, pdf_names)
 
     

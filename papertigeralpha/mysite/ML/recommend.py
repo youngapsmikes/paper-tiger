@@ -16,12 +16,12 @@ def recommend_lda(model, lda_X, tf_article, papers, authors):
     authors = list(authors[authors['id'].isin(index)]['name'])
     return list(zip(list(papers['title'][index]), topic_vecs, authors))
     
-def generate_Explanation(inputs, results):
+def generate_Explanation(inputs, results, pdf_names):
 	tree = spatial.KDTree(inputs)
 	new_results = []
 	for (title, topic_vec, author) in results:
 	    (_, idx) = tree.query(topic_vec)
-	    explanation = "Recommended because of similarities to input article " + str(idx)
+	    explanation = "Recommended because of similarities to " + str(pdf_names[idx])
 	    new_results.append((title, author, explanation))
 
 	return new_results
@@ -49,11 +49,11 @@ def recommendMain():
 	# NEED TO CHANGE THIS 
 	pdfDir = 'C:\\Users\\myli\\Desktop\\paper-tiger\\papertigeralpha\\mysite\\media\\files\\'
 	# pdfDir = os.getcwd() + '\\pdf\\'
-	(text, pdf_list) = convertMultiple(pdfDir)
+	(text, pdf_list, pdf_names) = convertMultiple(pdfDir)
 	tf_text = tf_vectorizer.transform([text])
 	inputs = list(map(lambda text: lda.transform(tf_vectorizer.transform([text]))[0], pdf_list))
 	results = recommend_lda(lda, lda_X, tf_text, papers, authors)
-	return generate_Explanation(inputs, results)
+	return generate_Explanation(inputs, results, pdf_names)
 
 # if __name__ == '__main__':
 # 	print(recommendMain())
