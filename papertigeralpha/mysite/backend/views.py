@@ -101,16 +101,23 @@ def saved(request):
     curr_user = User.objects.get(username=user_name)
     user_info = Researcher.objects.get(user=curr_user)
 
+    print(user_name)
+    print(project_id)
     # #Start new project for user or get old one 
     try: 
+        print("from try")
         curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
     except Exception as e:
+        print("from except")
         curr_proj = Project(pid=project_id)
         curr_proj.save()
         user_info.projects.add(curr_proj)
         return JsonResponse([{}])
 
     proj_json = []
+    print(curr_proj[0])
+    curr_proj = curr_proj[0]
+
     for e in list(curr_proj.project_papers.all()):
         proj_json.append({'name': str(e.title)})
 
@@ -155,7 +162,7 @@ def projects(request):
     proj_json = []
     print("USER INFO STORED PROPERLY??")
     for e in list(user_info.projects.all()):
-        proj_json.append({'name': str(e.project_name), 'id': 69})
+        proj_json.append({'name': str(e.project_name), 'id': e.pid})
 
     print(proj_json)
     return JsonResponse(proj_json, safe = False)
@@ -180,8 +187,9 @@ def newproject(request):
     curr_user = User.objects.get(username=user_name)
     user_info = Researcher.objects.get(user=curr_user)
 
-    # ## 
-    curr_proj = Project(pid = 69, project_name=project_name)
+    # ## have to do some logic to check the project ids 
+    pid = 1
+    curr_proj = Project(pid = pid, project_name=project_name)
     curr_proj.save()
     user_info.projects.add(curr_proj)
     user_info.save()
