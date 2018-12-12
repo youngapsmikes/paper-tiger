@@ -28,8 +28,9 @@ from django.contrib.auth.models import User
 
 json_list = []
 
-def profile(request):
-   return render(request, 'profile.html')
+@csrf_exempt
+def projects(request):
+
 
 @csrf_exempt
 def SaveProfile(request):
