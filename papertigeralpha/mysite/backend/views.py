@@ -28,8 +28,58 @@ from django.contrib.auth.models import User
 
 json_list = []
 
+# @csrf_exempt
+# def SaveProfile(request):
+#     print("saved_profile called")
+    
+#     # User should be authenticated before this function is called
+#     user_name = request.POST.get('userID')
+#     project_id = request.POST.get('projectID')
+#     curr_user = User.objects.get(username=user_name)
+#     user_info = Researcher.objects.get(user=curr_user)
+
+#     # #Start new project for user or get old one 
+#     try: 
+#         # Blog.objects.filter(entry__authors__name='Lennon')
+#         curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
+#     except Exception as e:
+#         curr_proj = Project(pid=project_id)
+#         curr_proj.save()
+#         user_info.projects.add(curr_proj)
+
+
+#     saved = False
+
+#     #Get the posted form
+#     MyProfileForm = ProfileForm(request.POST, request.FILES)
+
+#     if MyProfileForm.is_valid():
+#          profile = Profile()
+#          print("hello world2")
+#          # profile.name = MyProfileForm.cleaned_data["name"]
+#          profile.file = MyProfileForm.cleaned_data["file"]
+#          profile.save()
+#          saved = True
+#     else:
+#         MyProfileForm = ProfileForm()
+
+
+#     pairs = recommend.recommendMain() 
+#     for (title, author) in pairs:
+#         json_list.append({'author': author, 'title': title})
+#         p1 = Paper(title=title, author=author)
+#         p1.save()
+#         curr_proj.project_papers.add(p1)
+
+
+#     curr_proj.save()
+
+#     return JsonResponse([{'name':'Michael Li'}], safe = False)
+#     # return HttpResponse(200)
+
+
 @csrf_exempt
-def SaveProfile(request):
+def saved(request):
     print("saved_profile called")
     
     # User should be authenticated before this function is called
@@ -40,42 +90,19 @@ def SaveProfile(request):
 
     # #Start new project for user or get old one 
     try: 
-        # Blog.objects.filter(entry__authors__name='Lennon')
         curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
     except Exception as e:
         curr_proj = Project(pid=project_id)
         curr_proj.save()
         user_info.projects.add(curr_proj)
+        return JsonResponse([{}])
 
+    proj_json = []
+    for e in list(curr_proj.project_papers.all()):
+        proj_json.append({'name': str(e.title)})
+        
+    return JsonResponse(proj_json, safe = False)
 
-    saved = False
-
-    #Get the posted form
-    MyProfileForm = ProfileForm(request.POST, request.FILES)
-
-    if MyProfileForm.is_valid():
-         profile = Profile()
-         print("hello world2")
-         # profile.name = MyProfileForm.cleaned_data["name"]
-         profile.file = MyProfileForm.cleaned_data["file"]
-         profile.save()
-         saved = True
-    else:
-        MyProfileForm = ProfileForm()
-
-
-    pairs = recommend.recommendMain() 
-    for (title, author) in pairs:
-        json_list.append({'author': author, 'title': title})
-        p1 = Paper(title=title, author=author)
-        p1.save()
-        curr_proj.project_papers.add(p1)
-
-
-    curr_proj.save()
-
-    return JsonResponse([{'name':'Michael Li'}], safe = False)
-    # return HttpResponse(200)
 
 @csrf_exempt
 def results(request):
