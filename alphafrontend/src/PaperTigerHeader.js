@@ -28,6 +28,8 @@ export default class PaperTigerHeader extends Component {
         return (
           <div>
             <Navbar color="light" light expand="md">
+                <NavbarBrand href="/"><img src={paperTigerlogofinal} height="45.44" width="64"/>
+                </NavbarBrand>
               <NavbarBrand href="/">Paper Tiger</NavbarBrand>
               <NavbarToggler onClick={this.toggle} />
               <Collapse isOpen={this.state.isOpen} navbar>
