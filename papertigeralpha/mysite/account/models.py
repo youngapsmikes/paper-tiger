@@ -13,6 +13,7 @@ class Paper(models.Model):
 # Assocaite an id with multiple papers
 class Project(models.Model):
     pid = models.IntegerField()  # Shoudl this be unique?
+    project_name = models.CharField(max_length = 200)
     project_papers = models.ManyToManyField(Paper)
 
 

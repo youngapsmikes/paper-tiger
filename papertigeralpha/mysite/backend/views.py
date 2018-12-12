@@ -34,27 +34,25 @@ def profile(request):
 @csrf_exempt
 def SaveProfile(request):
     print("saved_profile called")
-    print(request.POST.get('userID'))
-    print(request.POST.get('projectID'))
     
     # User should be authenticated before this function is called
-    # user_email = request.POST.get('email')
-    # project_id = request.POST.get('project_id')
-    # curr_user = User.objects.get(username=user_email)
-    # user_info = Researcher.objects.get(user=curr_user)
+    user_name = request.POST.get('userID')
+    project_id = request.POST.get('projectID')
+    curr_user = User.objects.get(username=user_name)
+    user_info = Researcher.objects.get(user=curr_user)
 
     # #Start new project for user or get old one 
 
-    # try: 
-    #     # Blog.objects.filter(entry__authors__name='Lennon')
-    #     curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
-    # except Exception as e:
-    #     curr_proj = Project(pid=project_id)
-    #     curr_proj.save()
-    #     user_info.projects.add(curr_proj)
+    try: 
+        # Blog.objects.filter(entry__authors__name='Lennon')
+        curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
+    except Exception as e:
+        curr_proj = Project(pid=project_id)
+        curr_proj.save()
+        user_info.projects.add(curr_proj)
 
 
-    # saved = False
+    saved = False
 
     #Get the posted form
     MyProfileForm = ProfileForm(request.POST, request.FILES)
@@ -71,15 +69,15 @@ def SaveProfile(request):
         MyProfileForm = ProfileForm()
 
 
-    # pairs = recommend.recommendMain() 
-    # for (title, author) in pairs:
-    #     json_list.append({'author': author, 'title': title})
-    #     p1 = Paper(title=title, author=author)
-    #     p1.save()
-    #     curr_proj.project_papers.add(p1)
+    pairs = recommend.recommendMain() 
+    for (title, author) in pairs:
+        json_list.append({'author': author, 'title': title})
+        p1 = Paper(title=title, author=author)
+        p1.save()
+        curr_proj.project_papers.add(p1)
 
 
-    # curr_proj.save()
+    curr_proj.save()
 
     return JsonResponse([{'name':'Michael Li'}], safe = False)
     # return HttpResponse(200)
@@ -100,6 +98,22 @@ def index(request):
 def create(request):
     print("hello world")
     return JsonResponse([{'author':'Michael Li', 'title': 'KGLQ'}], safe = False)
+
+
+def projects(request):
+    print("hello world")
+    user_id = request.GET.get('userID')
+    proj_json = {}
+    return JsonResponse(proj_json)
+
+
+
+
+
+def newproject(request):
+    print("hello world")
+    print(request.GET.get('userID'))
+    return JsonResponse({})
 
 
 def searchresults(request):

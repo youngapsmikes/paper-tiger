@@ -22,12 +22,14 @@ class GoogleBackend(object):
             # Check if authenticated person is a new user.
             # If new, create new user object and return.
             # If its an old user, get old user object.
+            user_token = user_email.split("@", 1)[0]
             try:
-                user = User.objects.get(username=user_email)
+                # user = User.objects.get(username=user_email)
+                user = User.objects.get(username=user_token)
                 return user
             except User.DoesNotExist:
                 # Don't set the username to Google name since its possible for multiple names to have the same email
-                user = User.objects.create_user(username=user_email)
+                user = User.objects.create_user(username=user_token)
                 user.save()
                 # create researcher model to store user and additonal information
                 user_details = Researcher(user=user)
