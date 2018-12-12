@@ -11,23 +11,8 @@ import ProjectPage from './projectPage.jsx';
 
 
 const MainMenu = () => {
-  return (
-    <div>
-    <Link to="/">
-    <button>Login</button>
-    </Link>
-    <Link to="/results/userxyz/000">
-    <button>
-      Results page 
-    </button>
-    </Link>
-    <Link to="/projects/userxyz">
-    <button>
-      Projects page 
-    </button>
-    </Link>
-  </div>
-  );
+  return null;
+
 };
 
 class App extends Component {

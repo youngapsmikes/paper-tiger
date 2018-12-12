@@ -5,10 +5,12 @@
     align-items: center;
     background-color:transparent !important;
 }
-.testmodal {
+.modal-dialog {
     position: absolute !important;
-    margin: 0 auto !important;
-    
+    top: 25%;
+    width: 460px !important;
+    opacity: 0.85 !important;
+
 }
 .modal {
     position: inherit !important;
@@ -16,7 +18,6 @@
     background-color: transparent !important;
     width: 460px !important;
     height: 40% !important;
-    opacity: 0.85 !important;
 
 }
 
