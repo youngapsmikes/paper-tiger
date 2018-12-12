@@ -80,6 +80,19 @@ json_list = []
 
 @csrf_exempt
 def saved(request):
+    """ Get articles for users selected project. If new project, create and return. 
+
+    Parameters
+    ----------
+    userID: int 
+        Unique identifier for user. 
+    projectID: int 
+        Unique integer associated with a project
+
+    Returns
+    -------
+    [{name: “filexyz.pdf”}, {name: “filewyz.pdf”}]
+    """
     print("saved_profile called")
     
     # User should be authenticated before this function is called
@@ -100,7 +113,7 @@ def saved(request):
     proj_json = []
     for e in list(curr_proj.project_papers.all()):
         proj_json.append({'name': str(e.title)})
-        
+
     return JsonResponse(proj_json, safe = False)
 
 
@@ -123,6 +136,15 @@ def create(request):
 
 @csrf_exempt
 def projects(request):
+    """ Get the projects that a user has created
+    Parameters
+    ----------
+    userID: int
+
+    Returns
+    -------
+    [{'name': project name, 'id': project id}]
+    """
     print("from projects")
     
     ## get user information based on user id 
@@ -140,6 +162,14 @@ def projects(request):
 
 @csrf_exempt 
 def newproject(request):
+    """Create a new project with the name sent in the data
+
+    Parameters 
+    ----------
+    userID: int
+    project: str 
+    
+    """
     print("from new project")
     request_dict = json.loads(request.body) 
 
