@@ -15,7 +15,7 @@ from django.conf import settings
 
 
 import sys
-
+import json
 # insert the absolute path of ML directory
 sys.path.insert(0, str(settings.BASE_DIR) + '\\ML')
 
@@ -28,9 +28,6 @@ from django.contrib.auth.models import User
 
 json_list = []
 
-def profile(request):
-   return render(request, 'profile.html')
-
 @csrf_exempt
 def SaveProfile(request):
     print("saved_profile called")
@@ -42,7 +39,6 @@ def SaveProfile(request):
     user_info = Researcher.objects.get(user=curr_user)
 
     # #Start new project for user or get old one 
-
     try: 
         # Blog.objects.filter(entry__authors__name='Lennon')
         curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
@@ -56,7 +52,6 @@ def SaveProfile(request):
 
     #Get the posted form
     MyProfileForm = ProfileForm(request.POST, request.FILES)
-    print("hello world")
 
     if MyProfileForm.is_valid():
          profile = Profile()
@@ -99,21 +94,42 @@ def create(request):
     print("hello world")
     return JsonResponse([{'author':'Michael Li', 'title': 'KGLQ'}], safe = False)
 
-
+@csrf_exempt
 def projects(request):
-    print("hello world")
-    user_id = request.GET.get('userID')
-    proj_json = {}
-    return JsonResponse(proj_json)
+    print("from projects")
+    
+    ## get user information based on user id 
+    user_name = request.GET.get('userID')
+    curr_user = User.objects.get(username=user_name)
+    user_info = Researcher.objects.get(user=curr_user)
 
+    proj_json = []
+    print("USER INFO STORED PROPERLY??")
+    for e in list(user_info.projects.all()):
+        proj_json.append({'name': str(e.project_name), 'id': 69})
 
+    print(proj_json)
+    return JsonResponse(proj_json, safe = False)
 
-
-
+@csrf_exempt 
 def newproject(request):
-    print("hello world")
-    print(request.GET.get('userID'))
-    return JsonResponse({})
+    print("from new project")
+    request_dict = json.loads(request.body) 
+
+    user_name = request_dict['userID']
+    project_name = request_dict['project']
+
+    # ## identify user
+    curr_user = User.objects.get(username=user_name)
+    user_info = Researcher.objects.get(user=curr_user)
+
+    # ## 
+    curr_proj = Project(pid = 69, project_name=project_name)
+    curr_proj.save()
+    user_info.projects.add(curr_proj)
+    user_info.save()
+
+    return HttpResponse(200)
 
 
 def searchresults(request):
