@@ -7,10 +7,15 @@ import { withRouter } from 'react-router-dom';
 
 
 class ResultsPage extends Component {
+
+    componentDidMount() {
+        console.log("USER ID: " + this.props.match.params.userID);
+    }
+
     render() {
         return (
             <div className="ProjectPage">
-                <ProjectSelection />
+                <ProjectSelection userID = {this.props.match.params.userID} />
             </div>
         )
     }
