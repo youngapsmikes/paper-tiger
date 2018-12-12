@@ -135,7 +135,7 @@ class ProjectSelection extends Component {
 
     fetchResult = () => {
 
-        fetch(`backend/projects?userID=${this.props.userID}`)
+        fetch(`/backend/projects?userID=${this.props.userID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({projects: data});
             }).catch((error) => console.log(error));
