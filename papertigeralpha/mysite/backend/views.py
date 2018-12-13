@@ -227,6 +227,32 @@ def newproject(request):
     return HttpResponse(200)
 
 
+def removefile(request):
+    """Remove a file that has been uploaded by a user
+    Parameters
+    ----------
+    userID: int
+    projectID: int 
+    fileName: str
+    """
+
+    user_name = request.POST.get('userID')
+    proj_id = request.POST.get('projectID')
+    file_name = request.POST.get('fileName')
+
+    user_info = Researcher.objects.get(user=User.objects.get(username=user_name))
+
+    # OPTIMIZE ME LATER 
+    for proj in list(user_info.project.all()):
+        if(proj.pid == proj_id):
+            for papes in list(proj.all()):
+                if (papes.title == file_name):
+                    papes.delete()
+                    user_info.save()
+                    return HttpResponse(200)
+    user_info.save()
+    return HttpResponse(200)
+
 def searchresults(request):
     database = Database()
     database.connect()

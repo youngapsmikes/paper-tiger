@@ -12,6 +12,6 @@ urlpatterns = [
 	path('profile/', TemplateView.as_view(template_name="profile.html")),
 	path('results', views.results, name='results'),
 	path('projects/', views.projects, name = 'projects'),
-	path('newproject', views.newproject, name = 'newproject')
-
+	path('newproject', views.newproject, name = 'newproject'),
+	path('removefile', views.removefile, name = 'removefile')
 ]
