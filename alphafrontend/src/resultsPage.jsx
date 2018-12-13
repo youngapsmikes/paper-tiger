@@ -12,7 +12,7 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Please be patient. We didn't really optimize", title: "Recommendations Currently Loading", why:"Loading"},],
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading"},],
             files: [
             ],
             keyInfo: {projectID: '', userID: ''}
