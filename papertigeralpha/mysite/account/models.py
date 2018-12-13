@@ -22,4 +22,4 @@ class Researcher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     projects = models.ManyToManyField(Project)
     pton_researcher = models.BooleanField(default=True)
-    max_id = models.IntegerField(default=0)
+    max_id = models.IntegerField(default=1)

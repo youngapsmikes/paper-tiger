@@ -114,7 +114,8 @@ def saved(request):
              p1.save()
 
              curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
-             curr_proj = curr_researcher.projects.all()[0]
+             # curr_proj = curr_researcher.projects.all()[0]
+             curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
              curr_proj.project_papers.add(p1)
 
              for papers in curr_proj.project_papers.all():
@@ -149,8 +150,11 @@ def saved(request):
 
         curr_researcher = curr_proj[0]
         proj_json = []
-        curr_proj = curr_researcher.projects.all()[0]
-        print(curr_proj)
+
+
+        # curr_proj = curr_researcher.projects.all()[0]
+        curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
+
 
         for e in list(curr_proj.project_papers.all()):
             print(e.title)
@@ -167,21 +171,28 @@ def results(request):
     project_id = request.GET.get('projectID')
     curr_user = User.objects.get(username=user_name)
     curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
+    print("PROJECT ID")
+    print(project_id)
+    # curr_proj = curr_researcher.projects.all()[0]
+    curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
 
-    curr_proj = curr_researcher.projects.all()[0]
     print("PRINT CURRENT PROJECT FROM RESULTS")
     print(curr_proj)
 
     valid_titles = []
-    for e in list(curr_proj.project_papers.all()):
+    json_list = []
+
+    papers = list(curr_proj.project_papers.all())
+
+    if len(papers) < 1:
+        return JsonResponse(json_list, safe = False)
+    for e in papers:
         print(e.title)
         valid_titles.append(e.title)
 
     print(valid_titles)
     
-    json_list = []
 
-    # valid_titles.append('humaninloop.pdf')
 
     pairs = recommend.recommendMain(valid_titles)
     for (title, author, why) in pairs:
