@@ -95,33 +95,62 @@ def saved(request):
     """
     print("saved_profile called")
     
-    # User should be authenticated before this function is called
-    user_name = request.POST.get('userID')
-    project_id = request.POST.get('projectID')
-    curr_user = User.objects.get(username=user_name)
-    user_info = Researcher.objects.get(user=curr_user)
+    if request.method == 'POST':
+        print("FROM POST")
+        # User should be authenticated before this function is called
+        user_name = request.POST.get('userID')
+        project_id = request.POST.get('projectID')
+        curr_user = User.objects.get(username=user_name)
+        user_info = Researcher.objects.get(user=curr_user)
 
-    print(user_name)
-    print(project_id)
-    # #Start new project for user or get old one 
-    try: 
-        print("from try")
-        curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
-    except Exception as e:
-        print("from except")
-        curr_proj = Project(pid=project_id)
-        curr_proj.save()
-        user_info.projects.add(curr_proj)
-        return JsonResponse([{}])
+        #Get the posted form
+        MyProfileForm = ProfileForm(request.POST, request.FILES)
 
-    proj_json = []
-    print(curr_proj[0])
-    curr_proj = curr_proj[0]
+        if MyProfileForm.is_valid():
+             profile = Profile()
+             print("found form")
+             # profile.name = MyProfileForm.cleaned_data["name"]
+             profile.file = MyProfileForm.cleaned_data["file"]
+             profile.save()
+             saved = True
+        else:
+            MyProfileForm = ProfileForm()
 
-    for e in list(curr_proj.project_papers.all()):
-        proj_json.append({'name': str(e.title)})
+        ## add this information to user object and project object 
+        ## how are these files going to be stored locally lol - will we need different directories for usrees
+        ## 
 
-    return JsonResponse(proj_json, safe = False)
+        return HttpResponse(200)
+    elif request.method == 'GET': 
+        print("FROM GET")
+        user_name = request.POST.get('userID')
+        project_id = request.POST.get('projectID')
+        curr_user = User.objects.get(username=user_name)
+        user_info = Researcher.objects.get(user=curr_user)
+
+        # #Start new project for user or get old one 
+        try: 
+            print("from try")
+            # curr_proj = Researcher.objects.get(user=curr_user, projects__pid=project_id)
+            curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
+        except Exception as e:
+            print("from except")
+            curr_proj = Project(pid=project_id)
+            curr_proj.save()
+            user_info.projects.add(curr_proj)
+            return JsonResponse([{}], safe = False)
+
+        curr_researcher = curr_proj[0]
+        proj_json = []
+        curr_proj = curr_researcher.projects.all()[0]
+        print(curr_proj)
+
+        for e in list(curr_proj.project_papers.all()):
+            print(e.title)
+            proj_json.append({'name': str(e.title)})
+
+
+        return JsonResponse(proj_json, safe = False)
 
 
 @csrf_exempt
@@ -192,6 +221,7 @@ def newproject(request):
     curr_proj = Project(pid = pid, project_name=project_name)
     curr_proj.save()
     user_info.projects.add(curr_proj)
+    print(user_info.projects.all())
     user_info.save()
 
     return HttpResponse(200)
