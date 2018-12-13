@@ -35,16 +35,10 @@ export default class PaperTigerHeader extends Component {
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                   <NavItem>
-                    <NavLink href="/about">About</NavLink>
+                    <NavLink href={"/about/" + this.props.userID}>About</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/home">Home</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/results/test/000">Results</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/projects/test">Projects</NavLink>
+                    <NavLink href={"/projects/" + this.props.userID}>Projects</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>

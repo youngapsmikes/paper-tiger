@@ -15,11 +15,11 @@ class App extends Component {
     return (
       <Router>
       <div className="App">
-        <header>
+        {/* <header>
         <PaperTigerHeader />
-        </header>
+        </header> */}
         <Switch>
-          <Route path ="/about" component={AboutPage} />
+          <Route path ="/about/:userID" component={AboutPage} />
           <Route path="/results/:userID/:projectID" component={ResultsPage} />
           <Route exact path="/" component={LoginPage} />
           <Route path="/projects/:userID" component={ProjectPage} />

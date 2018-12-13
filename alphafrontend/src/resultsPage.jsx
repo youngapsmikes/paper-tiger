@@ -3,6 +3,7 @@ import Suggestions from "./suggestions"
 import './resultsPage.css';
 import { Modal } from 'react-bootstrap';
 import UploadSideBar from "./uploadsidebar";
+import PaperTigerHeader from './PaperTigerHeader.js';
 
 
 
@@ -48,9 +49,14 @@ export default class ResultsPage extends Component {
 
     render() {
         return (
+            <div>
+            <header>
+            <PaperTigerHeader userID={this.props.match.params.userID} />
+            </header>
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} />
                 <Suggestions articles = {this.state.articles} />
+            </div>
             </div>
         )
     }
