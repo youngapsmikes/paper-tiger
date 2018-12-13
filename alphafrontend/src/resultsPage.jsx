@@ -36,12 +36,12 @@ export default class ResultsPage extends Component {
         console.log("DATA REQUEST MADE " + projectID + 
         " / " + userID);
 
-        fetch(`backend/results?projectID=${projectID}&userID=${userID}`)
+        fetch(`/backend/results?projectID=${projectID}&userID=${userID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data});
             }).catch((error) => console.log(error));
 
-        fetch(`backend/saved?projectID=${projectID}&userID=${userID}`)
+        fetch(`/backend/saved?projectID=${projectID}&userID=${userID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({files: data});
             }).catch((error) => console.log(error));

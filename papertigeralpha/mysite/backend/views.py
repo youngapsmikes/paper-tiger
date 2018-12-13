@@ -123,8 +123,8 @@ def saved(request):
         return HttpResponse(200)
     elif request.method == 'GET': 
         print("FROM GET")
-        user_name = request.POST.get('userID')
-        project_id = request.POST.get('projectID')
+        user_name = request.GET.get('userID')
+        project_id = request.GET.get('projectID')
         curr_user = User.objects.get(username=user_name)
         user_info = Researcher.objects.get(user=curr_user)
 
@@ -155,10 +155,21 @@ def saved(request):
 
 @csrf_exempt
 def results(request):
-    if json_list is None:
-        return JsonResponse([{'author':'', 'title': 'no prior POST'}], safe = False)
-    else:
-        return JsonResponse(json_list, safe = False)
+    print("FROM RESULTS")
+    user_name = request.GET.get('userID')
+    project_id = request.GET.get('projectID')
+    curr_user = User.objects.get(username=user_name)
+    user_info = Researcher.objects.get(user=curr_user)
+    
+    ## how can i test this endpoint?
+    ## get the list of pdf names in project
+    ## iterate through the directory passing those names into the project 
+
+
+    # if json_list is None:
+    #     return JsonResponse([{'author':'', 'title': 'no prior POST'}], safe = False)
+    # else:
+    #     return JsonResponse(json_list, safe = False)
 
 def index(request):
     objs = SearchForm.objects.all()
@@ -227,39 +238,3 @@ def newproject(request):
     return HttpResponse(200)
 
 
-def searchresults(request):
-    database = Database()
-    database.connect()
-    articles = database.search()
-    database.disconnect()
-
-    html = ''
-    html += '<!DOCTYPE html>\n'
-    html += '<html>\n'
-    html += '<head>\n'
-    html += '<title>paper-tiger.com</title>\n'
-    html += '</head>\n'
-    html += '<body>\n'
-    # html += getHeader()
-    html += 'Click here to do another '
-    html += '<a href="create2/">article search</a>.\n'
-    html += '<br>\n'
-    html += '<h1>Article Search Results</h1>\n'
-    if len(articles) == 0:
-        html += '(None)<br>\n'
-    else:
-        for res in articles:
-            html += str(res[0]) + '\n'
-            html += '<br> \n'
-    html += '<br>\n'
-    html += '<br>\n'
-    html += '<br>\n'
-    html += '<br>\n'
-    html += '<br>\n'
-    # html += getFooter()
-    html += '</body>\n'
-    html += '</html>\n'
-
-    response = HttpResponse(html)
-    # response.set_cookie('prevAuthor', author)
-    return response
