@@ -173,9 +173,12 @@ def results(request):
     print(curr_proj)
 
     valid_titles = []
+    valid_titles.append("PG-TS-_Improved_Thompson_Sampling_for_Logistic_Contextual_Bandits.pdf")
     for e in list(curr_proj.project_papers.all()):
         print(e.title)
         valid_titles.append(e.title)
+
+    print(valid_titles)
     
     json_list = []
 
