@@ -11,19 +11,8 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Quinn Donohue made this", title: "He messed up so click on is this workings (don't worry we will fix in the beta)"},
-  {author: "Test Author here", title: "Software Engineering Mechanics"},
-  {author: "Test Author here", title: "Software Engineering Mechanics A"},
-  {author: "Test Author here", title: "Software Engineering Mechanics B "},
-  {author: "Test Author here", title: "Software Engineering Mechanics C"},
-  {author: "Test Author here", title: "Software Engineering Mechanics D"},
-  {author: "Test Author here", title: "Software Engineering Mechanics E"}
-],
+  {author: "Please be patient. We didn't really optimize", title: "Recommendations Currently Loading", why:"Loading"},],
             files: [
-                {name: "file1.pdf"},
-                {name: "file2.pdf"},
-                {name: "file3.pdf"},
-                {name: "file4.pdf"}
             ],
             keyInfo: {projectID: '', userID: ''}
         };

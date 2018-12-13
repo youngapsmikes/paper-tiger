@@ -38,10 +38,10 @@ export default class PaperTigerHeader extends Component {
                     <NavLink href="/home">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/results/000">Results</NavLink>
+                    <NavLink href="/results/test/000">Results</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/projects">Projects</NavLink>
+                    <NavLink href="/projects/test">Projects</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>

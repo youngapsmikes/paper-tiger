@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import "./uploadsidebar.css";
 import FileUpload from './FileUpload.jsx';
+import { Button } from 'react-bootstrap';
 
 class PDFupload extends Component {
 
@@ -32,7 +33,7 @@ class PDFupload extends Component {
                 {this.props.filename}
                 </span>
                 <span class = "removeButton">
-                <Popup trigger={<button className="removebutton"> &times; </button>} 
+                <Popup trigger={<Button className="removebutton"> &times; </Button>} 
                 modal>
                 {close => (
                 <div class="UploadPopup">
@@ -42,7 +43,7 @@ class PDFupload extends Component {
                     This action can't be undone (you'll have to reupload the file).
                     <hr></hr>
                     <div className="actions">
-                        <button
+                        <Button
                         className="button"
                         onClick={() => {
                         this.deleterequest()
@@ -51,15 +52,15 @@ class PDFupload extends Component {
                         }}
                         >
                         Yes 
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                         className="button"
                         onClick={() => {
                         close()
                         }}
                         >
                         No 
-                        </button>
+                        </Button>
                     </div>
                 
                 </div>
@@ -78,7 +79,7 @@ class Sideheader extends Component {
             <div class="sideheader">
             <span class="headerText"> Uploaded Files </span>
             <span class="addbutton">
-            <Popup trigger={<button className="addbutton"> + </button>} 
+            <Popup trigger={<Button className="addbutton"> + </Button>} 
             modal>
             {close => (
                 <div class="UploadPopup">
@@ -88,7 +89,7 @@ class Sideheader extends Component {
                     <FileUpload keyInfo = {this.props.keyInfo} />
                     <hr></hr>
                     <div className="actions">
-                        <button
+                        <Button
                         className="button"
                         onClick={() => {
                         this.props.update()
@@ -96,7 +97,7 @@ class Sideheader extends Component {
                         }}
                         >
                         Continue 
-                        </button>
+                        </Button>
                     </div>
                 
                 </div>
