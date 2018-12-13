@@ -8,9 +8,20 @@
     padding-right: 2px;
 }
 
+.TopRow {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .Title {
     font-size: 1rem;
+    flex: 0 0 66%;
+}
 
+.why {
+    flex: 0 0 33%;
 }
 
 .Author {
@@ -41,4 +52,8 @@
     display: inline-flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+}
+
+.UploadPopupHeader{
+    text-align: center;
 }
