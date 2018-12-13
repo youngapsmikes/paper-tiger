@@ -8,7 +8,7 @@ import Results from './results.jsx';
 import Home from './home.jsx';
 import LoginPage from './LoginPage.jsx';
 import ProjectPage from './projectPage.jsx';
-
+import AboutPage from './AboutPage.jsx';
 
 const MainMenu = () => {
   return null;
@@ -25,6 +25,7 @@ class App extends Component {
         <MainMenu/>
         </header>
         <Switch>
+          <Route path ="/about" component={AboutPage} />
           <Route path="/results/:userID/:projectID" component={ResultsPage} />
           <Route exact path="/" component={LoginPage} />
           <Route path="/projects/:userID" component={ProjectPage} />
