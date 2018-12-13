@@ -22,15 +22,19 @@ export default class ResultsPage extends Component {
         const projectID = this.state.keyInfo.projectID;
         const userID = this.state.keyInfo.userID;
 
+        console.log("DATA REQUEST MADE");
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
         console.log("DATA REQUEST MADE " + projectID + 
         " / " + userID);
 
-        fetch(`/backend/results?projectID=${projectID}&userID=${userID}`)
+        fetch(`/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data});
             }).catch((error) => console.log(error));
 
-        fetch(`/backend/saved?projectID=${projectID}&userID=${userID}`)
+        fetch(`/backend/saved?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({files: data});
             }).catch((error) => console.log(error));

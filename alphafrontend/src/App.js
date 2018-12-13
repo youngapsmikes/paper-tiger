@@ -10,11 +10,6 @@ import LoginPage from './LoginPage.jsx';
 import ProjectPage from './projectPage.jsx';
 import AboutPage from './AboutPage.jsx';
 
-const MainMenu = () => {
-  return null;
-
-};
-
 class App extends Component {
   render() {
     return (
@@ -22,7 +17,6 @@ class App extends Component {
       <div className="App">
         <header>
         <PaperTigerHeader />
-        <MainMenu/>
         </header>
         <Switch>
           <Route path ="/about" component={AboutPage} />

@@ -133,7 +133,10 @@ class ProjectSelection extends Component {
 
     fetchResult = () => {
 
-        fetch(`/backend/projects?userID=${this.props.userID}`)
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
+        fetch(`/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({projects: data});
             }).catch((error) => console.log(error));
