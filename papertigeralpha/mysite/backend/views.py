@@ -265,3 +265,65 @@ def newproject(request):
     return HttpResponse(200)
 
 
+def removefile(request):
+    """Remove a file that has been uploaded by a user
+    Parameters
+    ----------
+    userID: int
+    projectID: int 
+    fileName: str
+    """
+
+    user_name = request.POST.get('userID')
+    proj_id = request.POST.get('projectID')
+    file_name = request.POST.get('fileName')
+
+    user_info = Researcher.objects.get(user=User.objects.get(username=user_name))
+
+    # OPTIMIZE ME LATER 
+    for proj in list(user_info.project.all()):
+        if(proj.pid == proj_id):
+            for papes in list(proj.all()):
+                if (papes.title == file_name):
+                    papes.delete()
+                    user_info.save()
+                    return HttpResponse(200)
+    user_info.save()
+    return HttpResponse(200)
+
+def searchresults(request):
+    database = Database()
+    database.connect()
+    articles = database.search()
+    database.disconnect()
+
+    html = ''
+    html += '<!DOCTYPE html>\n'
+    html += '<html>\n'
+    html += '<head>\n'
+    html += '<title>paper-tiger.com</title>\n'
+    html += '</head>\n'
+    html += '<body>\n'
+    # html += getHeader()
+    html += 'Click here to do another '
+    html += '<a href="create2/">article search</a>.\n'
+    html += '<br>\n'
+    html += '<h1>Article Search Results</h1>\n'
+    if len(articles) == 0:
+        html += '(None)<br>\n'
+    else:
+        for res in articles:
+            html += str(res[0]) + '\n'
+            html += '<br> \n'
+    html += '<br>\n'
+    html += '<br>\n'
+    html += '<br>\n'
+    html += '<br>\n'
+    html += '<br>\n'
+    # html += getFooter()
+    html += '</body>\n'
+    html += '</html>\n'
+
+    response = HttpResponse(html)
+    # response.set_cookie('prevAuthor', author)
+    return response
