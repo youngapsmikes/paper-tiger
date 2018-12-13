@@ -173,7 +173,6 @@ def results(request):
     print(curr_proj)
 
     valid_titles = []
-    valid_titles.append("PG-TS-_Improved_Thompson_Sampling_for_Logistic_Contextual_Bandits.pdf")
     for e in list(curr_proj.project_papers.all()):
         print(e.title)
         valid_titles.append(e.title)
@@ -185,8 +184,9 @@ def results(request):
     # valid_titles.append('humaninloop.pdf')
 
     pairs = recommend.recommendMain(valid_titles)
-    for (title, author) in pairs:
-        json_list.append({'author': author, 'title': title})
+    for (title, author, why) in pairs:
+        
+        json_list.append({'author': author, 'title': title, 'why':why})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)

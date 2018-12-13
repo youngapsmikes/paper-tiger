@@ -6,6 +6,7 @@ from pdfminer.pdfpage import PDFPage
 import os
 import sys, getopt
 import pandas as pd 
+from scipy import spatial
 
 
 #converts pdf, returns its text content as a string
@@ -43,5 +44,5 @@ def convertMultiple(pdfDir, valid_titles):
                 text = convert(pdfFilename) #get string of text content of pdf
                 pdf_list.append(text)
                 pdf_names.append(pdf)
-    print(len(pdf_list))
-    return pdf_list
+
+    return ("".join(pdf_list), pdf_list, pdf_names)
