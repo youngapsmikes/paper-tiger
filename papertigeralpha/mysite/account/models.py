@@ -15,7 +15,7 @@ class Project(models.Model):
     pid = models.IntegerField()  # Shoudl this be unique?
     project_name = models.CharField(max_length = 200)
     project_papers = models.ManyToManyField(Paper)
-
+    
 
 # Base class that contains additonal information about a user
 class Researcher(models.Model):

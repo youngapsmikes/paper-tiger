@@ -17,7 +17,7 @@ def recommend_lda(model, lda_X, tf_article, papers, authors):
     
 
 
-def recommendMain():
+def recommendMain(valid_titles):
 
 	## make sure working directory is the current ML directory 
 	cwd = str(settings.BASE_DIR) + '\\ML'
@@ -33,9 +33,10 @@ def recommendMain():
 	## For now, assume that the only files in the pdf directory 
 	## are the ones we're interested in
 
-	pdfDir = 'C:\\Users\\myli\\Desktop\\paper-tiger\\papertigeralpha\\mysite\\media\\files\\'
+	# NEED TO CHANGE THIS 
+	pdfDir = str(settings.BASE_DIR) + "\\media\\files\\"
 	# pdfDir = os.getcwd() + '\\pdf\\'
-	text = convertMultiple(pdfDir)
+	text = convertMultiple(pdfDir, valid_titles)
 
 	if type(text) == list: 
 		tf_text = tf_vectorizer.transform(text)

@@ -29,12 +29,18 @@ def convert(fname, pages=None):
     output.close
     return text    
 #converts all pdfs in directory pdfDir, saves all resulting txt files to txtdir
-def convertMultiple(pdfDir):
+def convertMultiple(pdfDir, valid_titles):
+    print(valid_titles)
+    pdf_list = []
+    pdf_names = []
     if pdfDir == "": pdfDir = os.getcwd() + "\\" #if no pdfDir passed in 
     for pdf in os.listdir(pdfDir): #iterate through pdfs in pdf directory
         fileExtension = pdf.split(".")[-1]
-        if fileExtension == "pdf":
-            pdfFilename = pdfDir + pdf 
-            text = convert(pdfFilename) #get string of text content of pdf
-            return text
-    
+        if pdf in valid_titles:
+            if fileExtension == "pdf":
+                pdfFilename = pdfDir + pdf 
+                text = convert(pdfFilename) #get string of text content of pdf
+                pdf_list.append(text)
+                pdf_names.append(pdf)
+    print(len(pdf_list))
+    return pdf_list

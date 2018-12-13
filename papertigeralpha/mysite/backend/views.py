@@ -25,9 +25,6 @@ from ML import recommend
 from account.models import Paper, Project, Researcher
 from django.contrib.auth.models import User
 
-
-json_list = []
-
 # @csrf_exempt
 # def SaveProfile(request):
 #     print("saved_profile called")
@@ -108,10 +105,20 @@ def saved(request):
 
         if MyProfileForm.is_valid():
              profile = Profile()
-             print("found form")
-             # profile.name = MyProfileForm.cleaned_data["name"]
+             print("FOUND FILE")
              profile.file = MyProfileForm.cleaned_data["file"]
              profile.save()
+
+             print(profile.file)
+             p1 = Paper(title = str(profile.file))
+             p1.save()
+
+             curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
+             curr_proj = curr_researcher.projects.all()[0]
+             curr_proj.project_papers.add(p1)
+
+             for papers in curr_proj.project_papers.all():
+                print(papers.title)
              saved = True
         else:
             MyProfileForm = ProfileForm()
@@ -159,8 +166,27 @@ def results(request):
     user_name = request.GET.get('userID')
     project_id = request.GET.get('projectID')
     curr_user = User.objects.get(username=user_name)
-    user_info = Researcher.objects.get(user=curr_user)
+    curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
+
+    curr_proj = curr_researcher.projects.all()[0]
+    print("PRINT CURRENT PROJECT FROM RESULTS")
+    print(curr_proj)
+
+    valid_titles = []
+    for e in list(curr_proj.project_papers.all()):
+        print(e.title)
+        # valid_titles.append(e.title)
     
+    json_list = []
+
+    valid_titles.append('humaninloop.pdf')
+
+    pairs = recommend.recommendMain(valid_titles) 
+    for (title, author) in pairs:
+        json_list.append({'author': author, 'title': title})
+        # p1 = Paper(title=title, author=author)
+        # p1.save()
+        # curr_proj.project_papers.add(p1)
     ## how can i test this endpoint?
     ## get the list of pdf names in project
     ## iterate through the directory passing those names into the project 
@@ -169,7 +195,8 @@ def results(request):
     # if json_list is None:
     #     return JsonResponse([{'author':'', 'title': 'no prior POST'}], safe = False)
     # else:
-    #     return JsonResponse(json_list, safe = False)
+
+    return JsonResponse(json_list, safe = False)
 
 def index(request):
     objs = SearchForm.objects.all()
