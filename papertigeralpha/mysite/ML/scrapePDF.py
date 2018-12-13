@@ -30,6 +30,7 @@ def convert(fname, pages=None):
     return text    
 #converts all pdfs in directory pdfDir, saves all resulting txt files to txtdir
 def convertMultiple(pdfDir, valid_titles):
+    print("FROM CONVERT MULTIPLE")
     print(valid_titles)
     pdf_list = []
     pdf_names = []

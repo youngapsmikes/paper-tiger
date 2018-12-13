@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
+import { Button } from 'react-bootstrap';
 
 class Project extends Component {
 
@@ -104,7 +105,7 @@ class ProjectHeader extends Component {
             <div class="ProjectHeader">
             <span class="projectheaderText">Select Project</span>
             <span class="addbutton">
-            <Popup trigger={<button className="addbutton"> + </button>} 
+            <Popup trigger={<Button className="addbutton"> + </Button>} 
             modal>
             {close => (
                 <div class="UploadPopup">

@@ -108,9 +108,9 @@ def saved(request):
              print("FOUND FILE")
              profile.file = MyProfileForm.cleaned_data["file"]
              profile.save()
+             file_name = str(profile.file).split("files/", 1)[-1]
 
-             print(profile.file)
-             p1 = Paper(title = str(profile.file))
+             p1 = Paper(title = file_name)
              p1.save()
 
              curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]

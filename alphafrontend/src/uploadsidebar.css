@@ -2,7 +2,12 @@
     flex: 0 0 auto;
     border-bottom: 2px solid black;
     text-align: center;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .sidemenu {
     list-style-type: none;
@@ -26,6 +31,7 @@
 
 .headerText {
   font-size: 2rem;
+  flex: 0 0 66%;
 }
 
 .fileresult {
@@ -65,10 +71,7 @@
 }
 
 .sideheader > .addbutton {
-    position: absolute;
-    top: 5%;
-    left: 27%;
-    vertical-align: middle;
+    flex: 0 0 33%;
 }
 
 .removebutton {
