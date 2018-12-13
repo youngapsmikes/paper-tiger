@@ -126,10 +126,7 @@ class ProjectSelection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [{name: "Computer Science paper A", id:"1234"},
-            {name: "Computer Science paper B", id:"1234"},
-            {name: "Computer Science paper C", id:"1234"},
-            {name: "Computer Science paper D", id:"1234"},]
+            projects: [{name: "Loading in Projects", id:"1234"},]
         };
     }
 
