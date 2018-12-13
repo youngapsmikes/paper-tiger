@@ -175,13 +175,13 @@ def results(request):
     valid_titles = []
     for e in list(curr_proj.project_papers.all()):
         print(e.title)
-        # valid_titles.append(e.title)
+        valid_titles.append(e.title)
     
     json_list = []
 
-    valid_titles.append('humaninloop.pdf')
+    # valid_titles.append('humaninloop.pdf')
 
-    pairs = recommend.recommendMain(valid_titles) 
+    pairs = recommend.recommendMain(valid_titles)
     for (title, author) in pairs:
         json_list.append({'author': author, 'title': title})
         # p1 = Paper(title=title, author=author)
