@@ -185,7 +185,7 @@ def results(request):
 
     pairs = recommend.recommendMain(valid_titles)
     for (title, author, why) in pairs:
-        
+
         json_list.append({'author': author, 'title': title, 'why':why})
         # p1 = Paper(title=title, author=author)
         # p1.save()
@@ -258,7 +258,9 @@ def newproject(request):
     user_info = Researcher.objects.get(user=curr_user)
 
     # ## have to do some logic to check the project ids 
-    pid = 1
+    pid = user_info.max_id + 1 
+    print(pid) 
+    user_info.max_id = pid
     curr_proj = Project(pid = pid, project_name=project_name)
     curr_proj.save()
     user_info.projects.add(curr_proj)
