@@ -15,13 +15,16 @@ export default class ResultsPage extends Component {
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading"},],
             files: [
             ],
-            keyInfo: {projectID: '', userID: ''}
+            keyInfo: {projectID: '', userID: ''},
+            loading: true,
         };
     }
 
     update = () => {
         const projectID = this.state.keyInfo.projectID;
         const userID = this.state.keyInfo.userID;
+
+        this.setState({loading: true});
 
         console.log("DATA REQUEST MADE");
         let seed = (new Date()).getSeconds();
@@ -32,7 +35,7 @@ export default class ResultsPage extends Component {
 
         fetch(`/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
-                this.setState({articles: data});
+                this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
 
         fetch(`/backend/saved?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
@@ -55,7 +58,7 @@ export default class ResultsPage extends Component {
             </header>
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} />
-                <Suggestions articles = {this.state.articles} />
+                <Suggestions loading = {this.state.loading} articles = {this.state.articles} />
             </div>
             </div>
         )

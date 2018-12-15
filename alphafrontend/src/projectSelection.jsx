@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
 import { Button } from 'react-bootstrap';
+import ReactLoading from 'react-loading';
 
 class Project extends Component {
 
@@ -33,21 +34,34 @@ class Project extends Component {
 
 class ProjectTable extends Component {
     render() {
+        const loading = this.props.loading;
+
         const rows = [];
 
-        for (let i = 0; i < this.props.projects.length; i++) {
-            let project = this.props.projects[i];
-            rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID}/>);
+        if (!loading) {
+            for (let i = 0; i < this.props.projects.length; i++) {
+                let project = this.props.projects[i];
+                rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID}/>);
+            }
         }
-
-        return (
-            <div class ="ProjectTable">
-            <ul class="projectList">
-            {rows}
-            </ul>
-            </div>
-
-        );
+        
+        if (loading) {
+            return (
+                <React.Fragment>
+                <div class="loading">
+                <div class="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'50%'} /></div>
+                </div>
+                </React.Fragment>
+                );
+        } else {
+            return (
+                <div class ="ProjectTable">
+                <ul class="projectList">
+                {rows}
+                </ul>
+                </div>
+            );
+        }        
     }
 
 }
@@ -127,19 +141,22 @@ class ProjectSelection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [{name: "Loading in Projects", id:"1234"},]
+            projects: [{name: "Loading in Projects", id:"1234"},],
+            loading: true
         };
     }
 
     fetchResult = () => {
+
+        this.setState({loading: true});
 
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
         fetch(`/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
-                this.setState({projects: data});
-            }).catch((error) => console.log(error));
+                this.setState({projects: data, loading: false});
+            }).catch((error) => console.log(error));        
     }
 
     componentDidMount() {
@@ -150,7 +167,7 @@ class ProjectSelection extends Component {
         return (
             <div class="Projects">
                 <ProjectHeader update={this.fetchResult} userID = {this.props.userID} />
-                <ProjectTable projects={this.state.projects} userID = {this.props.userID}/>
+                <ProjectTable loading = {this.state.loading} projects={this.state.projects} userID = {this.props.userID}/>
             </div>
         );
     }

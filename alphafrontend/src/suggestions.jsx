@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './suggestions.css';
 import Popup from "reactjs-popup";
 import { Button } from 'react-bootstrap';
+import ReactLoading from 'react-loading';
 
 class Why extends Component {
     render() {
@@ -38,23 +39,37 @@ class PaperRow extends Component {
 class RecommendationsTable extends Component {
     render() {
 
-        const rows = [];
+        const loading = this.props.loading;
 
-        for (let i = 0; i < this.props.articles.length; i++) {
-            let article = this.props.articles[i];
-            rows.push(<PaperRow author={article.author} title={article.title} why={article.why}/>);
+        var rows = [];
 
+        if (!loading) {
+            for (let i = 0; i < this.props.articles.length; i++) {
+                let article = this.props.articles[i];
+                rows.push(<PaperRow author={article.author} title={article.title} why={article.why}/>);
+            }
         }
 
-        return (
+        if (loading) {
+            return (
             <React.Fragment>
             <div class="Header">Recommended Articles</div>
-            <ul class="Suggestionlist">
-            <li></li>
-            {rows}
-            </ul>
+            <div class="loading">
+            <div class="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'100%'} /></div>
+            </div>
             </React.Fragment>
-        );
+            );
+        } else {
+            return (
+                <React.Fragment>
+                <div class="Header">Recommended Articles</div>
+                <ul class="Suggestionlist">
+                <li></li>
+                {rows}
+                </ul>
+                </React.Fragment>
+            );
+        }
     }
 }
 
@@ -63,7 +78,7 @@ export default class Suggestions extends Component {
 
         return (
             <div class="Results">
-                <RecommendationsTable articles={this.props.articles} />
+                <RecommendationsTable loading = {this.props.loading} articles={this.props.articles} />
             </div>
         );
     }
