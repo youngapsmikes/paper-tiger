@@ -1,0 +1,82 @@
+.project {
+    border-bottom: .05rem solid black;
+    font-size: 1rem;
+}
+
+.ProjectTable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 100%;
+    overflow-y: auto;
+}
+
+.projectList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 100%;
+    overflow-y: auto;
+    border: 2px solid black;
+    width: 100%;
+}
+
+.ProjectHeader {
+    flex: 0 0 auto;
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.projectheaderText {
+    flex: 0 0 66%;
+    font-size: 2rem;
+}
+
+.ProjectHeader > .addbutton {
+    flex: 0 0 33%;
+}
+
+.UploadPopup > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+    opacity: 100% !important;
+  }
+  
+.UploadPopup > .actions {
+    width: 100%;
+    padding: 10px 5 px;
+    margin: auto;
+    text-align: center;
+}
+
+.Projects {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.loading {
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-content: center;
+    align-items: stretch;
+}
+
+.loadingIcon {
+    flex: 0 0 100%;
+}
