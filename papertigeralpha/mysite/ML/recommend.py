@@ -32,7 +32,9 @@ def generate_Explanation(inputs, results, pdf_names):
 def recommendMain(valid_titles):
 
 	## make sure working directory is the current ML directory 
-	cwd = str(settings.BASE_DIR) + '\\ML'
+	# cwd = str(settings.BASE_DIR) + '//ML'
+	cwd = os.path.join(str(settings.BASE_DIR), "ML")
+	print("cwd is: ", cwd)
 	os.chdir(cwd)
 	
 	## load in the model 
@@ -46,7 +48,8 @@ def recommendMain(valid_titles):
 	## are the ones we're interested in
 
 	# NEED TO CHANGE THIS 
-	pdfDir = str(settings.BASE_DIR) + "\\media\\files\\"
+	pdfDir = os.path.join(str(settings.BASE_DIR), "media", "files")
+	# pdfDir = str(settings.BASE_DIR) + "//media//files//"
 	# pdfDir = os.getcwd() + '\\pdf\\'
 	# text = convertMultiple(pdfDir, valid_titles)
 	(text, pdf_list, pdf_names) = convertMultiple(pdfDir, valid_titles)
