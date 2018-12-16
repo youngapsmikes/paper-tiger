@@ -13,8 +13,8 @@ def recommend_lda(model, lda_X, tf_article, papers, authors):
     
     for idx, row in enumerate(lda_X):
         dists[idx] = np.linalg.norm(row-article)
-    index = list(np.argsort(dists)[1:20])
-    topic_vecs = list(lda_X[np.argsort(dists)[1:20]])
+    index = list(np.argsort(dists)[1:9])
+    topic_vecs = list(lda_X[np.argsort(dists)[1:9]])
     authors = list(authors[authors['id'].isin(index)]['name'])
     return list(zip(list(papers['title'][index]), topic_vecs, authors))
     
@@ -62,4 +62,3 @@ def recommendMain(valid_titles):
 	# 	tf_text = tf_vectorizer.transform(text)
 	# else:
 	# 	tf_text = tf_vectorizer.transform([text])
-	
