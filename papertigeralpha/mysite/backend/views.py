@@ -90,10 +90,10 @@ def saved(request):
     -------
     [{name: “filexyz.pdf”}, {name: “filewyz.pdf”}]
     """
-    print("saved_profile called")
+    print("FROM SAVED")
     
     if request.method == 'POST':
-        print("FROM POST")
+        # print("FROM POST")
         # User should be authenticated before this function is called
         user_name = request.POST.get('userID')
         project_id = request.POST.get('projectID')
@@ -105,7 +105,7 @@ def saved(request):
 
         if MyProfileForm.is_valid():
              profile = Profile()
-             print("FOUND FILE")
+             # print("FOUND FILE")
              profile.file = MyProfileForm.cleaned_data["file"]
              profile.save()
              file_name = str(profile.file).split("files/", 1)[-1]
@@ -118,8 +118,8 @@ def saved(request):
              curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
              curr_proj.project_papers.add(p1)
 
-             for papers in curr_proj.project_papers.all():
-                print(papers.title)
+             # for papers in curr_proj.project_papers.all():
+             #    print(papers.title)
              saved = True
         else:
             MyProfileForm = ProfileForm()
@@ -138,11 +138,11 @@ def saved(request):
 
         # #Start new project for user or get old one 
         try: 
-            print("from try")
+            # print("from try")
             # curr_proj = Researcher.objects.get(user=curr_user, projects__pid=project_id)
             curr_proj = Researcher.objects.filter(user=curr_user, projects__pid=project_id)
         except Exception as e:
-            print("from except")
+            # print("from except")
             curr_proj = Project(pid=project_id)
             curr_proj.save()
             user_info.projects.add(curr_proj)
@@ -157,7 +157,7 @@ def saved(request):
 
 
         for e in list(curr_proj.project_papers.all()):
-            print(e.title)
+            # print(e.title)
             proj_json.append({'name': str(e.title)})
 
 
@@ -171,13 +171,13 @@ def results(request):
     project_id = request.GET.get('projectID')
     curr_user = User.objects.get(username=user_name)
     curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
-    print("PROJECT ID")
-    print(project_id)
+    # print("PROJECT ID")
+    # print(project_id)
     # curr_proj = curr_researcher.projects.all()[0]
     curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
 
-    print("PRINT CURRENT PROJECT FROM RESULTS")
-    print(curr_proj)
+    # print("PRINT CURRENT PROJECT FROM RESULTS")
+    # print(curr_proj)
 
     valid_titles = []
     json_list = []
@@ -190,7 +190,7 @@ def results(request):
         print(e.title)
         valid_titles.append(e.title)
 
-    print(valid_titles)
+    # print(valid_titles)
     
 
 
@@ -233,7 +233,7 @@ def projects(request):
     -------
     [{'name': project name, 'id': project id}]
     """
-    print("from projects")
+    print("FROM PROJECTS")
     
     ## get user information based on user id 
     user_name = request.GET.get('userID')
@@ -241,11 +241,11 @@ def projects(request):
     user_info = Researcher.objects.get(user=curr_user)
 
     proj_json = []
-    print("USER INFO STORED PROPERLY??")
+    # print("USER INFO STORED PROPERLY??")
     for e in list(user_info.projects.all()):
         proj_json.append({'name': str(e.project_name), 'id': e.pid})
 
-    print(proj_json)
+    # print(proj_json)
     return JsonResponse(proj_json, safe = False)
 
 @csrf_exempt 
@@ -258,7 +258,7 @@ def newproject(request):
     project: str 
     
     """
-    print("from new project")
+    print("FROM NEW PROJECT")
     request_dict = json.loads(request.body) 
 
     user_name = request_dict['userID']
@@ -270,17 +270,17 @@ def newproject(request):
 
     # ## have to do some logic to check the project ids 
     pid = user_info.max_id + 1 
-    print(pid) 
+    # print(pid) 
     user_info.max_id = pid
     curr_proj = Project(pid = pid, project_name=project_name)
     curr_proj.save()
     user_info.projects.add(curr_proj)
-    print(user_info.projects.all())
+    # print(user_info.projects.all())
     user_info.save()
 
     return HttpResponse(200)
 
-
+@csrf_exempt
 def removefile(request):
     """Remove a file that has been uploaded by a user
     Parameters
@@ -290,56 +290,42 @@ def removefile(request):
     fileName: str
     """
 
-    user_name = request.POST.get('userID')
-    proj_id = request.POST.get('projectID')
-    file_name = request.POST.get('fileName')
+    print("FROM REMOVE FILE")
+
+    request_dict = json.loads(request.body) 
+    user_name = request_dict['userID']  
+    proj_id = int(request_dict['projectID'])
+    file_name = str(request_dict['fileName'])
+
+    print("FROM REMOVE FILE " + user_name)
+    print("FROM REMOVE FILE " + str(proj_id))
+    print("FROM REMOVE FILE " + file_name)
+    sys.stdout.flush()
+    
 
     user_info = Researcher.objects.get(user=User.objects.get(username=user_name))
-
+    print("DO WE EVER GET HERE")
     # OPTIMIZE ME LATER 
-    for proj in list(user_info.project.all()):
+    for proj in list(user_info.projects.all()):
+        print("PROJECT ID " + str(proj.pid))
         if(proj.pid == proj_id):
-            for papes in list(proj.all()):
+            print("DO WE EVER EVEN EXECUTE")
+            project_papers = list(proj.project_papers.all()) 
+            print(project_papers)
+            for papes in project_papers:
+                print(papes.title)
+                print(file_name)
                 if (papes.title == file_name):
+                    print("FROM REMOVE " + file_name)
                     papes.delete()
                     user_info.save()
-                    return HttpResponse(200)
+                    # return HttpResponse(200)
+    print("AFTER FOR LOOP")
+    for proj in list(user_info.projects.all()):
+        if(proj.pid == proj_id):
+            for papes in list(proj.project_papers.all()):
+                print(papes.title)
+
+    print("EXIT REMOVE FILE")
     user_info.save()
     return HttpResponse(200)
-
-def searchresults(request):
-    database = Database()
-    database.connect()
-    articles = database.search()
-    database.disconnect()
-
-    html = ''
-    html += '<!DOCTYPE html>\n'
-    html += '<html>\n'
-    html += '<head>\n'
-    html += '<title>paper-tiger.com</title>\n'
-    html += '</head>\n'
-    html += '<body>\n'
-    # html += getHeader()
-    html += 'Click here to do another '
-    html += '<a href="create2/">article search</a>.\n'
-    html += '<br>\n'
-    html += '<h1>Article Search Results</h1>\n'
-    if len(articles) == 0:
-        html += '(None)<br>\n'
-    else:
-        for res in articles:
-            html += str(res[0]) + '\n'
-            html += '<br> \n'
-    html += '<br>\n'
-    html += '<br>\n'
-    html += '<br>\n'
-    html += '<br>\n'
-    html += '<br>\n'
-    # html += getFooter()
-    html += '</body>\n'
-    html += '</html>\n'
-
-    response = HttpResponse(html)
-    # response.set_cookie('prevAuthor', author)
-    return response
