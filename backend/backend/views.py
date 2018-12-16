@@ -77,7 +77,7 @@ from django.contrib.auth.models import User
 
 @csrf_exempt
 def saved(request):
-    """Get articles for users selected project. If new project, create project and return. 
+    """ Get articles for users selected project. If new project, create and return. 
 
     Parameters
     ----------
@@ -136,7 +136,7 @@ def saved(request):
         curr_user = User.objects.get(username=user_name)
         user_info = Researcher.objects.get(user=curr_user)
 
-        # LOOK AT https://docs.djangoproject.com/en/2.1/ref/models/querysets/#get-or-create
+        # #Start new project for user or get old one 
         try: 
             print("from try")
             # curr_proj = Researcher.objects.get(user=curr_user, projects__pid=project_id)

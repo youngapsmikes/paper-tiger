@@ -28,6 +28,7 @@ class GoogleBackend(object):
                 user = User.objects.get(username=user_token)
                 return user
             except User.DoesNotExist:
+                # Don't set the username to Google name since its possible for multiple names to have the same email
                 user = User.objects.create_user(username=user_token)
                 user.save()
                 # create researcher model to store user and additonal information

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './PaperForm.css';
+import {withRouter} from 'react-router-dom';
 
 class PaperForm extends React.Component{
     constructor(props) {
@@ -22,9 +23,9 @@ class PaperForm extends React.Component{
       }
     
       handleSubmit(event) {
-        alert('A title was submitted: ' + this.state.title + 
+       /*  alert('A title was submitted: ' + this.state.title + 
               '\nAn author was submitted ' + this.state.author +
-              '\nAn abstract was submitted ' + this.state.abstract);
+              '\nAn abstract was submitted ' + this.state.abstract); */
         event.preventDefault();
         fetch('/backend/create', {
           method: 'post',
@@ -35,6 +36,7 @@ class PaperForm extends React.Component{
             "abstract": this.state.abstract
           }
         });
+        this.props.history.push('/results');
       }
    
       render() {
@@ -52,10 +54,10 @@ class PaperForm extends React.Component{
       // }
       const { title, author, abstract } = this.state;
       return (
-        <div className="column">
-          <form onSubmit={this.handleSubmit}>
+        <div className="column" class="toplevel">
+          <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="field">
-              <label className="label">Title:  </label>
+              <label className="label">Title: </label>
                 <input
                   className="input"
                   type="text"
@@ -66,7 +68,7 @@ class PaperForm extends React.Component{
                 />
             </div>
             <div className="field">
-              <label className="label">Author:  </label>
+              <label className="label">Author: </label>
                 <input
                   className="input"
                   type="text"
@@ -77,7 +79,7 @@ class PaperForm extends React.Component{
                 />
             </div>
             <div className="field">
-              <label className="label">Abstract:  </label>
+              <label className="label">Abstract: </label>
                 <textarea
                   className="textarea"
                   type="text"
@@ -104,4 +106,4 @@ class PaperForm extends React.Component{
       document.getElementById('root')
     ); */
     
-    export default PaperForm;
+    export default withRouter(PaperForm);

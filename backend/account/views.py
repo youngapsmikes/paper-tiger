@@ -13,7 +13,6 @@ def user_login(request):
         user = authenticate(request, token=token,
                             CLIENT_ID="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com")
         if user is None:
-        	# Frontend will deal with unauthenticated users 
             pass
         else:
             login(request, user)
