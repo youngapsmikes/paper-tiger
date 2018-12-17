@@ -57,3 +57,26 @@ class AssociationTestCase(TestCase):
 
 		p3 = project2.project_papers.get(title = "Paper3")
 		self.assertEqual("Paper3", p3.title)
+
+	def test_fetch_delete_paper(self):
+		user1 = User.objects.get(username="user1")
+		r1 = Researcher.objects.get(user=user1)
+
+		p1 = r1.projects.get(pid=1).project_papers.get(title="Paper1")
+		p1.delete()
+
+		try:
+			p1 = r1.projects.get(pid=1).project_papers.get(title="Paper1")
+			self.assertEqual(True, False)
+		except Exception as e:
+			pass
+
+		try:
+			p10 = r1.projects.get(pid=1).project_papers.get(title="Paper10")
+		except Exception as e:
+			pass 
+
+
+
+
+

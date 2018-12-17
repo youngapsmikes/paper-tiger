@@ -303,28 +303,12 @@ def removefile(request):
     
 
     user_info = Researcher.objects.get(user=User.objects.get(username=user_name))
-    print("DO WE EVER GET HERE")
-    # OPTIMIZE ME LATER 
-    for proj in list(user_info.projects.all()):
-        print("PROJECT ID " + str(proj.pid))
-        if(proj.pid == proj_id):
-            print("DO WE EVER EVEN EXECUTE")
-            project_papers = list(proj.project_papers.all()) 
-            print(project_papers)
-            for papes in project_papers:
-                print(papes.title)
-                print(file_name)
-                if (papes.title == file_name):
-                    print("FROM REMOVE " + file_name)
-                    papes.delete()
-                    user_info.save()
-                    # return HttpResponse(200)
-    print("AFTER FOR LOOP")
-    for proj in list(user_info.projects.all()):
-        if(proj.pid == proj_id):
-            for papes in list(proj.project_papers.all()):
-                print(papes.title)
 
-    print("EXIT REMOVE FILE")
+    try:
+        targ_paper = user_info.projects.get(pid=project_id).project_papers.get(title=file_name)
+        targ_paper.delete()
+    except Exception as e:
+        pass 
+
     user_info.save()
     return HttpResponse(200)
