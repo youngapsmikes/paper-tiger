@@ -17,7 +17,7 @@ from django.conf import settings
 import sys
 import json
 # insert the absolute path of ML directory
-sys.path.insert(0, str(settings.BASE_DIR) + '\\ML')
+# sys.path.insert(0, str(settings.BASE_DIR) + '\\ML')
 
 # os.path.join(BASE_DIR, ...)
 from ML import recommend
@@ -136,7 +136,7 @@ def saved(request):
         curr_user = User.objects.get(username=user_name)
         user_info = Researcher.objects.get(user=curr_user)
 
-        # #Start new project for user or get old one 
+        # Start new project for user or get old one 
         try: 
             # print("from try")
             # curr_proj = Researcher.objects.get(user=curr_user, projects__pid=project_id)
@@ -272,8 +272,7 @@ def newproject(request):
     pid = user_info.max_id + 1 
     # print(pid) 
     user_info.max_id = pid
-    curr_proj = Project(pid = pid, project_name=project_name)
-    curr_proj.save()
+    curr_proj = Project.objects.create(pid = pid, project_name=project_name)
     user_info.projects.add(curr_proj)
     # print(user_info.projects.all())
     user_info.save()
