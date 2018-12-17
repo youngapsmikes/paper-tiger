@@ -13,8 +13,8 @@ def recommend_lda(model, lda_X, tf_article, papers, authors):
     
     for idx, row in enumerate(lda_X):
         dists[idx] = np.linalg.norm(row-article)
-    index = list(np.argsort(dists)[1:9])
-    topic_vecs = list(lda_X[np.argsort(dists)[1:9]])
+    index = list(np.argsort(dists)[1:20])
+    topic_vecs = list(lda_X[np.argsort(dists)[1:20]])
     authors = list(authors[authors['id'].isin(index)]['name'])
     return list(zip(list(papers['title'][index]), topic_vecs, authors))
     
@@ -29,7 +29,7 @@ def generate_Explanation(inputs, results, pdf_names):
 	return new_results
 
 
-def recommendMain(valid_titles):
+def recommendMain(pdf_list, pdf_names):
 
 	## make sure working directory is the current ML directory 
 	# cwd = str(settings.BASE_DIR) + '//ML'
@@ -44,20 +44,13 @@ def recommendMain(valid_titles):
 	papers = pd.read_csv('papers.csv')
 	authors = pd.read_csv('authors.csv')
 
-	## For now, assume that the only files in the pdf directory 
-	## are the ones we're interested in
+	text = "".join(pdf_list)
+	combined_tfidf = tf_vectorizer.transform([text])
 
-	# NEED TO CHANGE THIS 
-	pdfDir = os.path.join(str(settings.BASE_DIR), "media", "files")
-	# pdfDir = str(settings.BASE_DIR) + "//media//files//"
-	# pdfDir = os.getcwd() + '\\pdf\\'
-	# text = convertMultiple(pdfDir, valid_titles)
-	(text, pdf_list, pdf_names) = convertMultiple(pdfDir, valid_titles)
+	separated_tfidf = list(map(lambda text: lda.transform(tf_vectorizer.transform([text]))[0], pdf_list))
+	recommendations = recommend_lda(lda, lda_X, combined_tfidf, papers, authors)
 
-	tf_text = tf_vectorizer.transform([text])
-	inputs = list(map(lambda text: lda.transform(tf_vectorizer.transform([text]))[0], pdf_list))
-	results = recommend_lda(lda, lda_X, tf_text, papers, authors)
-	return generate_Explanation(inputs, results, pdf_names)
+	return generate_Explanation(separated_tfidf, recommendations, pdf_names)
 	# if type(text) == list: 
 	# 	tf_text = tf_vectorizer.transform(text)
 	# else:

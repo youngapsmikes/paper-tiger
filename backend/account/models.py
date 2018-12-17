@@ -7,7 +7,7 @@ from ML import recommend
 class Paper(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
-    abstract = models.TextField()
+    body = models.TextField()
 
 
 # Assocaite an id with multiple papers
