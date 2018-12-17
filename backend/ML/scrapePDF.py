@@ -32,9 +32,6 @@ def convert(fname, pages=None):
 #converts all pdfs in directory pdfDir, saves all resulting txt files to txtdir
 def convertMultiple(pdfDir):
     print("FROM CONVERT MULTIPLE")
-    pdf_list = []
-    pdf_names = []
-    # if pdfDir == "": pdfDir = os.getcwd() + "\\" #if no pdfDir passed in 
     if pdfDir == "": pdfDir = os.path.join(os.getcwd, "")
     print(pdfDir)
     for pdf in os.listdir(pdfDir): #iterate through pdfs in pdf directory
@@ -42,7 +39,6 @@ def convertMultiple(pdfDir):
         if fileExtension == "pdf":
             pdfFilename = os.path.join(pdfDir, pdf) 
             text = convert(pdfFilename) #get string of text content of pdf
-            pdf_list.append(text)
-            pdf_names.append(pdf)
+            return text
 
-    return ("".join(pdf_list), pdf_list, pdf_names)
+    return ""

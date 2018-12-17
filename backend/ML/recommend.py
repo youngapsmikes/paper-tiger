@@ -31,13 +31,11 @@ def generate_Explanation(inputs, results, pdf_names):
 
 def recommendMain(pdf_list, pdf_names):
 
-	## make sure working directory is the current ML directory 
-	# cwd = str(settings.BASE_DIR) + '//ML'
 	cwd = os.path.join(str(settings.BASE_DIR), "ML")
 	print("cwd is: ", cwd)
 	os.chdir(cwd)
 	
-	## load in the model 
+	## load in the models 
 	lda = load('lda_model.joblib') 
 	tf_vectorizer = load('tf_vectorizer.joblib')
 	lda_X = load('lda_X.joblib')
@@ -47,11 +45,8 @@ def recommendMain(pdf_list, pdf_names):
 	text = "".join(pdf_list)
 	combined_tfidf = tf_vectorizer.transform([text])
 
+	# vectorize all the papers associated with a project
 	separated_tfidf = list(map(lambda text: lda.transform(tf_vectorizer.transform([text]))[0], pdf_list))
 	recommendations = recommend_lda(lda, lda_X, combined_tfidf, papers, authors)
 
 	return generate_Explanation(separated_tfidf, recommendations, pdf_names)
-	# if type(text) == list: 
-	# 	tf_text = tf_vectorizer.transform(text)
-	# else:
-	# 	tf_text = tf_vectorizer.transform([text])

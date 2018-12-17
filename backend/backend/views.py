@@ -22,9 +22,7 @@ import stat
 import shutil
 
 # insert the absolute path of ML directory
-sys.path.insert(0, str(settings.BASE_DIR) + '\\ML')
-
-# os.path.join(BASE_DIR, ...)
+sys.path.insert(0, os.path.join(str(settings.BASE_DIR), "ML"))
 from ML import recommend
 from ML import scrapePDF 
 
@@ -64,14 +62,14 @@ def saved(request):
              profile.file = MyProfileForm.cleaned_data["file"]
              file_name = str(profile.file)
 
-             ## treat media/files as a temporary directory and point convert Multiples to that folder 
+             ## treat media/files as a temporary directory and point convertMultiple to that folder 
              pdfDir = os.path.join(str(settings.BASE_DIR), "media", "files")
              if not os.path.exists(pdfDir):
                 os.mkdir(pdfDir)
              profile.save()
 
              # scrape the current uploaded file and save paper 
-             (text, pdf_list, pdf_names) = scrapePDF.convertMultiple(pdfDir)
+             text = scrapePDF.convertMultiple(pdfDir)
              p1 = Paper(title = file_name, body = text)
              p1.save()
 
@@ -81,6 +79,8 @@ def saved(request):
              # save paper to researcher's projects
              curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
              curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
+             print("LEN OF QUERY SET")  
+             print(len(list(curr_researcher.projects.filter(pid = project_id))))
              curr_proj.project_papers.add(p1)
 
              for papers in curr_proj.project_papers.all():
