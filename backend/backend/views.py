@@ -24,6 +24,7 @@ from ML import recommend
 
 from account.models import Paper, Project, Researcher
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 # @csrf_exempt
 # def SaveProfile(request):
@@ -312,3 +313,22 @@ def removefile(request):
 
     user_info.save()
     return HttpResponse(200)
+
+
+@csrf_exempt
+def in_session(request):
+    print("SESSION FUNCTION CALLED")
+    request_dict = json.loads(request.body)
+    curr_user = User.objects.get(username=request_dict["userID"])
+
+    # CHECK THAT LOGGED IN <=> IN SESSION 
+    if (curr_user.is_authenticated):
+        return JsonResponse([{"in_session": "true"}])
+    else:
+        return JsonResponse([{"in_session": "false"}])
+
+
+@csrf_exempt
+def logout(request):
+    logout(request)
+
