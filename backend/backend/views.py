@@ -221,10 +221,13 @@ def newproject(request):
     curr_proj = Project(pid = pid, project_name=project_name)
     curr_proj.save()
     user_info.projects.add(curr_proj)
-    print(user_info.projects.all())
     user_info.save()
 
-    return HttpResponse(200)
+    proj_json = []
+    for e in list(user_info.projects.all()):
+        proj_json.append({'name': str(e.project_name), 'id': e.pid})
+    print(proj_json)
+    return JsonResponse(proj_json, safe = False)
 
 @csrf_exempt
 def removefile(request):
@@ -274,4 +277,4 @@ def removefile(request):
     print(json_list)
     print("EXIT REMOVE FILE")
     user_info.save()
-    return json_list
+    return JsonResponse(json_list, safe = False)
