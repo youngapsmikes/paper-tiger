@@ -4,6 +4,8 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from .models import SearchForm
 from .models import Profile
@@ -127,6 +129,13 @@ def saved(request):
 
 @csrf_exempt
 def results(request):
+    print("IS THE USER AUTHENTICATED" + str(request.user.is_authenticated))
+    # logout(request)
+    # if request.user.is_authenticated:
+    #     print("USER IS AUTHENTICATED")
+    # else:
+    #     print("USER IS NOT AUTHENTICATED")
+    print("USERNAME" + str(request.session['username']))
     print("FROM RESULTS")
     user_name = request.GET.get('userID')
     project_id = request.GET.get('projectID')
@@ -158,16 +167,6 @@ def results(request):
         # curr_proj.project_papers.add(p1)
 
     return JsonResponse(json_list, safe = False)
-
-def index(request):
-    objs = SearchForm.objects.all()
-    jsondata = serializers.serialize('json', objs)
-    return HttpResponse(jsondata, content_type='application/json')
-
-@csrf_exempt
-def create(request):
-    print("hello world")
-    return JsonResponse([{'author':'Michael Li', 'title': 'KGLQ'}], safe = False)
 
 @csrf_exempt
 def projects(request):
@@ -222,7 +221,7 @@ def newproject(request):
     curr_proj = Project(pid = pid, project_name=project_name)
     curr_proj.save()
     user_info.projects.add(curr_proj)
-    # print(user_info.projects.all())
+    print(user_info.projects.all())
     user_info.save()
 
     return HttpResponse(200)
@@ -262,12 +261,17 @@ def removefile(request):
                     papes.delete()
                     user_info.save()
                     # return HttpResponse(200)
+    updated_projects = []
     print("AFTER FOR LOOP")
     for proj in list(user_info.projects.all()):
         if(proj.pid == proj_id):
-            for papes in list(proj.project_papers.all()):
-                print(papes.title)
+            updated_projects = list(proj.project_papers.all())
 
+    json_list = []
+    for proj in updated_projects:
+        json_list.append({'name': str(proj.title)})
+
+    print(json_list)
     print("EXIT REMOVE FILE")
     user_info.save()
-    return HttpResponse(200)
+    return json_list
