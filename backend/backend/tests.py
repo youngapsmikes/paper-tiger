@@ -29,10 +29,25 @@ class ViewVerification(TestCase):
 		"""
 		c = Client()
 
-		response = c.get('/backend/session', data = json.dumps({"userID": "rando"}, separators=(',',':')))
+		test_user = User.objects.create_user(username="rando")
+		test_user.save()
 
-		res = response.json()['in_session']
+		#WHY???
+		self.assertEqual(test_user.is_authenticated, True)
+		self.assertEqual(test_user.is_active, True)
 
-		self.assertEqual(response.json()['in_session'], "false")
-		# response.json()['name']
+		# c.force_login(test_user, backend = 'account.authenticators.GoogleBackend')
+		c.force_login(test_user)
+
+
+		response = c.get('/backend/session', data = {"userID": "rando"})
+		res = response.json()[0]['in_session']
+
+		self.assertEqual(res, "true")
+
+		resposne = c.get('/backend/logout')
+		self.assertEqual(response, "true")
+
+
+
 
