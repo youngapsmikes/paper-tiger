@@ -72,7 +72,6 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
     'account.authenticators.GoogleBackend', # <- Custom backend using Google API
-    'django.contrib.auth.backends.ModelBackend',
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'

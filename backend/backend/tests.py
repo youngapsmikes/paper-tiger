@@ -16,37 +16,50 @@ class ViewVerification(TestCase):
 		project1.project_papers.add(p2)
 
 
-		user2 = User.objects.create_user(username = "user2")
-		r2 = Researcher.objects.create(user = user2)
-		project2 = Project.objects.create(pid= 1, project_name = "project2")
-		p3 = Paper.objects.create(title = "Paper3")
-		r2.projects.add(project2)
-		project2.project_papers.add(p3)
-
 	def test_bogus_user(self):
 		"""
 		Our json shold return false for a user not in a session 
 		"""
+
 		c = Client()
 
-		test_user = User.objects.create_user(username="rando")
-		test_user.save()
 
-		#WHY???
-		self.assertEqual(test_user.is_authenticated, True)
-		self.assertEqual(test_user.is_active, True)
+		response = c.get('/backend/session', data = {"userID": "user1"})
+		res = response.json()[0]['in_session']
 
-		# c.force_login(test_user, backend = 'account.authenticators.GoogleBackend')
-		c.force_login(test_user)
+		self.assertEqual(res, "false")
 
+	def test_honest_user(self):
+		"""
+		Our views should definetly recognzie a valid user. 
+		"""
+		c = Client()
+		user1 = User.objects.get(username="user1")
+		c.force_login(user1)
 
-		response = c.get('/backend/session', data = {"userID": "rando"})
+		response = c.get('/backend/session', data = {"userID": "user1"})
 		res = response.json()[0]['in_session']
 
 		self.assertEqual(res, "true")
 
-		resposne = c.get('/backend/logout')
-		self.assertEqual(response, "true")
+	def test_logout(self):
+		"""
+		Our logout view function correctly detects that a user is signed out.
+		"""
+
+		c = Client()
+		user1 = User.objects.get(username="user1")
+		c.force_login(user1)
+
+		response = c.post('/backend/logout')
+		self.assertEqual(response.status_code, 200)
+
+		response = c.get('/backend/session', data = {"userID": "user1"})
+		res = response.json()[0]['in_session']
+		self.assertEqual(res, "false")
+
+
+
 
 
 

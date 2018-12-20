@@ -318,19 +318,17 @@ def removefile(request):
 @csrf_exempt
 def in_session(request):
 
-    curr_user = User.objects.get(username=request.GET.get('userID'))
-
-    print(request.session)
+    # print(dir(request.session))
 
     # CHECK THAT LOGGED IN <=> IN SESSION 
-    if (curr_user.is_authenticated):
+    if (request.user.is_authenticated):
         return JsonResponse([{"in_session": "true"}], safe= False)
     else:
         return JsonResponse([{"in_session": "false"}], safe = False)
 
 
 @csrf_exempt
-def logout(request):
+def exit(request):
     logout(request)
     return HttpResponse(200)
 
