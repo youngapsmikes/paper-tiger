@@ -18,15 +18,12 @@ from django.conf import settings
 
 import sys
 import json
-<<<<<<< HEAD
-# insert the absolute path of ML directory
-# sys.path.insert(0, str(settings.BASE_DIR) + '\\ML')
-=======
+
+
 import os 
 import glob
 import stat
 import shutil
->>>>>>> backend_improvements
 
 # insert the absolute path of ML directory
 sys.path.insert(0, os.path.join(str(settings.BASE_DIR), "ML"))
