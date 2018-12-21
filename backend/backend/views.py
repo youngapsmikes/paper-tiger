@@ -259,16 +259,17 @@ def removefile(request):
         pass
 
     user_info.save()
-    targ_paper = user_info.projects.get(pid=proj_id).project_papers()
-    print(type(targ_paper))
+
+    updated_projects = []
+    print("AFTER FOR LOOP")
+    for proj in list(user_info.projects.all()):
+        if(proj.pid == proj_id):
+            updated_projects = list(proj.project_papers.all())
+
     json_list = []
-    for proj in targ_paper:
+    for proj in updated_projects:
         json_list.append({'name': str(proj.title)})
-
-    print("EXIT REMOVE FILE")
     return JsonResponse(json_list, safe = False)
-
-
 @csrf_exempt
 def in_session(request):
 
