@@ -58,6 +58,7 @@ def saved(request):
         user_info = Researcher.objects.get(user=curr_user)
 
         MyProfileForm = ProfileForm(request.POST, request.FILES)
+        proj_json = []
 
         if MyProfileForm.is_valid():
              profile = Profile()
@@ -85,14 +86,16 @@ def saved(request):
              print(len(list(curr_researcher.projects.filter(pid = project_id))))
              curr_proj.project_papers.add(p1)
 
-             for papers in curr_proj.project_papers.all():
-                print(papers.title)
+             for e in list(curr_proj.project_papers.all()):
+                proj_json.append({'name': str(e.title)})
+
 
              saved = True
         else:
             MyProfileForm = ProfileForm()
-
-        return HttpResponse(200)
+        print("SAVE PROFILE")
+        print(proj_json)
+        return JsonResponse(proj_json, safe = False)
     elif request.method == 'GET': 
         user_name = request.GET.get('userID')
         project_id = request.GET.get('projectID')
