@@ -9,10 +9,6 @@ import PaperTigerHeader from './PaperTigerHeader.js';
 
 class ResultsPage extends Component {
 
-    componentDidMount() {
-        console.log("USER ID: " + this.props.match.params.userID);
-    }
-
     render() {
         return (
             <div>
