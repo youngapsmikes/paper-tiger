@@ -12,6 +12,9 @@ def user_login(request):
         token = request.POST.get('idtoken')
         user = authenticate(request, token=token,
                             CLIENT_ID="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com")
+
+        print("TOKEN" + str(token))
+        request.session['username'] = 'myli'
         if user is None:
             pass
         else:

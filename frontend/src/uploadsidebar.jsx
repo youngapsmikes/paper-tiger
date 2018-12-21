@@ -6,25 +6,6 @@ import { Button } from 'react-bootstrap';
 
 class PDFupload extends Component {
 
-    deleterequest = () => {
-        const project = this.props.keyInfo.projectID;
-        const user = this.props.keyInfo.userID;
-
-        const data = JSON.stringify({
-            fileName: this.props.filename,
-            projectID: project,
-            userID: user});
-
-        fetch('http://localhost:5000/backend/removefile', {
-        method: 'POST',
-        body: data,
-      }).then((response) => {
-        response.json().then((body) => {
-            console.log("File deletion request" + this.props.filename)
-        });
-        });
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -46,8 +27,7 @@ class PDFupload extends Component {
                         <Button
                         className="button"
                         onClick={() => {
-                        this.deleterequest()
-                        this.props.update()
+                        this.props.deleterequest(this.props.filename, this.props.keyInfo.projectID, this.props.keyInfo.userID)
                         close()
                         }}
                         >
@@ -115,7 +95,7 @@ class FileTable extends Component {
 
         for (let i = 0; i < this.props.files.length; i++) {
             let file = this.props.files[i];
-            rows.push(<PDFupload keyInfo = {this.props.keyInfo} filename = {file.name} update={this.props.update}/>);
+            rows.push(<PDFupload keyInfo = {this.props.keyInfo} filename = {file.name} deleterequest={this.props.deleterequest}/>);
         }
 
         return (
@@ -135,7 +115,7 @@ export default class UploadSideBar extends Component {
         return (
             <div class="sidebar">
                 <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} />
-                <FileTable keyInfo = {this.props.keyInfo} files={this.props.files} update={this.props.update} />
+                <FileTable keyInfo = {this.props.keyInfo} files={this.props.files} update={this.props.update} deleterequest={this.props.deleterequest} />
             </div>
         );
     }
