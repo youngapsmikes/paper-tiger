@@ -81,21 +81,8 @@ class ProjectForm extends Component {
     
       handleSubmit(event) {
         event.preventDefault();
-        const data = JSON.stringify({
-            project: this.state.value,
-            userID: this.props.userID});
-
-        fetch('http://localhost:5000/backend/newproject', {
-        method: 'POST',
-        body: data,
-      }).then((response) => {
-        response.json().then((body) => {
-            console.log("New Project Created")
-        });
-        });
-
+        this.props.addProject(this.state.value);
         this.props.cleanup();
-        this.props.update();
       }
     
       render() {
@@ -126,7 +113,7 @@ class ProjectHeader extends Component {
                     <a className="close" onClick={close}> &times; </a>
 
                     <div class="UploadPopupHeader"><h2>Create New Project</h2></div>
-                    <ProjectForm cleanup = {close} update = {this.props.update} userID = {this.props.userID}/>
+                    <ProjectForm cleanup = {close} update = {this.props.update} addProject = {this.props.addProject}/>
                 
                 </div>
             )}
@@ -159,6 +146,24 @@ class ProjectSelection extends Component {
             }).catch((error) => console.log(error));        
     }
 
+    addProject = (projectName) => {
+
+        this.setState({loading: true})
+        
+        const data = JSON.stringify({
+            project: projectName,
+            userID: this.props.userID});
+
+        fetch('http://localhost:5000/backend/newproject', {
+        method: 'POST',
+        body: data,
+      }).then(resp => resp.json()).then(data => {
+        this.setState({projects: data, loading: false});
+    }).catch((error) => console.log(error));
+        
+
+    }
+
     componentDidMount() {
         this.fetchResult();
     }
@@ -166,7 +171,7 @@ class ProjectSelection extends Component {
     render() {
         return (
             <div class="Projects">
-                <ProjectHeader update={this.fetchResult} userID = {this.props.userID} />
+                <ProjectHeader update={this.fetchResult} userID = {this.props.userID} addProject = {this.addProject}/>
                 <ProjectTable loading = {this.state.loading} projects={this.state.projects} userID = {this.props.userID}/>
             </div>
         );

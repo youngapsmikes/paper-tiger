@@ -44,6 +44,35 @@ export default class ResultsPage extends Component {
             }).catch((error) => console.log(error));
     }
 
+    deleterequest = (givenfileName, projectID, userID) => {
+        const project = projectID;
+        const user = userID;
+
+        
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
+        const payload = JSON.stringify({
+            fileName: givenfileName,
+            projectID: project,
+            userID: user
+        });
+
+        this.setState({loading: true});
+
+        fetch('http://localhost:5000/backend/removefile', {
+        method: 'POST',
+        body: payload,
+      }).then(resp => resp.json()).then(data => {
+        this.setState({files: data});
+    }).catch((error) => console.log(error));
+
+        fetch(`/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
+            .then(resp => resp.json()).then(data => {
+                this.setState({articles: data, loading: false});
+            }).catch((error) => console.log(error));
+    }
+
     componentDidMount() {
         
         this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
@@ -57,7 +86,7 @@ export default class ResultsPage extends Component {
             <PaperTigerHeader userID={this.props.match.params.userID} />
             </header>
             <div className="ResultsPage">
-                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} />
+                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest}/>
                 <Suggestions loading = {this.state.loading} articles = {this.state.articles} />
             </div>
             </div>
