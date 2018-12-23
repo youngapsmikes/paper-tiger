@@ -73,6 +73,37 @@ export default class ResultsPage extends Component {
             }).catch((error) => console.log(error));
     }
 
+    addFile(ev) {
+        ev.preventDefault();
+        console.log(this);
+
+        const user = this.props.keyInfo.userID;
+        const project = this.props.keyInfo.projectID;
+
+         
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
+        const data = new FormData();
+        data.append('file', this.uploadInput.files[0]);
+        data.append('userID', user);
+        data.append('projectID', project);
+    
+        fetch('http://localhost:5000/backend/saved', {
+            method: 'POST',
+            body: data,
+        }).then(resp => resp.json()).then(data => {
+            this.setState({files: data, loading: true});
+        }).catch((error) => console.log(error));
+
+        fetch(`/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
+            .then(resp => resp.json()).then(data => {
+                this.setState({articles: data, loading: false});
+            }).catch((error) => console.log(error));
+
+
+    }
+
     componentDidMount() {
         
         this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
@@ -86,7 +117,7 @@ export default class ResultsPage extends Component {
             <PaperTigerHeader userID={this.props.match.params.userID} />
             </header>
             <div className="ResultsPage">
-                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest}/>
+                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest} add={this.addFile}/>
                 <Suggestions loading = {this.state.loading} articles = {this.state.articles} />
             </div>
             </div>

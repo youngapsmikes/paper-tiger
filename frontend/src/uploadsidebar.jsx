@@ -66,13 +66,20 @@ class Sideheader extends Component {
                     <a className="close" onClick={close}> &times; </a>
 
                     <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
-                    <FileUpload keyInfo = {this.props.keyInfo} />
+                        <form onSubmit={this.props.add.bind(this)}>
+                            <div>
+                                <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+                            </div>
+                            <br />
+                            <div>
+                                <button>Upload</button>
+                            </div>
+                        </form>
                     <hr></hr>
                     <div className="actions">
                         <Button
                         className="button"
                         onClick={() => {
-                        this.props.update()
                         close()
                         }}
                         >
@@ -114,7 +121,7 @@ export default class UploadSideBar extends Component {
     render() {
         return (
             <div class="sidebar">
-                <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} />
+                <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} add = {this.props.add}/>
                 <FileTable keyInfo = {this.props.keyInfo} files={this.props.files} update={this.props.update} deleterequest={this.props.deleterequest} />
             </div>
         );
