@@ -18,6 +18,9 @@ export default class ResultsPage extends Component {
             keyInfo: {projectID: '', userID: ''},
             loading: true,
         };
+
+        this.updateStateFiles = this.updateStateFiles.bind(this);
+        this.updateStateSuggestions = this.updateStateSuggestions.bind(this);
     }
 
     update = () => {
@@ -73,6 +76,14 @@ export default class ResultsPage extends Component {
             }).catch((error) => console.log(error));
     }
 
+    updateStateFiles(data) {
+        this.setState({files: data, loading: true});
+    }
+
+    updateStateSuggestions(data) {
+        this.setState({articles: data, loading: false});
+    }
+
     addFile(ev) {
         ev.preventDefault();
         console.log(this);
@@ -93,12 +104,14 @@ export default class ResultsPage extends Component {
             method: 'POST',
             body: data,
         }).then(resp => resp.json()).then(data => {
-            this.setState({files: data, loading: true});
+            this.props.updateStateFiles(data);
         }).catch((error) => console.log(error));
+
+        document.getElementById('uploadedCheck').innerHTML = String.fromCharCode(10004);
 
         fetch(`/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
-                this.setState({articles: data, loading: false});
+                this.props.updateStateSuggestions(data);;
             }).catch((error) => console.log(error));
 
 
@@ -117,7 +130,7 @@ export default class ResultsPage extends Component {
             <PaperTigerHeader userID={this.props.match.params.userID} />
             </header>
             <div className="ResultsPage">
-                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest} add={this.addFile}/>
+                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
                 <Suggestions loading = {this.state.loading} articles = {this.state.articles} />
             </div>
             </div>
