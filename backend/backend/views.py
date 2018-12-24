@@ -133,14 +133,14 @@ def saved(request):
 
 @csrf_exempt
 def results(request):
-    print("IS THE USER AUTHENTICATED" + str(request.user.is_authenticated))
-    # logout(request)
+    # print("IS THE USER AUTHENTICATED" + str(request.user.is_authenticated))
+    # # logout(request)
     # if request.user.is_authenticated:
     #     print("USER IS AUTHENTICATED")
     # else:
     #     print("USER IS NOT AUTHENTICATED")
-    print("USERNAME" + str(request.session['username']))
-    print("FROM RESULTS")
+    # print("USERNAME" + str(request.session['username']))
+    # print("FROM RESULTS")
     user_name = request.GET.get('userID')
     project_id = request.GET.get('projectID')
     curr_user = User.objects.get(username=user_name)
