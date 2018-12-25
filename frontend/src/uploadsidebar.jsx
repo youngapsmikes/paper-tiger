@@ -54,6 +54,10 @@ class PDFupload extends Component {
 }
 
 class Sideheader extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {uploaded: false};
+    }
     render() {
         return (
             <div class="sideheader">
@@ -69,6 +73,7 @@ class Sideheader extends Component {
                         <form onSubmit={this.props.add.bind(this)}>
                             <div>
                                 <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+                                <span class="checkmark" id="uploadedCheck"></span>
                             </div>
                             <br />
                             <div>
@@ -121,7 +126,7 @@ export default class UploadSideBar extends Component {
     render() {
         return (
             <div class="sidebar">
-                <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} add = {this.props.add}/>
+                <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} add = {this.props.add} updateStateFiles = {this.props.updateStateFiles} updateStateSuggestions = {this.props.updateStateSuggestions}/>
                 <FileTable keyInfo = {this.props.keyInfo} files={this.props.files} update={this.props.update} deleterequest={this.props.deleterequest} />
             </div>
         );

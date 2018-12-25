@@ -70,6 +70,9 @@
     text-align: center;
 }
 
+.UploadPopup > .checkmark {
+    color: green;
+}
 .sideheader > .addbutton {
     flex: 0 0 33%;
 }
