@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
-import './home.css';
+import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
 import { Redirect } from 'react-router';
