@@ -11,7 +11,6 @@ from .models import SearchForm
 from .models import Profile
 from .forms import ProfileForm
 
-from databaseML import Database
 from django.http import JsonResponse
 from django.conf import settings
 
