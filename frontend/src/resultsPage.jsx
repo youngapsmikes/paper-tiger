@@ -67,21 +67,27 @@ export default class ResultsPage extends Component {
         method: 'POST',
         body: payload,
       }).then(resp => resp.json()).then(data => {
-        this.setState({files: data});
+        this.setState({files: data, loading: true});
+        this.updateStateSuggestions(project, user);
     }).catch((error) => console.log(error));
 
-        fetch(`/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
-            .then(resp => resp.json()).then(data => {
-                this.setState({articles: data, loading: false});
-            }).catch((error) => console.log(error));
-    }
+}
 
     updateStateFiles(data) {
         this.setState({files: data, loading: true});
     }
 
-    updateStateSuggestions(data) {
-        this.setState({articles: data, loading: false});
+    updateStateSuggestions = (project, user) => {
+        
+        let seed = (new Date()).getSeconds();
+        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
+
+        fetch(`/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
+            .then(resp => resp.json()).then(data => {
+                this.setState({articles: data, loading: false});
+            }).catch((error) => console.log(error));
+
+        
     }
 
     addFile(ev) {
@@ -105,16 +111,10 @@ export default class ResultsPage extends Component {
             body: data,
         }).then(resp => resp.json()).then(data => {
             this.props.updateStateFiles(data);
+            this.props.updateStateSuggestions(project, user);
         }).catch((error) => console.log(error));
 
         document.getElementById('uploadedCheck').innerHTML = String.fromCharCode(10004);
-
-        fetch(`/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
-            .then(resp => resp.json()).then(data => {
-                this.props.updateStateSuggestions(data);;
-            }).catch((error) => console.log(error));
-
-
     }
 
     componentDidMount() {
