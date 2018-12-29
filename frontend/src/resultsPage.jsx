@@ -101,7 +101,7 @@ export default class ResultsPage extends Component {
     addFile(ev) {
         ev.preventDefault();
 
-        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
+        this.props.authPayload.verifyUser(this.props.keyInfo.userID);
 
         const user = this.props.keyInfo.userID;
         const project = this.props.keyInfo.projectID;
@@ -139,7 +139,7 @@ export default class ResultsPage extends Component {
             <PaperTigerHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
             </header>
             <div className="ResultsPage">
-                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
+                <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} authPayload={this.props.authPayload} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
                 <Suggestions loading = {this.state.loading} articles = {this.state.articles} />
             </div>
             </div>

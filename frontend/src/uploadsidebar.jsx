@@ -126,7 +126,7 @@ export default class UploadSideBar extends Component {
     render() {
         return (
             <div class="sidebar">
-                <Sideheader keyInfo = {this.props.keyInfo} update={this.props.update} add = {this.props.add} updateStateFiles = {this.props.updateStateFiles} updateStateSuggestions = {this.props.updateStateSuggestions}/>
+                <Sideheader keyInfo = {this.props.keyInfo} authPayload ={this.props.authPayload} update={this.props.update} add = {this.props.add} updateStateFiles = {this.props.updateStateFiles} updateStateSuggestions = {this.props.updateStateSuggestions}/>
                 <FileTable keyInfo = {this.props.keyInfo} files={this.props.files} update={this.props.update} deleterequest={this.props.deleterequest} />
             </div>
         );
