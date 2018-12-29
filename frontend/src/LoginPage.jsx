@@ -43,8 +43,9 @@ class LoginPage extends Component {
             method: 'POST',
             body: data,
           }).then(resp => resp.json()).then(data => {
-            this.props.authPayloadSpecial.authenticateUser(data.token, profile.getGivenName());
-            this.setState({redirect: true, userID: data.token});
+            console.log(data);
+            this.props.authPayloadSpecial.authenticateUser(data[0].token, profile.getGivenName());
+            this.setState({redirect: true, userID: data[0].token});
           }).catch((error) => console.log(error));
     const DEBUG = false;
 

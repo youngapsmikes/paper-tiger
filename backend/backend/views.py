@@ -21,7 +21,7 @@ import os
 import glob
 import stat
 import shutil
-
+from uuid import uuid4
 # insert the absolute path of ML directory
 sys.path.insert(0, os.path.join(str(settings.BASE_DIR), "ML"))
 from ML import recommend
@@ -31,6 +31,29 @@ from account.models import Paper, Project, Researcher
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
+@csrf_exempt
+def getUserToken(request):
+    print("FROM user token")
+    ## if token is not None 
+    user_name = json.loads(request.body)['userName']
+    # user_name = request.POST.get('userName')
+    curr_user = User.objects.get(username=user_name)
+    rand_token = str(uuid4())
+
+    curr_user.last_name = rand_token
+    curr_user.save()
+    print(rand_token)
+    return JsonResponse([{'token': rand_token}], safe = False)
+
+@csrf_exempt
+def signOut(request):
+    print("FROM sign out")
+    user_name = request.POST.get('userID')
+    ## receiving token
+    curr_user = User.objects.get(username=user_name)
+    curr_user.last_name = "None"
+
+    return JsonResponse()
 
 @csrf_exempt
 def saved(request):
@@ -186,7 +209,10 @@ def projects(request):
 
     ## get user information based on user id
     user_name = request.GET.get('userID')
+    print(user_name)
+    # curr_user = User.objects.get(username=user_name)
     curr_user = User.objects.get(username=user_name)
+
     user_info = Researcher.objects.get(user=curr_user)
 
     proj_json = []
