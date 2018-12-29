@@ -12,7 +12,7 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading"},],
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com"},],
             files: [
             ],
             keyInfo: {projectID: '', userID: ''},
@@ -24,7 +24,6 @@ export default class ResultsPage extends Component {
     }
 
     update = () => {
-        
         this.props.authPayload.verifyUser(this.state.keyInfo.userID);
 
         const projectID = this.state.keyInfo.projectID;
