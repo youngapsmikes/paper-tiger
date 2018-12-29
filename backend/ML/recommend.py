@@ -10,6 +10,14 @@ from scipy import spatial
 def getAuthors(paper_ids, authors, paper_authors):
     return [" ".join(authors[authors.id.isin(paper_authors[paper_authors['paper_id'] == paper_id]['author_id'].values)].name.values) for paper_id in paper_ids] 
 
+def getLinks(paper_ids): 
+    print("PAPER_IDS" + str(paper_ids)) 
+    article_links = pd.read_csv('id_link.csv')
+    return [list(article_links[article_links['id'] == paper_id]['link'].values) for paper_id in paper_ids]
+
+def sortByTitle(zipped_results):
+    return sorted(zipped_results, key=lambda x: x[0])
+
 def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors):
     dists = np.zeros((lda_X.shape[0],))
     article = model.transform(tf_article)
@@ -21,15 +29,19 @@ def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors):
     # authors = list(authors[authors['id'].isin(index)]['name'])
     paper_ids = papers.iloc[index].id.values
     authors = getAuthors(paper_ids, authors, paper_authors)
-    return list(zip(list(papers['title'][index]), topic_vecs, authors))
+    links = getLinks(paper_ids)
+    zipped_results = zip(list(papers['title'][index]), topic_vecs, authors, links)
+    if False:
+        zipped_results = sortByTitle(zipped_results)
+    return list(zipped_results)
     
 def generate_Explanation(inputs, results, pdf_names):
 	tree = spatial.KDTree(inputs)
 	new_results = []
-	for (title, topic_vec, author) in results:
+	for (title, topic_vec, author, links) in results:
 	    (_, idx) = tree.query(topic_vec)
 	    explanation = str(pdf_names[idx])
-	    new_results.append((title, author, explanation))
+	    new_results.append((title, author, explanation, links))
 
 	return new_results
 

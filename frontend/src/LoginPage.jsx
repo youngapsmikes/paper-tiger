@@ -47,7 +47,7 @@ class LoginPage extends Component {
             this.props.authPayloadSpecial.authenticateUser(data[0].token, profile.getGivenName());
             this.setState({redirect: true, userID: data[0].token});
           }).catch((error) => console.log(error));
-    const DEBUG = true;
+    const DEBUG = false;
 
     if (DEBUG) {
       this.props.authPayloadSpecial.authenticateUser(12345, "Quinn");

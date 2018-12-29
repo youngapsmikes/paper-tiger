@@ -191,8 +191,8 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
-    for (title, author, why) in pairs:
-        json_list.append({'author': author, 'title': title, 'why':why})
+    for (title, author, why, link) in pairs:
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)
@@ -214,6 +214,7 @@ def projects(request):
 
     ## get user information based on user id
     user_token = request.GET.get('userID')
+    print("USER TOKEN" + str(user_token))
     # curr_user = User.objects.get(username=user_name)
     curr_user = User.objects.get(last_name = user_token)
 
