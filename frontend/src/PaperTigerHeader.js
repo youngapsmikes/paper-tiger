@@ -24,6 +24,10 @@ export default class PaperTigerHeader extends Component {
           isOpen: !this.state.isOpen
         });
       }
+      logOut = (event) => {
+        event.preventDefault();
+        this.props.authPayload.logOutUser();
+      }
       render() {
         return (
           <div>
@@ -38,7 +42,10 @@ export default class PaperTigerHeader extends Component {
                     <NavLink href={"/about/" + this.props.userID}>About</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href={"/projects/" + this.props.userID}>Projects</NavLink>
+                    <NavLink href={"/projects/" + this.props.userID}>{this.props.authPayload.user}</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href={"/"} onClick={this.logOut}>Logout</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>

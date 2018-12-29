@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import { Redirect } from 'react-router';
 import './App.css';
 import 'filepond/dist/filepond.min.css';
 import PaperTigerHeader from './PaperTigerHeader.js';
@@ -9,24 +11,73 @@ import Home from './home.jsx';
 import LoginPage from './LoginPage.jsx';
 import ProjectPage from './projectPage.jsx';
 import AboutPage from './AboutPage.jsx';
+import history from "./history";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authUser: 12345,
+      userName: "Offline"
+    }
+  }
+
+  authenticateUser = (userID, user) => {
+    this.setState({authUser: userID, userName: user});
+  }
+
+  verifyUser = (userID) => {
+    if ((this.state.authUser != userID) || (this.state.authUser == null)) {
+      console.log("USER NOT SIGNED IN");
+      history.push('/');
+      return;
+    }
+    console.log("USER SIGNED IN - OK TO PROCEED");
+
+  }
+
+  logOutUser = () => {
+    this.setState({authUser: null, userName: ""});
+
+    const data = JSON.stringify({
+      userToken: this.state.authUser
+    });
+
+    fetch('http://localhost:5000/backend/signoutuser', {
+      method: 'POST',
+      body: data,
+    }).catch((error) => console.log(error));
+
+    console.log("USER LOGGED OUT");
+    history.push('/');
+  }
+
   render() {
+
+    const authPayload = {
+      verifyUser: this.verifyUser,
+      logOutUser: this.logOutUser,
+      user: this.state.userName
+    }
+
+    const authPayloadSpecial = {
+      authenticateUser: this.authenticateUser
+    }
+
     return (
-      <Router>
       <div className="App">
         {/* <header>
         <PaperTigerHeader />
         </header> */}
         <Switch>
-          <Route path ="/about/:userID" component={AboutPage} />
-          <Route path="/results/:userID/:projectID" component={ResultsPage} />
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/projects/:userID" component={ProjectPage} />
+          <Route path ="/about/:userID" render={(props) => <AboutPage {...props} authPayload={authPayload} />} />
+          <Route path="/results/:userID/:projectID" render={(props) =><ResultsPage {...props} authPayload={authPayload} />} />
+          <Route exact path="/" render={(props) =><LoginPage {...props} authPayloadSpecial = {authPayloadSpecial} />} />
+          <Route path="/projects/:userID" render={(props) =><ProjectPage {...props} authPayload={authPayload}/>} />
         </Switch>
         
       </div>
-      </Router>
     );
   }
 }

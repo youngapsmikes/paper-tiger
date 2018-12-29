@@ -24,6 +24,9 @@ export default class ResultsPage extends Component {
     }
 
     update = () => {
+        
+        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
+
         const projectID = this.state.keyInfo.projectID;
         const userID = this.state.keyInfo.userID;
 
@@ -36,18 +39,21 @@ export default class ResultsPage extends Component {
         console.log("DATA REQUEST MADE " + projectID + 
         " / " + userID);
 
-        fetch(`/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
+        fetch(`http://localhost:5000/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
 
-        fetch(`/backend/saved?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
+        fetch(`http://localhost:5000/backend/saved?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({files: data});
             }).catch((error) => console.log(error));
     }
 
     deleterequest = (givenfileName, projectID, userID) => {
+        
+        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
+
         const project = projectID;
         const user = userID;
 
@@ -79,10 +85,12 @@ export default class ResultsPage extends Component {
 
     updateStateSuggestions = (project, user) => {
         
+        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
+        
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
+        fetch(`http://localhost:5000/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
@@ -92,7 +100,8 @@ export default class ResultsPage extends Component {
 
     addFile(ev) {
         ev.preventDefault();
-        console.log(this);
+
+        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
 
         const user = this.props.keyInfo.userID;
         const project = this.props.keyInfo.projectID;
@@ -127,7 +136,7 @@ export default class ResultsPage extends Component {
         return (
             <div>
             <header>
-            <PaperTigerHeader userID={this.props.match.params.userID} />
+            <PaperTigerHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
             </header>
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>

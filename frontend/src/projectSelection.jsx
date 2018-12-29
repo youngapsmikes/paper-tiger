@@ -135,18 +135,22 @@ class ProjectSelection extends Component {
 
     fetchResult = () => {
 
+        this.props.authPayload.verifyUser(this.props.userID);
+
         this.setState({loading: true});
 
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
+        fetch(`http://localhost:5000/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({projects: data, loading: false});
             }).catch((error) => console.log(error));        
     }
 
     addProject = (projectName) => {
+
+        this.props.authPayload.verifyUser(this.props.userID);
 
         this.setState({loading: true})
         

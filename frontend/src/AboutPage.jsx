@@ -10,7 +10,7 @@ class AboutPage extends Component {
         return (
           <div>
           <header>
-          <PaperTigerHeader userID={this.props.match.params.userID} />
+          <PaperTigerHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
           </header>
           <div className="toplevel">
             <Jumbotron fluid>

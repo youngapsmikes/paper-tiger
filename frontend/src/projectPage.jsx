@@ -13,10 +13,10 @@ class ResultsPage extends Component {
         return (
             <div>
             <header>
-            <PaperTigerHeader userID={this.props.match.params.userID} />
+            <PaperTigerHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
             </header>
             <div className="ProjectPage">
-                <ProjectSelection userID = {this.props.match.params.userID} />
+                <ProjectSelection userID = {this.props.match.params.userID} authPayload={this.props.authPayload}/>
             </div>
             </div>
         )
