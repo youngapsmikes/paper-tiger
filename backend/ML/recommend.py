@@ -10,8 +10,7 @@ from scipy import spatial
 def getAuthors(paper_ids, authors, paper_authors):
     return [" ".join(authors[authors.id.isin(paper_authors[paper_authors['paper_id'] == paper_id]['author_id'].values)].name.values) for paper_id in paper_ids] 
 
-def getLinks(paper_ids): 
-    print("PAPER_IDS" + str(paper_ids)) 
+def getLinks(paper_ids):
     article_links = pd.read_csv('id_link.csv')
     return [list(article_links[article_links['id'] == paper_id]['link'].values) for paper_id in paper_ids]
 
