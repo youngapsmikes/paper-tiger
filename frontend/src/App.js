@@ -14,23 +14,58 @@ import AboutPage from './AboutPage.jsx';
 import history from "./history";
 import RedirecPage from "./redirectPage.jsx";
 
-class App extends Component {
+class App extends Component {/* 
   constructor(props) {
     super(props);
 
     this.state = {
-      authUser: 'av',
+      authUser: '',
       userName: "Offline"
+    }
+  } */
+
+  authenticateUser = (userID, user) => {
+    window.sessionStorage.setItem("authUser", userID);
+    window.sessionStorage.setItem("userName", user);
+   /*  this.setState({authUser: userID, userName: user}); */
+  }
+
+  getAuthUser = () => {
+    try {
+      var user = window.sessionStorage.getItem("authUser");
+
+      if (!user) {
+        return null;
+      } else {
+        return user;
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+    
+  }
+
+  getUserName = () => {
+    try {
+      var userName = window.sessionStorage.getItem("userName");
+      if (!userName) {
+        return 'Projects';
+      } else {
+        return userName;
+      }
+    } catch (error) {
+      console.log(error);
+      return 'Projects';
     }
   }
 
-  authenticateUser = (userID, user) => {
-    this.setState({authUser: userID, userName: user});
-  }
-
   verifyUser = (userID) => {
-    if ((this.state.authUser != userID) || (this.state.authUser == null)) {
+    var authUser = this.getAuthUser();
+    if ((authUser != userID) || (authUser == null)) {
       console.log("USER NOT SIGNED IN");
+      console.log("USERID GIVEN IS : " + userID);
+      console.log("UserID should be: " + authUser);
       history.push('/redirect');
       return;
     }
@@ -39,10 +74,12 @@ class App extends Component {
   }
 
   logOutUser = () => {
-    this.setState({authUser: null, userName: ""});
+    var authUser = this.getAuthUser();
+    window.sessionStorage.removeItem("authUser");
+    window.sessionStorage.removeItem("userName");
 
     const data = JSON.stringify({
-      userToken: this.state.authUser
+      userToken: authUser
     });
 
     fetch('http://localhost:5000/backend/signoutuser', {
@@ -59,7 +96,7 @@ class App extends Component {
     const authPayload = {
       verifyUser: this.verifyUser,
       logOutUser: this.logOutUser,
-      user: this.state.userName
+      user: this.getUserName()
     }
 
     const authPayloadSpecial = {
