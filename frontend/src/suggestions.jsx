@@ -23,12 +23,18 @@ class Why extends Component {
 }
 
 class PaperRow extends Component {
+    visitPaper = () => {
+        console.log(this.props);
+        window.open(this.props.link, '_blank');
+    }
     render() {
         return (
             <React.Fragment>
             <li class="Article">
             <div class="TopRow"><span class="Title">{this.props.title}</span>
-            <span class="why"><Why why={this.props.why}/></span></div>
+            <span class="why"><Why why={this.props.why}/></span>
+            <span class="link"><Button onClick={this.visitPaper}>View</Button></span>
+            </div>
             <div class="Author">{this.props.author}</div>
             </li>
             </React.Fragment>
@@ -46,7 +52,7 @@ class RecommendationsTable extends Component {
         if (!loading) {
             for (let i = 0; i < this.props.articles.length; i++) {
                 let article = this.props.articles[i];
-                rows.push(<PaperRow author={article.author} title={article.title} why={article.why}/>);
+                rows.push(<PaperRow author={article.author} title={article.title} why={article.why} link={article.link}/>);
             }
         }
 

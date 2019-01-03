@@ -34,8 +34,25 @@ class LoginPage extends Component {
           console.log(this);
           var email = profile.getEmail();
           var user = email.substring(0, email.lastIndexOf("@"));
-          this.setState({redirect: true, userID: user});
-  
+
+          const data = JSON.stringify({
+            userName: user
+          });
+
+          fetch('http://localhost:5000/backend/getusertoken', {
+            method: 'POST',
+            body: data,
+          }).then(resp => resp.json()).then(data => {
+            console.log(data);
+            this.props.authPayloadSpecial.authenticateUser(data[0].token, profile.getGivenName());
+            this.setState({redirect: true, userID: data[0].token});
+          }).catch((error) => console.log(error));
+    const DEBUG = false;
+
+    if (DEBUG) {
+      this.props.authPayloadSpecial.authenticateUser(12345, "Quinn");
+      this.setState({redirect: true, userID: 12345});
+    }
   }
       state = {
       redirect: false,

@@ -21,7 +21,7 @@ import os
 import glob
 import stat
 import shutil
-
+from uuid import uuid4
 # insert the absolute path of ML directory
 sys.path.insert(0, os.path.join(str(settings.BASE_DIR), "ML"))
 from ML import recommend
@@ -31,6 +31,34 @@ from account.models import Paper, Project, Researcher
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
+
+# def convertToUser(user_token):
+#     user = User.objects.get(last_name = user_token)
+#     return user
+
+@csrf_exempt
+def getUserToken(request):
+    print("FROM user token")
+    ## if token is not None 
+    user_name = json.loads(request.body)['userName']
+    # user_name = request.POST.get('userName')
+    curr_user = User.objects.get(username=user_name)
+    rand_token = str(uuid4())
+
+    curr_user.last_name = rand_token
+    curr_user.save()
+    print(rand_token)
+    return JsonResponse([{'token': rand_token}], safe = False)
+
+@csrf_exempt
+def signOut(request):
+    print("FROM sign out")
+    user_token = request.POST.get('userID')
+    ## receiving token
+    curr_user = User.objects.get(last_name = user_token)
+    curr_user.last_name = "None"
+
+    return JsonResponse()
 
 @csrf_exempt
 def saved(request):
@@ -52,9 +80,9 @@ def saved(request):
     ## SAVE USER uploaded files
     if request.method == 'POST':
         # User should be authenticated before this function is called
-        user_name = request.POST.get('userID')
+        user_token = request.POST.get('userID')
         project_id = request.POST.get('projectID')
-        curr_user = User.objects.get(username=user_name)
+        curr_user = User.objects.get(last_name=user_token)
         user_info = Researcher.objects.get(user=curr_user)
 
         MyProfileForm = ProfileForm(request.POST, request.FILES)
@@ -97,9 +125,9 @@ def saved(request):
         print(proj_json)
         return JsonResponse(proj_json, safe = False)
     elif request.method == 'GET':
-        user_name = request.GET.get('userID')
+        user_token = request.GET.get('userID')
         project_id = request.GET.get('projectID')
-        curr_user = User.objects.get(username=user_name)
+        curr_user = User.objects.get(last_name=user_token)
         user_info = Researcher.objects.get(user=curr_user)
 
         # Start new project for user or get old one
@@ -140,9 +168,9 @@ def results(request):
     #     print("USER IS NOT AUTHENTICATED")
     # print("USERNAME" + str(request.session['username']))
     # print("FROM RESULTS")
-    user_name = request.GET.get('userID')
+    user_token = request.GET.get('userID')
     project_id = request.GET.get('projectID')
-    curr_user = User.objects.get(username=user_name)
+    curr_user = User.objects.get(last_name=user_token)
     curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
     curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
 
@@ -163,8 +191,8 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
-    for (title, author, why) in pairs:
-        json_list.append({'author': author, 'title': title, 'why':why})
+    for (title, author, why, link) in pairs:
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)
@@ -185,8 +213,11 @@ def projects(request):
     print("FROM PROJECTS")
 
     ## get user information based on user id
-    user_name = request.GET.get('userID')
-    curr_user = User.objects.get(username=user_name)
+    user_token = request.GET.get('userID')
+    print("USER TOKEN" + str(user_token))
+    # curr_user = User.objects.get(username=user_name)
+    curr_user = User.objects.get(last_name = user_token)
+
     user_info = Researcher.objects.get(user=curr_user)
 
     proj_json = []
@@ -210,11 +241,11 @@ def newproject(request):
     print("FROM NEW PROJECT")
     request_dict = json.loads(request.body)
 
-    user_name = request_dict['userID']
+    user_token = request_dict['userID']
     project_name = request_dict['project']
 
     # ## identify user
-    curr_user = User.objects.get(username=user_name)
+    curr_user = User.objects.get(last_name=user_token)
     user_info = Researcher.objects.get(user=curr_user)
 
     # ## have to do some logic to check the project ids
@@ -244,12 +275,12 @@ def removefile(request):
     print("FROM REMOVE FILE")
 
     request_dict = json.loads(request.body)
-    user_name = request_dict['userID']
+    user_token = request_dict['userID']
     proj_id = int(request_dict['projectID'])
     file_name = str(request_dict['fileName'])
 
 
-    user_info = Researcher.objects.get(user=User.objects.get(username=user_name))
+    user_info = Researcher.objects.get(user=User.objects.get(last_name=user_token))
 
     try:
         targ_paper = user_info.projects.get(pid=proj_id).project_papers.get(title=file_name)

@@ -1,0 +1,8 @@
+.jumbotron {
+    margin: 0 0 auto !important;
+    position: absolute !important;
+    top: 10%;
+    left: 25%;
+    width: 50%;
+    opacity: 0.85 !important;
+}
