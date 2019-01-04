@@ -14,20 +14,11 @@ import AboutPage from './AboutPage.jsx';
 import history from "./history";
 import RedirecPage from "./redirectPage.jsx";
 
-class App extends Component {/* 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: '',
-      userName: "Offline"
-    }
-  } */
+class App extends Component {
 
   authenticateUser = (userID, user) => {
     window.sessionStorage.setItem("authUser", userID);
     window.sessionStorage.setItem("userName", user);
-   /*  this.setState({authUser: userID, userName: user}); */
   }
 
   getAuthUser = () => {
@@ -105,9 +96,6 @@ class App extends Component {/*
 
     return (
       <div className="App">
-        {/* <header>
-        <PaperTigerHeader />
-        </header> */}
         <Switch>
           <Route path ="/about/:userID" render={(props) => <AboutPage {...props} authPayload={authPayload} />} />
           <Route path="/results/:userID/:projectID" render={(props) =><ResultsPage {...props} authPayload={authPayload} />} />
