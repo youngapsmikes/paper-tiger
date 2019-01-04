@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal } from 'react-bootstrap';
+import {Jumbotron, Container} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
@@ -69,23 +70,23 @@ class LoginPage extends Component {
       }
         return (
           <div className="toplevel">
-            <Modal.Dialog>
-            <Modal.Body>
-            <div className="App-body">  
-            <img src={paperTigerlogofinal} height="227.2" width="320"/>
-
-            </div>
-            <GoogleLogin
-              clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
-              buttonText="Login"
-              theme="dark"
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
-            />
-    
-            </Modal.Body>
-            </Modal.Dialog>
-            </div>
+            <Container>
+              <Jumbotron>
+                <Container fluid>
+                <img src={paperTigerlogofinal} height="227.2" width="320"/>
+                <div className="button">
+                <GoogleLogin
+                  clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
+                  buttonText="Login"
+                  theme="dark"
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseGoogle}
+                />
+                </div>
+                </Container>
+              </Jumbotron>
+            </Container>
+          </div>
         );
       }
 }
