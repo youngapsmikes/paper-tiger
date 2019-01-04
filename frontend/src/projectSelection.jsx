@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './projectSelection.css';
-import { Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
 import { Button } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
+import {ListGroup, ListGroupItem} from 'reactstrap'; 
 
 class Project extends Component {
 
@@ -19,14 +19,11 @@ class Project extends Component {
         const newTo = {
             pathname: "/results/" + this.props.userID + '/' + this.props.id
         }
+        console.log(newTo);
 
         return (
             <React.Fragment>
-                <li class="project">
-                <Link to={newTo}>
-                {this.props.name}
-                </Link>
-                </li>
+                <ListGroupItem tag="a" href={newTo} action>{this.props.name}</ListGroupItem>
             </React.Fragment>
         );
     }
@@ -37,7 +34,6 @@ class ProjectTable extends Component {
         const loading = this.props.loading;
 
         const rows = [];
-
         if (!loading) {
             for (let i = 0; i < this.props.projects.length; i++) {
                 let project = this.props.projects[i];
@@ -56,9 +52,9 @@ class ProjectTable extends Component {
         } else {
             return (
                 <div class ="ProjectTable">
-                <ul class="projectList">
-                {rows}
-                </ul>
+                    <ListGroup>
+                        {rows}
+                    </ListGroup>
                 </div>
             );
         }        
