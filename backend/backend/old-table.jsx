@@ -1,3 +1,28 @@
+class Project extends Component {
+
+    componentDidMount() {
+        console.log("USER ID: " + this.props.userID);
+    }
+    
+
+    render() {
+
+        const newTo = {
+            pathname: "/results/" + this.props.userID + '/' + this.props.id
+        }
+
+        return (
+            <React.Fragment>
+                <li class="project">
+                <Link to={newTo}>
+                {this.props.name}
+                </Link>
+                </li>
+            </React.Fragment>
+        );
+    }
+}
+
 class ProjectTable extends Component {
     render() {
         const loading = this.props.loading;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './projectSelection.css';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
 import { Button } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
@@ -23,7 +22,7 @@ class Project extends Component {
 
         return (
             <React.Fragment>
-                <ListGroupItem tag="a" href={newTo.pathname} action>{this.props.name}</ListGroupItem>
+                <ListGroupItem tag="button" href={newTo.pathname} action>{this.props.name}</ListGroupItem>
             </React.Fragment>
         );
     }
