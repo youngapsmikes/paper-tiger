@@ -15,7 +15,8 @@ export default class RedirectPage extends Component {
 
     render() {
         return (
-            <div>
+        
+            <div className="toplevel">
             <Jumbotron fluid>
                 <h1>You are not logged in</h1>
                 <p>Redirecting to login page. Please sign in to continue. </p>
