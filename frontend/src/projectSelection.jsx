@@ -23,7 +23,7 @@ class Project extends Component {
 
         return (
             <React.Fragment>
-                <ListGroupItem tag="a" href={newTo} action>{this.props.name}</ListGroupItem>
+                <ListGroupItem tag="a" href={newTo.pathname} action>{this.props.name}</ListGroupItem>
             </React.Fragment>
         );
     }
