@@ -69,10 +69,8 @@ class LoginPage extends Component {
         return <Redirect to={newTo}/>;
       }
         return (
-          <div>
-            <Container>
-              <Jumbotron>
-                <Container fluid className="toplevel">
+            <Container fluid>
+              <Jumbotron fluid>
                 <img src={paperTigerlogofinal} height="227.2" width="320"/>
                 <div className="button">
                 <GoogleLogin
@@ -83,10 +81,8 @@ class LoginPage extends Component {
                   onFailure={this.responseGoogle}
                 />
                 </div>
-                </Container>
               </Jumbotron>
             </Container>
-          </div>
         );
       }
 }

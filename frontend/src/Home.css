@@ -7,5 +7,9 @@
 } */
 
 .jumbotron {
-    background: url('./swirling-books.jpg') !important; 
+    background-image: url('./swirling-books.jpg') !important; 
+    background-size: cover; 
+    padding-right:0; 
+    padding-left:0;
+    /* height: 100vh; */
 }
