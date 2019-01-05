@@ -69,20 +69,12 @@ class LoginPage extends Component {
         return <Redirect to={newTo}/>;
       }
         return (
-              <Jumbotron fluid>
-                <Container fluid>
-                {/* <img src={paperTigerlogofinal} height="227.2" width="320"/> */}
-                <div className="button">
-                <GoogleLogin
-                  clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
-                  buttonText="Login"
-                  theme="dark"
-                  onSuccess={this.responseGoogle}
-                  onFailure={this.responseGoogle}
-                />
-                </div>
-                </Container>
-              </Jumbotron>
+          <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>Bootstrap Tutorial</h1> 
+    <p>Bootstrap is the most popular HTML, CSS...</p> 
+  </div>
+</div>
         );
       }
 }
