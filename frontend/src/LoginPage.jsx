@@ -69,9 +69,9 @@ class LoginPage extends Component {
         return <Redirect to={newTo}/>;
       }
         return (
-            <Container fluid>
               <Jumbotron fluid>
-                <img src={paperTigerlogofinal} height="227.2" width="320"/>
+                <Container fluid>
+                {/* <img src={paperTigerlogofinal} height="227.2" width="320"/> */}
                 <div className="button">
                 <GoogleLogin
                   clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
@@ -81,8 +81,8 @@ class LoginPage extends Component {
                   onFailure={this.responseGoogle}
                 />
                 </div>
+                </Container>
               </Jumbotron>
-            </Container>
         );
       }
 }
