@@ -14,7 +14,7 @@ import { Redirect } from 'react-router';
 import paperTigerlogofinal from './paperTigerlogofinal.png'
 
 
-import './home.css';
+import './Home.css';
 
 
 class LoginPage extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FileUpload from './FileUpload.jsx';
 import 'filepond/dist/filepond.min.css';
 import { Modal } from 'react-bootstrap';
-import './home.css';
+import './Home.css';
 
 export default class Home extends Component {
     render() {
