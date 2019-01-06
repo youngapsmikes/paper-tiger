@@ -17,6 +17,26 @@ def getLinks(paper_ids):
 def sortByTitle(zipped_results):
     return sorted(zipped_results, key=lambda x: x[0])
 
+def getTopicButtons(topic_vecs):
+
+    user_buttons = []
+    for article_topics in topic_vecs:
+        topic_idx = list(article_topics.argsort()[::-1])
+        topic_sorted = sorted(article_topics)[::-1]
+
+        max_topic = topic_sorted[0]
+
+        if max_topic > .95:
+            strength = "Strong"
+        elif max_topic > .55 and max_topic < .95:
+            strength = "Medium"
+        else:
+            strength = "Low"
+        user_buttons.append(topic_idx[0:2]+[strength])
+
+    return user_buttons 
+
+
 def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors):
     dists = np.zeros((lda_X.shape[0],))
     article = model.transform(tf_article)
@@ -25,11 +45,13 @@ def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors):
         dists[idx] = np.linalg.norm(row-article)
     index = list(np.argsort(dists)[1:20])
     topic_vecs = list(lda_X[np.argsort(dists)[1:20]])
-    # authors = list(authors[authors['id'].isin(index)]['name'])
+
     paper_ids = papers.iloc[index].id.values
     authors = getAuthors(paper_ids, authors, paper_authors)
     links = getLinks(paper_ids)
-    zipped_results = zip(list(papers['title'][index]), topic_vecs, authors, links)
+    buttons = getTopicButtons(topic_vecs)
+
+    zipped_results = zip(list(papers['title'][index]), topic_vecs, authors, links, buttons)
     if False:
         zipped_results = sortByTitle(zipped_results)
     return list(zipped_results)
@@ -37,10 +59,10 @@ def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors):
 def generate_Explanation(inputs, results, pdf_names):
 	tree = spatial.KDTree(inputs)
 	new_results = []
-	for (title, topic_vec, author, links) in results:
+	for (title, topic_vec, author, links, buttons) in results:
 	    (_, idx) = tree.query(topic_vec)
 	    explanation = str(pdf_names[idx])
-	    new_results.append((title, author, explanation, links))
+	    new_results.append((title, author, explanation, links, buttons))
 
 	return new_results
 
