@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './suggestions.css';
+import './articleResults.css';
 import Popup from "reactjs-popup";
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
@@ -9,11 +9,12 @@ class Why extends Component {
         return (
             <Popup
                 trigger={<Button className="whyButton"> ? </Button>}
-                modal
-                closeOnDocumentClick
+                
+                position="left top"
+                on="hover"
             >
                 <div className="UploadPopupHeader">
-                <h2>Why was this article suggested?</h2>
+                <h3>Why?</h3>
                 <span className="whyPopup">This article was recommended due to its similarities to {this.props.why}.</span>
                 </div>
             </Popup>
@@ -29,10 +30,9 @@ class PaperRow extends Component {
     render() {
         return (
             <React.Fragment>
-            <li className="list-group-mine">
+            <li className="list-group-mine" onClick={this.visitPaper}>
             <div className="TopRow"><span className="Title">{this.props.title}</span>
             <span className="why"><Why why={this.props.why}/></span>
-            <span className="link"><Button onClick={this.visitPaper}>View</Button></span>
             </div>
             <div className="Author">{this.props.author}</div>
             </li>

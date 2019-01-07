@@ -13,7 +13,7 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com"},
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading: On the rise of smarter computing and the need for robots", why:"Loading", link:"https://www.google.com"},
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com"},
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com"},
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com"},
@@ -21,7 +21,7 @@ export default class ResultsPage extends Component {
             files: [
             ],
             keyInfo: {projectID: '', userID: ''},
-            loading: true,
+            loading: false,
         };
 
         this.updateStateFiles = this.updateStateFiles.bind(this);
@@ -132,8 +132,8 @@ export default class ResultsPage extends Component {
 
     componentDidMount() {
         
-        this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
-            () => {this.update();});
+        /* this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
+            () => {this.update();}); */
     }
 
     render() {
@@ -142,9 +142,11 @@ export default class ResultsPage extends Component {
             <header>
             <PaperTigerHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
             </header>
+            <div class="Results-bg">
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} authPayload={this.props.authPayload} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
                 <ArticleResults loading = {this.state.loading} articles = {this.state.articles} />
+            </div>
             </div>
             </div>
         )
