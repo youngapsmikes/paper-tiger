@@ -71,7 +71,7 @@ class LoginPage extends Component {
         return (
           <div>
             <Container fluid>
-              <Jumbotron fluid>
+              <Jumbotron>
                 <Container fluid className="toplevel">
                 <img src={paperTigerlogofinal} height="227.2" width="320"/>
                 <div className="button">
