@@ -69,12 +69,18 @@ class LoginPage extends Component {
         return <Redirect to={newTo}/>;
       }
         return (
+<<<<<<< HEAD
           <div>
             <Container fluid>
               <Jumbotron>
                 <Container fluid className="toplevel">
+=======
+          <React.Fragment>
+            <div class="container">
+              <div class="row">
+              <div class="jumbotron jumbotron-fluid">
+>>>>>>> 48eff38f5dbc0087ff54f91e4dd34c1330a3c28e
                 <img src={paperTigerlogofinal} height="227.2" width="320"/>
-                <div className="button">
                 <GoogleLogin
                   clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
                   buttonText="Login"
@@ -82,11 +88,16 @@ class LoginPage extends Component {
                   onSuccess={this.responseGoogle}
                   onFailure={this.responseGoogle}
                 />
-                </div>
-                </Container>
-              </Jumbotron>
-            </Container>
-          </div>
+              </div>
+            </div>
+            </div>
+
+            <div class="container">
+            <div class="row">
+            <div class="card-body">Basic card</div>
+            </div>
+            </div>
+          </React.Fragment>
         );
       }
 }

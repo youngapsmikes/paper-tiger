@@ -1,11 +1,18 @@
-.button {
+/* .button {
     text-align: center;
 }
+ */
 
 /* html {
     background: url('./blurry-book.jpg') no-repeat center center fixed;
 } */
 
 .jumbotron {
-    background: url('./swirling-books.jpg') !important; 
+    background-image: url('blurry-book.jpg') !important; 
+    background-size: cover; 
+    padding: 100px 25px;
+    position: relative;
+    /* min-height: 100vh; */
+    /* height: 100vh; */
 }
+
