@@ -70,19 +70,25 @@ class LoginPage extends Component {
       }
         return (
           <React.Fragment>
-            <div>
-              <div className = "jumbotron jumbotron-fluid">
-                <div class = "container">
-                  <img src={paperTigerlogofinal} height="227.2" width="320"/>
-                  <GoogleLogin
+            <div class="container">
+              <div class="row">
+              <div class="jumbotron jumbotron-fluid">
+                <img src={paperTigerlogofinal} height="227.2" width="320"/>
+                <GoogleLogin
                   clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
                   buttonText="Login"
                   theme="dark"
                   onSuccess={this.responseGoogle}
                   onFailure={this.responseGoogle}
                 />
-                </div>
               </div>
+            </div>
+            </div>
+
+            <div class="container">
+            <div class="row">
+            <div class="card-body">Basic card</div>
+            </div>
             </div>
           </React.Fragment>
         );
