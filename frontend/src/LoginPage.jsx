@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Jumbotron, Container} from 'reactstrap';
-import { Row, Col } from 'reactstrap';
+import { ModalBody} from 'reactstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
@@ -87,14 +86,23 @@ class LoginPage extends Component {
 </nav>
 
 <div class="jumbotron jumbotron-fluid text-center">
-    <h1>Paper Tiger</h1>
-    <button type="button" class="btn btn-primary">Login</button>
+   <ModalBody>
+
+   <GoogleLogin
+              clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
+              buttonText="Login"
+              theme="dark"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
+    
+   </ModalBody>
 </div>
 
 
   
 <div class="container-fluid bg-3 text-center">    
-  <h3 class="margin"></h3><br></br>
+  <h3 class="margin">Services</h3><br></br>
   <div class="row">
     <div class="col-sm-4">
             <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>

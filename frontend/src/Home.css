@@ -11,12 +11,13 @@
     background-image: url('blurry-book.jpg') !important; 
     background-size: cover; 
     padding: 100px 25px;
-    /* min-height: 100vh; */
-    /* height: 100vh; */
     width: 100% !important;
     top: 0% !important;
     left: 0% !important;
+    height: 38vh;
 }
+ 
+
 
 .nav-image{
     width: 40px !important ; 
@@ -25,3 +26,22 @@
 .img-responsive {
     width: 80% !important;
 }
+.container-fluid{
+    position: absolute !important;
+    top: 38% !important;
+}
+
+h3 {
+    font-size: 41px !important;
+    background: -webkit-linear-gradient(#b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* 
+.nav-link {
+    font-size: 41px !important;
+    background: -webkit-linear-gradient(#b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+ */
