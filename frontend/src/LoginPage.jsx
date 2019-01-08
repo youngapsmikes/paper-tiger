@@ -75,11 +75,11 @@ class LoginPage extends Component {
 <div className="toplevel">
             <Modal.Dialog>
             <Modal.Body>
-            {/* <div className="App-body">  
+            <div className="App-body">  
             <img src={paperTigerlogofinal} height="227.2" width="320"/>
 
-            </div> */}
-            <img src="https://image.flaticon.com/icons/svg/1254/1254986.svg" class="jumbo-img"/>
+            </div>
+            {/* <img src="https://image.flaticon.com/icons/svg/1254/1254986.svg" class="jumbo-img"/> */}
 
             <div id="google-button">
             <GoogleLogin
@@ -98,7 +98,7 @@ class LoginPage extends Component {
 
   
 <div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Services</h3><br></br>
+  <h3 class="margin"></h3><br></br>
   <div class="row">
     <div class="col-sm-4">
             <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
