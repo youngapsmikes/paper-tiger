@@ -4,8 +4,9 @@
     padding: 0.75rem 1.25rem;
     box-sizing: border-box;
     margin-bottom: -1px;
-    background-color: #fff;
+    background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .list-group-mine:hover {
@@ -13,40 +14,51 @@
     cursor: pointer;
 }
 
-.list-group-mine:first-child {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+.list-group {
+    overflow: auto;
+    height: 400px;
 }
 
-.ProjectTable {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    flex: 1 1 100%;
-    overflow-y: auto;
-}
-
-.projectList {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    flex: 1 1 100%;
-    overflow-y: auto;
-    border: 2px solid black;
-    width: 100%;
-}
-
-.ProjectHeader {
-    flex: 0 0 auto;
-    border-bottom: 2px solid black;
+.listContent {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
 }
 
+.listContent > .spacing {
+}
+
+.listContent > .projectTitle {
+    flex: 1 1 34%;
+}
+
+.listContent > .removebutton {
+    flex: 0 0 33%;
+}
+
+.ProjectTable {
+    margin: 0;
+    padding: 0;
+    flex: 1 1 100%;
+}
+
+.ProjectHeader {
+    flex: 0 0 auto;
+    border-bottom: 1px dashed black;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.ProjectHeader > .spacing {
+    flex: 0 0 33%;
+}
+
 .projectheaderText {
-    flex: 0 0 66%;
+    flex: 1 0 34%;
     font-size: 2rem;
 }
 

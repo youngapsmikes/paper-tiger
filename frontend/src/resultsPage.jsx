@@ -61,10 +61,6 @@ export default class ResultsPage extends Component {
         const project = projectID;
         const user = userID;
 
-        
-        let seed = (new Date()).getSeconds();
-        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
-
         const payload = JSON.stringify({
             fileName: givenfileName,
             projectID: project,

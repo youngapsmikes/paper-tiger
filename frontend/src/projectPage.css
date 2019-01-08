@@ -1,10 +1,14 @@
 .ProjectPage {
     opacity: .9  !important;
-    border: 1px black;
-    background-color: aliceblue;
+    border: solid;
+    border-width: 1px; 
+    border-color:black;
+    border-radius: 15px;
+    background-color: white;
     overflow: hidden;
     width: 80%;
-    height: 50%;
+    min-height: 25%;
+    max-height: 60%;
     position: fixed;
     top: 25%;
     left: 10%;

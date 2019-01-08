@@ -12,11 +12,6 @@
     background-color: lightblue;
 }
 
-.list-group-mine:first-child {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-}
-
 .TopRow {
     display: flex;
     flex-flow: row nowrap;
