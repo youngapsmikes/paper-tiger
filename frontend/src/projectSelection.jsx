@@ -4,28 +4,29 @@ import { Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
-import { Button } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import history from "./history";
 
 class Project extends Component {
 
     componentDidMount() {
         console.log("USER ID: " + this.props.userID);
     }
+
+    visitProject = () => {
+        const path = "/results/" + this.props.userID + '/' + this.props.id;
+
+        history.push(path);
+    }
     
 
     render() {
 
-        const newTo = {
-            pathname: "/results/" + this.props.userID + '/' + this.props.id
-        }
-
         return (
             <React.Fragment>
-                <li class="project">
-                <Link to={newTo}>
+                <li className="list-group-mine" onClick={this.visitProject}>
                 {this.props.name}
-                </Link>
                 </li>
             </React.Fragment>
         );
@@ -56,9 +57,9 @@ class ProjectTable extends Component {
         } else {
             return (
                 <div class ="ProjectTable">
-                <ul class="projectList">
-                {rows}
-                </ul>
+                <ListGroup componentClass="ul">
+                    {rows}
+                </ListGroup>
                 </div>
             );
         }        
