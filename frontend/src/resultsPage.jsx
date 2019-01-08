@@ -21,7 +21,7 @@ export default class ResultsPage extends Component {
             files: [
             ],
             keyInfo: {projectID: '', userID: ''},
-            loading: false,
+            loading: true,
         };
 
         this.updateStateFiles = this.updateStateFiles.bind(this);
@@ -132,8 +132,8 @@ export default class ResultsPage extends Component {
 
     componentDidMount() {
         
-        /* this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
-            () => {this.update();}); */
+        this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
+            () => {this.update();});
     }
 
     render() {
