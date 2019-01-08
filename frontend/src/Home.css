@@ -33,14 +33,14 @@
     height: 100vh;
 }
 
-h3 {
+/* h3 {
     font-size: 55px !important;
     font-weight: 600 !important;
     background: -webkit-linear-gradient(#b92b27, #1565c0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-}
+} */
 .jumbo-img {
     width: 10% !important;
 }

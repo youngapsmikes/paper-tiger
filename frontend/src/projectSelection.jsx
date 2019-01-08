@@ -50,7 +50,7 @@ class ProjectTable extends Component {
             return (
                 <React.Fragment>
                 <div class="loading">
-                <div class="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'50%'} /></div>
+                <div class="loadingIcon"><ReactLoading color={'grey'} height={'100px'} width={'300px'} /></div>
                 </div>
                 </React.Fragment>
                 );

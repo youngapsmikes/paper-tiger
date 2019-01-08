@@ -94,4 +94,9 @@
 
 .loadingIcon {
     flex: 0 0 100%;
+    margin: auto;
+    vertical-align: center;
+    padding-top: 50px;
+
 }
+
