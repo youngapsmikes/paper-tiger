@@ -191,12 +191,17 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
-    for (title, author, why, link) in pairs:
-        json_list.append({'author': author, 'title': title, 'why':why, 'link': link})
+    topic_names = ["Applications", "Computational Neuroscience", "Experimental Neuroscience", "Neural Nets", "Probabilistic Models"]
+    for (title, author, why, link, buttons) in pairs:
+        topic1 = buttons[0]
+        topic2 = buttons[1]
+        strength = buttons[2]
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': str(topic1), 'topic2': str(topic2), 'strength': strength, 'topic_names': topic_names})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)
 
+    print(json_list)
     return JsonResponse(json_list, safe = False)
 
 @csrf_exempt
