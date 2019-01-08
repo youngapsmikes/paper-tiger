@@ -69,7 +69,14 @@ class LoginPage extends Component {
         return <Redirect to={newTo}/>;
       }
         return (
+<<<<<<< HEAD
+          <div>
+            <Container fluid>
+              <Jumbotron>
+                <Container fluid className="toplevel">
+=======
           <React.Fragment>
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
   <a class="navbar-brand" href="#">
     <img className="nav-image" src="https://image.flaticon.com/icons/svg/1254/1254986.svg"/>
@@ -83,18 +90,23 @@ class LoginPage extends Component {
       <a class="nav-link" href="#">How it Works</a>
     </li>
   </ul>
-
 </nav>
 
-<div class="jumbotron jumbotron-fluid text-center">
-    <h1>Paper Tiger</h1>
-    <button type="button" class="btn btn-primary">Login</button>
-</div>
 
+<div class="container-fluid bg-3 text-center">    
+  <div class="row">
+  <div class="col-md-12">
+  <div class="jumbotron jumbotron-fluid text-center">
+      <h1>Paper Tiger</h1>
+      <button type="button" class="btn btn-primary">Login</button>
+  </div>
+  </div>
+  </div>
+</div>
 
   
 <div class="container-fluid bg-3 text-center">    
-  <h3 class="margin"></h3><br></br>
+  <h3 class="margin">Services</h3><br></br>
   <div class="row">
     <div class="col-sm-4">
             <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
@@ -110,6 +122,23 @@ class LoginPage extends Component {
     </div>
   </div>
 </div>
+=======
+            <div class="container">
+              <div class="row">
+              <div class="jumbotron jumbotron-fluid">
+>>>>>>> 48eff38f5dbc0087ff54f91e4dd34c1330a3c28e
+                <img src={paperTigerlogofinal} height="227.2" width="320"/>
+                <GoogleLogin
+                  clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
+                  buttonText="Login"
+                  theme="dark"
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseGoogle}
+                />
+              </div>
+            </div>
+            </div>
+>>>>>>> 53f476db6c10e5bdc0a11440dbe1683eff6d665d
 
           </React.Fragment>
         );
