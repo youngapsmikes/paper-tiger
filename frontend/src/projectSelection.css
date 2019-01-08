@@ -79,4 +79,10 @@
 
 .loadingIcon {
     flex: 0 0 100%;
+<<<<<<< HEAD
+=======
+    margin: auto;
+    vertical-align: center;
+    padding-top: 50px;
+>>>>>>> e2f25189ca74fe59de5b3cfff8dd2d15ed7c5158
 }

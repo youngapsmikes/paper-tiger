@@ -37,6 +37,7 @@ class ProjectTable extends Component {
             for (let i = 0; i < this.props.projects.length; i++) {
                 let project = this.props.projects[i];
                 rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID}/>);
+                rows.push(<Project name = "sample" id = "pls" userID = "1"/>);
             }
         }
         
@@ -44,7 +45,7 @@ class ProjectTable extends Component {
             return (
                 <React.Fragment>
                 <div class="loading">
-                <div class="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'50%'} /></div>
+                <div class="loadingIcon"><ReactLoading color={'grey'} height={'100px'} width={'200px'} /></div>
                 </div>
                 </React.Fragment>
                 );
