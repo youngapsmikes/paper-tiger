@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  font-family: museo-sans-rounded, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
 }
 
 .App-header {
