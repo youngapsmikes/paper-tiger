@@ -27,11 +27,11 @@ def getTopicButtons(topic_vecs):
         max_topic = topic_sorted[0]
 
         if max_topic > .95:
-            strength = "Strong"
+            strength = 2
         elif max_topic > .55 and max_topic < .95:
-            strength = "Medium"
+            strength = 1
         else:
-            strength = "Low"
+            strength = 0
         user_buttons.append(topic_idx[0:2]+[strength])
 
     return user_buttons 
