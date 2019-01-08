@@ -204,6 +204,7 @@ def results(request):
     print(json_list)
     return JsonResponse(json_list, safe = False)
 
+
 @csrf_exempt
 def projects(request):
     """ Get the projects that a user has created
@@ -261,6 +262,7 @@ def newproject(request):
     user_info.projects.add(curr_proj)
     user_info.save()
 
+
     proj_json = []
     for e in list(user_info.projects.all()):
         proj_json.append({'name': str(e.project_name), 'id': e.pid})
@@ -316,6 +318,29 @@ def in_session(request):
     else:
         return JsonResponse([{"in_session": "false"}], safe = False)
 
+@csrf_exempt 
+def deleteproject(request):
+
+    request_dict = json.loads(request.body)
+    user_token = request_dict['userID']
+    proj_id = int(request_dict['projectID'])
+
+    user_info = Researcher.objects.get(user=User.objects.get(last_name=user_token))
+
+    try:
+        targ_project = user_info.projects.get(pid=pid)
+        targ_project.delete()
+    except Exception as e:
+        pass
+
+    user_info.save()
+
+    ## return updated projects
+    proj_json = []
+    for e in list(user_info.projects.all()):
+        proj_json.append({'name': str(e.project_name), 'id': e.pid})
+
+    return JsonResponse(json_list, safe = False)
 
 @csrf_exempt
 def exit(request):
