@@ -102,18 +102,34 @@ class LoginPage extends Component {
   <div class="row">
     <div class="col-sm-4">
             <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
-      <p>Allow our algorithms to...</p>
+      <p>Allow our algorithms to optimize your search of resources. </p>
     </div>
     <div class="col-sm-4"> 
       <img src="https://image.flaticon.com/icons/svg/1114/1114544.svg" class="img-responsive margin" />
-      <p>Spend less time scouring research journals...</p>
+      <p>Spend less time readign irrelevant resources</p>
     </div>
     <div class="col-sm-4"> 
             <img  src="https://image.flaticon.com/icons/svg/1118/1118324.svg" class="img-responsive margin"/>
-      <p>Get the most relevant...</p>
+      <p>Find the papers that will provide you with the most insightful ideas. </p>
     </div>
   </div>
 </div>
+ 
+{/* 
+<div class="container-fluid bg-3 text-center">
+ <div class="row">
+  <div class="col-sm-4">
+    <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
+  </div>
+  <div class="col-sm-8">
+    <p>Allow our algorithms to</p>
+  </div>
+ </div>
+</div>
+ 
+  */}
+
+{/* <img src = "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"/> */}
 
           </React.Fragment>
         );
