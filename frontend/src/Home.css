@@ -9,6 +9,7 @@
 
 .jumbotron {
     background-image: url('blurry-book.jpg') !important; 
+    /* background-image: url('https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80') !important; */
     background-size: cover; 
     padding: 100px 25px;
     width: 100% !important;
@@ -36,6 +37,14 @@ h3 {
     background: -webkit-linear-gradient(#b92b27, #1565c0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+.jumbo-img {
+    width: 10% !important;
+}
+
+.google-button {
+    text-align: center;
+    padding-top: 15px !important;
 }
 /* 
 .nav-link {

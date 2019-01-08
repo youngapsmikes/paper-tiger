@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ModalBody} from 'reactstrap';
+import { Modal } from 'react-bootstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
@@ -69,34 +70,29 @@ class LoginPage extends Component {
       }
         return (
           <React.Fragment>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-  <a class="navbar-brand" href="#">
-    <img className="nav-image" src="https://image.flaticon.com/icons/svg/1254/1254986.svg"/>
-  </a>
-  
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Services</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">How it Works</a>
-    </li>
-  </ul>
-
-</nav>
 
 <div class="jumbotron jumbotron-fluid text-center">
-   <ModalBody>
+<div className="toplevel">
+            <Modal.Dialog>
+            <Modal.Body>
+            {/* <div className="App-body">  
+            <img src={paperTigerlogofinal} height="227.2" width="320"/>
 
-   <GoogleLogin
+            </div> */}
+            <img src="https://image.flaticon.com/icons/svg/1254/1254986.svg" class="jumbo-img"/>
+
+            <div id="google-button">
+            <GoogleLogin
               clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
               buttonText="Login"
               theme="dark"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
             />
-    
-   </ModalBody>
+            </div>
+            </Modal.Body>
+            </Modal.Dialog>
+            </div>
 </div>
 
 
