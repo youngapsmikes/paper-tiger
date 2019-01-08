@@ -42,7 +42,7 @@ export default class PaperTigerHeader extends Component {
                     <NavLink href={"/about/" + this.props.userID}>About</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href={"/projects/" + this.props.userID}>{this.props.authPayload.user}</NavLink>
+                    <NavLink href={"/projects/" + this.props.userID}>{this.props.authPayload.user}'s Projects</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href={"/"} onClick={this.logOut}>Logout</NavLink>
