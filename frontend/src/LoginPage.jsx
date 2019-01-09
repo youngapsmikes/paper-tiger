@@ -106,7 +106,7 @@ class LoginPage extends Component {
     </div>
     <div class="col-sm-4"> 
       <img src="https://image.flaticon.com/icons/svg/1114/1114544.svg" class="img-responsive margin" />
-      <p>Spend less time on irrelevant resources</p>
+      <p>Spend less time on irrelevant resources.</p>
     </div>
     <div class="col-sm-4"> 
             <img  src="https://image.flaticon.com/icons/svg/1118/1118324.svg" class="img-responsive margin"/>
