@@ -121,7 +121,7 @@ class FileTable extends Component {
             return (
                 <div class="fileTable">
                 <div class="emptyNotice">
-                To get started, upload a file using the "+" in the header.
+                Upload a file using the "+" above.
                 </div>
                 </div>
             )
