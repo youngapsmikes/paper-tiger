@@ -27,10 +27,11 @@
 }
 
 .listContent > .spacing {
+    flex: 0 0 5%;
 }
 
 .listContent > .projectTitle {
-    flex: 1 1 34%;
+    flex: 1 0 34%;
 }
 
 .listContent > .removebutton {
@@ -106,4 +107,7 @@
 
 .loadingIcon {
     flex: 0 0 100%;
+}
+
+.warningtext {
 }

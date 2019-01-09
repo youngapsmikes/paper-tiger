@@ -76,6 +76,16 @@ class ProjectTable extends Component {
 
         const rows = [];
 
+        if (this.props.projects.length == 0) {
+            return (
+            <React.Fragment>
+            <div class="warningtext">
+            To get started, use "+" to create a new project.
+            </div>
+        </React.Fragment>
+            )
+        }
+
         if (!loading) {
             for (let i = 0; i < this.props.projects.length; i++) {
                 let project = this.props.projects[i];
