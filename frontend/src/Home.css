@@ -1,23 +1,61 @@
-
-.toplevel {
-    clear: both;
-    display: flex;
-    align-items: center;
-    background-color:transparent !important;
+/* .button {
+    text-align: center;
 }
-.modal-dialog {
-    position: absolute !important;
-    top: 25%;
-    width: 460px !important;
-    opacity: 0.85 !important;
+ */
 
-}
+/* html {
+    background: url('./blurry-book.jpg') no-repeat center center fixed;
+} */
 .modal {
-    position: inherit !important;
-    margin: 0 auto !important;
-    background-color: transparent !important;
-    width: 460px !important;
-    height: 40% !important;
-
+    position: static !important;
+}
+.jumbotron {
+    background-image: url('https://vectr.com/slim-shady/edFMN0YA4.svg?width=1500&height=499&select=edFMN0YA4page0') !important; 
+    /* background-image: url('https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80') !important; */
+    background-size: cover; 
+    padding: 100px 25px;
+    width: 100% !important;
+    top: 0% !important;
+    left: 0% !important;
+    height: 50vh;
+    opacity: 200 !important;
 }
 
+.nav-image{
+    width: 40px !important ; 
+}
+
+.img-responsive {
+    width: 57% !important;
+}
+.container-fluid{
+    position: absolute !important;
+    top: 50% !important;
+    background-color: white;
+    height: 100vh;
+}
+
+/* h3 {
+    font-size: 55px !important;
+    font-weight: 600 !important;
+    background: -webkit-linear-gradient(#b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+} */
+.jumbo-img {
+    width: 10% !important;
+}
+
+.google-button {
+    text-align: center;
+    padding-top: 15px !important;
+}
+/* 
+.nav-link {
+    font-size: 41px !important;
+    background: -webkit-linear-gradient(#b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+ */

@@ -191,13 +191,19 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
-    for (title, author, why, link) in pairs:
-        json_list.append({'author': author, 'title': title, 'why':why, 'link': link})
+    topic_names = ["Applications", "Computational Neuroscience", "Experimental Neuroscience", "Neural Nets", "Probabilistic Models"]
+    for (title, author, why, link, buttons) in pairs:
+        topic1 = topic_names[buttons[0]]
+        topic2 = topic_names[buttons[1]]
+        strength = buttons[2]
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': topic1, 'topic2': topic2, 'strength': strength})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)
 
+    print(json_list)
     return JsonResponse(json_list, safe = False)
+
 
 @csrf_exempt
 def projects(request):
@@ -256,6 +262,7 @@ def newproject(request):
     user_info.projects.add(curr_proj)
     user_info.save()
 
+
     proj_json = []
     for e in list(user_info.projects.all()):
         proj_json.append({'name': str(e.project_name), 'id': e.pid})
@@ -311,6 +318,29 @@ def in_session(request):
     else:
         return JsonResponse([{"in_session": "false"}], safe = False)
 
+@csrf_exempt 
+def deleteproject(request):
+
+    request_dict = json.loads(request.body)
+    user_token = request_dict['userID']
+    proj_id = int(request_dict['projectID'])
+
+    user_info = Researcher.objects.get(user=User.objects.get(last_name=user_token))
+
+    try:
+        targ_project = user_info.projects.get(pid=pid)
+        targ_project.delete()
+    except Exception as e:
+        pass
+
+    user_info.save()
+
+    ## return updated projects
+    proj_json = []
+    for e in list(user_info.projects.all()):
+        proj_json.append({'name': str(e.project_name), 'id': e.pid})
+
+    return JsonResponse(json_list, safe = False)
 
 @csrf_exempt
 def exit(request):

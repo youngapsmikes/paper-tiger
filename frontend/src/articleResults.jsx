@@ -3,6 +3,8 @@ import './articleResults.css';
 import Popup from "reactjs-popup";
 import { Button, ListGroup, ListGroupItem, Label } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
+import { RingLoader } from 'react-spinners';
+
 
 class LowerRow extends Component {
     render() {
@@ -48,7 +50,6 @@ class LowerRow extends Component {
     }
 }
 
-
 class Why extends Component {
     render() {
         return (
@@ -63,7 +64,7 @@ class Why extends Component {
                 <span className="whyPopup">This article was recommended due to its similarities to {this.props.why}.</span>
                 </div>
             </Popup>
-
+            
         );
     }
 }
@@ -107,7 +108,14 @@ class RecommendationsTable extends Component {
             <React.Fragment>
             <div className="Header">Recommended Articles</div>
             <div className="loading">
-            <div className="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'100%'} /></div>
+            <p className="loadingText">Machines are learning...</p>
+            <div className='loadingIcon'>
+                <RingLoader
+                sizeUnit={"px"}
+                size={200}
+                color={'#536976'}
+                />
+            </div>  
             </div>
             </React.Fragment>
             );

@@ -81,7 +81,7 @@ class Sideheader extends Component {
                 <div class="UploadPopup">
                     <a className="close" onClick={close}> &times; </a>
 
-                    <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
+                    <div class="UploadPopupHeader"><h2>Upload Additional Files</h2></div>
                         <form onSubmit={this.props.add.bind(this)}>
                             <div>
                                 <input ref={(ref) => { this.uploadInput = ref; }} type="file" />

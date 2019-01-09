@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import './projectSelection.css';
-import { Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
-import ReactLoading from 'react-loading';
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import history from "./history";
+import { RingLoader } from 'react-spinners';
 
 class Project extends Component {
 
@@ -97,9 +95,18 @@ class ProjectTable extends Component {
             return (
                 <React.Fragment>
                 <div class="loading">
-                <div class="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'50%'} /></div>
+                <span class="sr-only">Loading...</span>
                 </div>
-                </React.Fragment>
+                <p className="loadingProjectsText">Getting your projects...</p>
+
+                <div className='loadingProjectsIcon'>
+                <RingLoader
+                sizeUnit={"px"}
+                size={150}
+                color={'#536976'}
+                />
+            </div>  
+                     </React.Fragment>
                 );
         } else {
             return (

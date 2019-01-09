@@ -53,11 +53,23 @@
 }
 
 .loadingText {
-    flex: 1 1 20%;
+    position: absolute !important;
+    top: 25% !important;
+    left: 58% !important;
+    font-size: 22px !important;
 }
 
 .loadingIcon {
     flex: 1 1 80%;
+    align-self: center !important;
+    position: absolute !important;
+    top: 35% !important;
+}
+
+html {
+    background-image: linear-gradient(#536976, #292E49);
+    height: 100%;
+    background-repeat: no-repeat;
 }
 
 .bottom {
@@ -93,3 +105,4 @@
     color: lightslategrey;
     padding-right: 5px;
 }
+

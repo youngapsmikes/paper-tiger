@@ -104,10 +104,15 @@
     align-content: center;
     align-items: stretch;
 }
-
-.loadingIcon {
-    flex: 0 0 100%;
+.loadingProjectsText {
+    align-self: center !important;
+    position: absolute !important;
+    top: 25% !important;
+    font-size: 22px !important;
 }
 
-.warningtext {
+.loadingProjectsIcon {
+    align-self: center !important;
+    position: absolute;
+    top: 35%;
 }
