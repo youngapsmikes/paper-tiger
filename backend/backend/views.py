@@ -191,7 +191,7 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
-    topic_names = ["Applications", "Computational Neuroscience", "Experimental Neuroscience", "Neural Nets", "Probabilistic Models"]
+    topic_names = ["Application", "Comp Neuro", "Experimental", "Neural Nets", "Stats/Models"]
     for (title, author, why, link, buttons) in pairs:
         topic1 = topic_names[buttons[0]]
         topic2 = topic_names[buttons[1]]
