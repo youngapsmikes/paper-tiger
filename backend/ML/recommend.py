@@ -25,14 +25,22 @@ def getTopicButtons(topic_vecs):
         topic_sorted = sorted(article_topics)[::-1]
 
         max_topic = topic_sorted[0]
+        max_topic2 = topic_sorted[1]
 
-        if max_topic > .95:
-            strength = 2
-        elif max_topic > .55 and max_topic < .95:
-            strength = 1
+        if max_topic > .85:
+            strength1 = 2
+            strength2 = 0
+        elif max_topic > .55 and max_topic < .85:
+            strength1 = 2
+            strength2 = 1
+        elif max_topic > 0.20 and max_topic <=0.55:
+            strength1 = 1 
+            strength2 = 1 
         else:
-            strength = 0
-        user_buttons.append(topic_idx[0:2]+[strength])
+            strength1 = 0
+            strength2 = 0
+
+        user_buttons.append(topic_idx[0:2]+[strength1, strength2])
 
     return user_buttons 
 
