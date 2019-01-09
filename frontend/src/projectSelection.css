@@ -92,11 +92,9 @@
     align-items: stretch;
 }
 
-.loadingIcon {
-    flex: 0 0 100%;
-    margin: auto;
-    vertical-align: center;
-    padding-top: 50px;
-
+.loadingProjectsIcon {
+    align-self: center !important;
+    position: absolute;
+    top: 35%;
 }
 
