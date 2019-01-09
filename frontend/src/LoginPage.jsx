@@ -102,15 +102,15 @@ class LoginPage extends Component {
   <div class="row">
     <div class="col-sm-4">
             <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
-      <p>Allow our algorithms to optimize your search of resources. </p>
+      <p>Allow machine learning to optimize your search results. </p>
     </div>
     <div class="col-sm-4"> 
       <img src="https://image.flaticon.com/icons/svg/1114/1114544.svg" class="img-responsive margin" />
-      <p>Spend less time readign irrelevant resources</p>
+      <p>Spend less time on irrelevant resources</p>
     </div>
     <div class="col-sm-4"> 
             <img  src="https://image.flaticon.com/icons/svg/1118/1118324.svg" class="img-responsive margin"/>
-      <p>Find the papers that will provide you with the most insightful ideas. </p>
+      <p>Find papers that will provide you with the most insightful ideas. </p>
     </div>
   </div>
 </div>
