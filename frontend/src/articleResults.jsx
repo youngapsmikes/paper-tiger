@@ -60,7 +60,7 @@ class RecommendationsTable extends Component {
             <React.Fragment>
             <div className="Header">Recommended Articles</div>
             <div className="loading">
-            <div className="loadingIcon"><ReactLoading color={'grey'} height={'100px'} width={'200px'} /></div>
+            <div className="loadingIcon"><ReactLoading color={'grey'} height={'10%'} width={'100%'} /></div>
             </div>
             </React.Fragment>
             );
