@@ -191,7 +191,7 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
-    topic_names = ["Applications", "Computational Neuroscience", "Experimental Neuroscience", "Neural Nets", "Probabilistic Models"]
+    topic_names = ["Application", "Comp Neuro", "Experimental", "Neural Nets", "Stats/Models"]
     for (title, author, why, link, buttons) in pairs:
         topic1 = topic_names[buttons[0]]
         topic2 = topic_names[buttons[1]]
@@ -322,6 +322,7 @@ def in_session(request):
 @csrf_exempt 
 def deleteproject(request):
 
+    print("FROM DELETE")
     request_dict = json.loads(request.body)
     user_token = request_dict['userID']
     proj_id = int(request_dict['projectID'])
@@ -329,19 +330,20 @@ def deleteproject(request):
     user_info = Researcher.objects.get(user=User.objects.get(last_name=user_token))
 
     try:
-        targ_project = user_info.projects.get(pid=pid)
-        targ_project.delete()
+        proj = user_info.projects.get(pid=proj_id)
+        proj.delete()
+        user_info.projects.save()
     except Exception as e:
         pass
 
-    user_info.save()
 
     ## return updated projects
     proj_json = []
     for e in list(user_info.projects.all()):
         proj_json.append({'name': str(e.project_name), 'id': e.pid})
 
-    return JsonResponse(json_list, safe = False)
+    print(proj_json)
+    return JsonResponse(proj_json, safe = False)
 
 @csrf_exempt
 def exit(request):
