@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './articleResults.css';
 import Popup from "reactjs-popup";
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
-import ReactLoading from 'react-loading';
-
+import { RingLoader } from 'react-spinners';
 class Why extends Component {
     render() {
         return (
@@ -60,7 +59,13 @@ class RecommendationsTable extends Component {
             <React.Fragment>
             <div className="Header">Recommended Articles</div>
             <div className="loading">
-            <div className="loadingIcon"><ReactLoading color={'grey'} height={'100px'} width={'200px'} /></div>
+            <div className='loadingIcon'>
+                <RingLoader
+                sizeUnit={"px"}
+                size={200}
+                color={'#536976'}
+                />
+            </div>  
             </div>
             </React.Fragment>
             );

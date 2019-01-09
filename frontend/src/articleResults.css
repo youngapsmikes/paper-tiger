@@ -67,7 +67,9 @@
 
 .loadingIcon {
     flex: 1 1 80%;
-    padding-top: 150px !important;
+    align-self: center !important;
+    position: absolute !important;
+    top: 35% !important;
 }
 
 html {
