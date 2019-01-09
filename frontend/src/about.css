@@ -3,5 +3,33 @@
     position: absolute !important;
     top: 10%;
     left: 0%;
-    /* opacity: 0.85 !important; */
+   /* opacity: 0.85 !important; */
+}
+.title { 
+    text-align: center;
+    line-height: normal;
+}
+.titleText {
+    font-size: 26pt;
+}
+.question {
+    line-height: normal;
+    text-align: left;
+}
+.normalText {
+    font-size: 14pt;
+    text-align: left;
+}
+.about {
+    background-color: white !important;
+    opacity: .9 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    position: absolute !important;
+    top: 10% !important;
+    width: 95% !important;
+    align-self: center !important;
+    left: 2.5% !important;
+    padding: 2rem !important;
+    border-radius: 18px !important;
 }
