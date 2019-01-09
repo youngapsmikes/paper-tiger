@@ -50,6 +50,8 @@ class ProjectTable extends Component {
                 <div class="loading">
                 <span class="sr-only">Loading...</span>
                 </div>
+                <p className="loadingProjectsText">Getting your projects...</p>
+
                 <div className='loadingProjectsIcon'>
                 <RingLoader
                 sizeUnit={"px"}
