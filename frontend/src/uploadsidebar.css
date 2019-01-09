@@ -101,3 +101,9 @@
 .sideheader > .addbutton {
     flex: 0 0 33%;
 }
+
+.emptyNotice {
+    position: absolute;
+    left: 2%;
+    top: 40%;
+}
