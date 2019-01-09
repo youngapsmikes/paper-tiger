@@ -62,7 +62,10 @@
 }
 
 .loadingText {
-    flex: 1 1 20%;
+    position: absolute !important;
+    top: 25% !important;
+    left: 58% !important;
+    font-size: 22px !important;
 }
 
 .loadingIcon {

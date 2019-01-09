@@ -59,6 +59,7 @@ class RecommendationsTable extends Component {
             <React.Fragment>
             <div className="Header">Recommended Articles</div>
             <div className="loading">
+            <p className="loadingText">Machines are learning...</p>
             <div className='loadingIcon'>
                 <RingLoader
                 sizeUnit={"px"}
