@@ -17,7 +17,7 @@ class Why extends Component {
                 <span className="whyPopup">This article was recommended due to its similarities to {this.props.why}.</span>
                 </div>
             </Popup>
-
+            
         );
     }
 }
