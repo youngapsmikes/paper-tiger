@@ -12,9 +12,8 @@
     background-color: lightblue;
 }
 
-.list-group-mine:first-child {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+.list-group {
+    height: 100% !important;
 }
 
 .TopRow {
@@ -39,14 +38,6 @@
     flex: 0 0 20%;
 }
 
-.Author {
-    font-size: .5rem;
-    font-style: italic;
-    text-align: left;
-    padding-left: 4px;
-    color: lightslategrey;
-}
-
 .Header {
     text-align: center;
     font-size: 2em;
@@ -62,12 +53,17 @@
 }
 
 .loadingText {
-    flex: 1 1 20%;
+    position: absolute !important;
+    top: 25% !important;
+    left: 58% !important;
+    font-size: 22px !important;
 }
 
 .loadingIcon {
     flex: 1 1 80%;
-    padding-top: 150px !important;
+    align-self: center !important;
+    position: absolute !important;
+    top: 35% !important;
 }
 
 html {
@@ -75,3 +71,38 @@ html {
     height: 100%;
     background-repeat: no-repeat;
 }
+
+.bottom {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.bottom > .Author {
+    flex: 0 0 auto;
+}
+
+.bottom > .badge {
+    flex: 0 0 auto;
+    font-size: .5rem;
+    border-radius: 5px;
+    width: 45px;
+    color: black;
+    outline: lightslategray;
+    margin-right: 5px;
+}
+
+.bottom > .spacing {
+    flex: 1 1 auto;
+}
+
+.Author {
+    font-size: .5rem;
+    font-style: italic;
+    text-align: left;
+    padding-left: 4px;
+    color: lightslategrey;
+    padding-right: 5px;
+}
+

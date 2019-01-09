@@ -2,19 +2,13 @@ import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import "./uploadsidebar.css";
 import FileUpload from './FileUpload.jsx';
-import { Button } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-class PDFupload extends Component {
+class DeleteButton extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <li class="fileresult">
-                <span class="filename">
-                {this.props.filename}
-                </span>
-                <span class = "removeButton">
-                <Popup trigger={<Button className="removebutton"> &times; </Button>} 
+            <Popup trigger={<Button className="removebutton"> &times; </Button>} 
                 modal>
                 {close => (
                 <div class="UploadPopup">
@@ -46,7 +40,25 @@ class PDFupload extends Component {
                 </div>
             )}
                 </Popup>
+        );
+    }
+
+}
+
+class PDFupload extends Component {
+
+    render() {
+        return (
+            <React.Fragment>
+                <li className="list-group-mine">
+                <div class="uploadedPayload">
+                <span class="filename">
+                {this.props.filename}
                 </span>
+                <span class = "removeButton">
+                <DeleteButton {...this.props} />
+                </span>
+                </div>
                 </li>
             </React.Fragment>
         );
@@ -69,7 +81,7 @@ class Sideheader extends Component {
                 <div class="UploadPopup">
                     <a className="close" onClick={close}> &times; </a>
 
-                    <div class="UploadPopupHeader"><h2>Upload additional Files</h2></div>
+                    <div class="UploadPopupHeader"><h2>Upload Additional Files</h2></div>
                         <form onSubmit={this.props.add.bind(this)}>
                             <div>
                                 <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
@@ -105,6 +117,16 @@ class FileTable extends Component {
     render() {
         const rows = [];
 
+        if (this.props.files.length == 0) {
+            return (
+                <div class="fileTable">
+                <div class="emptyNotice">
+                To get started, upload a file using the "+" in the header.
+                </div>
+                </div>
+            )
+        }
+
         for (let i = 0; i < this.props.files.length; i++) {
             let file = this.props.files[i];
             rows.push(<PDFupload keyInfo = {this.props.keyInfo} filename = {file.name} deleterequest={this.props.deleterequest}/>);
@@ -112,9 +134,9 @@ class FileTable extends Component {
 
         return (
             <div class ="fileTable">
-            <ul class="sidemenu">
-            {rows}
-            </ul>
+            <ListGroup componentClass="ul">
+                {rows}
+            </ListGroup>
             </div>
 
         );

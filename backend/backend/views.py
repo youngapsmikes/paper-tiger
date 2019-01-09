@@ -195,8 +195,9 @@ def results(request):
     for (title, author, why, link, buttons) in pairs:
         topic1 = topic_names[buttons[0]]
         topic2 = topic_names[buttons[1]]
-        strength = buttons[2]
-        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': topic1, 'topic2': topic2, 'strength': strength})
+        strength1 = buttons[2]
+        strength2 = buttons[3]
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': topic1, 'topic2': topic2, 'strength1': strength1, 'strength2':strength2})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)
