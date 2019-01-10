@@ -118,3 +118,9 @@
     position: absolute;
     top: 35%;
 }
+
+.warningtext {
+    position: absolute !important;
+    align-self: center !important;
+    top: 45% !important;
+}
