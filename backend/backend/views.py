@@ -47,7 +47,7 @@ def getUserToken(request):
 
     curr_user.last_name = rand_token
     curr_user.save()
-    print(rand_token)
+    print("Assigned random token is: ", rand_token)
     return JsonResponse([{'token': rand_token}], safe = False)
 
 @csrf_exempt
@@ -221,7 +221,7 @@ def projects(request):
 
     ## get user information based on user id
     user_token = request.GET.get('userID')
-    print("USER TOKEN" + str(user_token))
+    print("USER's TOKEN IS: ", str(user_token))
     # curr_user = User.objects.get(username=user_name)
     curr_user = User.objects.get(last_name = user_token)
 
