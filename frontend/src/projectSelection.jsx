@@ -198,7 +198,7 @@ class ProjectSelection extends Component {
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`https://paper-tiger-server.herokuapp.com/projects?userID=${this.props.userID}&messageID=${messageID}`)
+        fetch(`https://paper-tiger-server.herokuapp.com/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({projects: data, loading: false});
             }).catch((error) => console.log(error));        
