@@ -4,6 +4,7 @@ import './resultsPage.css';
 import { Modal } from 'react-bootstrap';
 import UploadSideBar from "./uploadsidebar";
 import PaperTigerHeader from './PaperTigerHeader.js';
+import ArticleResults from './articleResults.jsx';
 
 
 
@@ -12,8 +13,12 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com"},],
-            files: [
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading: On the rise of smarter computing and the need for robots", why:"Loading", link:"https://www.google.com", topic1:"BDE", topic2:"Deep net", strength1:"1", strength2:"2"},
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Applications", topic2:"Experimental", strength1:"0", strength2:"1"},
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Neural Nets", topic2:"Stats/Models", strength1:"0", strength2:"2"},
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Comp Neuro", topic2:"Deep net", strength1:"1", strength2:"2"},
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"BDE", topic2:"Deep net", strength1:"1", strength2:"2"},],
+            files: [{name: "File 1"}, {name: "filel2"}
             ],
             keyInfo: {projectID: '', userID: ''},
             loading: true,
@@ -55,10 +60,6 @@ export default class ResultsPage extends Component {
 
         const project = projectID;
         const user = userID;
-
-        
-        let seed = (new Date()).getSeconds();
-        let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
         const payload = JSON.stringify({
             fileName: givenfileName,
@@ -139,7 +140,7 @@ export default class ResultsPage extends Component {
             </header>
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} authPayload={this.props.authPayload} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
-                <Suggestions loading = {this.state.loading} articles = {this.state.articles} />
+                <ArticleResults loading = {this.state.loading} articles = {this.state.articles} />
             </div>
             </div>
         )

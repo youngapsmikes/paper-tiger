@@ -12,5 +12,6 @@ urlpatterns = [
 	path('session', views.in_session, name = 'session'),
 	path('logout', views.exit, name = 'logout'),
     path('getusertoken', views.getUserToken, name = 'getusertoken'),
-    path('signoutuser', views.signOut, name = 'signoutuser')
+    path('signoutuser', views.signOut, name = 'signoutuser'),
+    path('deleteproject', views.deleteproject, name = 'deleteproject')
 ]

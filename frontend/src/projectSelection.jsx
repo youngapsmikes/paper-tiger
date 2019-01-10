@@ -2,27 +2,67 @@ import React, { Component } from 'react';
 import './projectSelection.css';
 import { withRouter } from 'react-router-dom';
 import Popup from "reactjs-popup";
-import { Button } from 'react-bootstrap';
-import ReactLoading from 'react-loading';
-import {ListGroup, ListGroupItem} from 'reactstrap'; 
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import history from "./history";
+import { RingLoader } from 'react-spinners';
 
 class Project extends Component {
 
-    componentDidMount() {
-        console.log("USER ID: " + this.props.userID);
+    visitProject = (e) => {
+        const path = "/results/" + this.props.userID + '/' + this.props.id;
+
+        history.push(path);
+    }
+
+    preventRedirect = (e) => {
+        e.stopPropagation();
     }
     
 
     render() {
 
-        const newTo = {
-            pathname: "/results/" + this.props.userID + '/' + this.props.id
-        }
-        console.log(newTo);
-
         return (
             <React.Fragment>
-                <ListGroupItem tag="button" href={newTo.pathname} action>{this.props.name}</ListGroupItem>
+                <li className="list-group-mine">
+                <div class="listContent" onClick={this.visitProject}>
+                    <div class="spacing"></div>
+                    <div class="projectTitle">{this.props.name}</div>
+                    <div class = "removeButton" onClick={this.preventRedirect}>
+                        <Popup trigger={<Button className="removebutton"> &times; </Button>} 
+                        modal>
+                        {close => (
+                        <div class="UploadPopup">
+                            <a className="close" onClick={close}> &times; </a>
+
+                            <div class="UploadPopupHeader"><h2>Are you sure you want to delete this project?</h2></div>
+                            This action can't be undone.
+                            <hr></hr>
+                            <div className="actions">
+                                <Button
+                                className="button"
+                                onClick={() => {
+                                this.props.delete(this.props.id)
+                                close()
+                                }}
+                                >
+                                Yes 
+                                </Button>
+                                <Button
+                                className="button"
+                                onClick={() => {
+                                close()
+                                }}
+                                >
+                                No 
+                                </Button>
+                            </div>
+                        
+                        </div>
+                    )}
+                        </Popup>
+                    </div>
+                </div>
+                </li>
             </React.Fragment>
         );
     }
@@ -33,11 +73,21 @@ class ProjectTable extends Component {
         const loading = this.props.loading;
 
         const rows = [];
+
+        if (this.props.projects.length == 0) {
+            return (
+            <React.Fragment>
+            <div class="warningtext">
+            To get started, use "+" to create a new project.
+            </div>
+        </React.Fragment>
+            )
+        }
+
         if (!loading) {
             for (let i = 0; i < this.props.projects.length; i++) {
                 let project = this.props.projects[i];
-                rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID}/>);
-                rows.push(<Project name = "sample" id = "pls" userID = "1"/>);
+                rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID} delete = {this.props.delete}/>);
             }
         }
         
@@ -45,16 +95,25 @@ class ProjectTable extends Component {
             return (
                 <React.Fragment>
                 <div class="loading">
-                <div class="loadingIcon"><ReactLoading color={'grey'} height={'100px'} width={'200px'} /></div>
+                <span class="sr-only">Loading...</span>
                 </div>
-                </React.Fragment>
+                <p className="loadingProjectsText">Getting your projects...</p>
+
+                <div className='loadingProjectsIcon'>
+                <RingLoader
+                sizeUnit={"px"}
+                size={150}
+                color={'#536976'}
+                />
+            </div>  
+                     </React.Fragment>
                 );
         } else {
             return (
                 <div class ="ProjectTable">
-                    <ListGroup>
-                        {rows}
-                    </ListGroup>
+                <ListGroup componentClass="ul">
+                    {rows}
+                </ListGroup>
                 </div>
             );
         }        
@@ -100,6 +159,7 @@ class ProjectHeader extends Component {
     render() {
         return (
             <div class="ProjectHeader">
+            <span class="spacing"></span>
             <span class="projectheaderText">Select Project</span>
             <span class="addbutton">
             <Popup trigger={<Button className="addbutton"> + </Button>} 
@@ -148,7 +208,7 @@ class ProjectSelection extends Component {
 
         this.props.authPayload.verifyUser(this.props.userID);
 
-        this.setState({loading: true})
+        this.setState({loading: true});
         
         const data = JSON.stringify({
             project: projectName,
@@ -160,9 +220,31 @@ class ProjectSelection extends Component {
       }).then(resp => resp.json()).then(data => {
         this.setState({projects: data, loading: false});
     }).catch((error) => console.log(error));
-        
+}
+
+    deleteProject = (projectID) => {
+
+        this.props.authPayload.verifyUser(this.props.userID);
+
+        const project = projectID;
+        const user = this.props.userID;
+
+        const payload = JSON.stringify({
+            projectID: project,
+            userID: user
+        });
+
+        this.setState({loading: true});
+
+        fetch('http://localhost:5000/backend/deleteproject', {
+        method: 'POST',
+        body: payload,
+      }).then(resp => resp.json()).then(data => {
+        this.setState({projects: data, loading: false});
+    }).catch((error) => console.log(error));
 
     }
+
 
     componentDidMount() {
         this.fetchResult();
@@ -172,7 +254,7 @@ class ProjectSelection extends Component {
         return (
             <div class="Projects">
                 <ProjectHeader update={this.fetchResult} userID = {this.props.userID} addProject = {this.addProject}/>
-                <ProjectTable loading = {this.state.loading} projects={this.state.projects} userID = {this.props.userID}/>
+                <ProjectTable delete = {this.deleteProject} loading = {this.state.loading} projects={this.state.projects} userID = {this.props.userID}/>
             </div>
         );
     }

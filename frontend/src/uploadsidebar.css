@@ -1,3 +1,28 @@
+.list-group-mine {
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    box-sizing: border-box;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.uploadedPayload {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploadedPayload > .filename {
+    flex: 1 0 66%;
+}
+
+.uploadedPayload > .removeButton {
+    flex: 0 0 34%;
+}
+
 .sideheader {
     flex: 0 0 auto;
     border-bottom: 2px solid black;
@@ -31,7 +56,11 @@
 
 .headerText {
   font-size: 2rem;
-  flex: 0 0 66%;
+  flex: 1 0 66%;
+}
+
+.sideheader > .addbutton {
+    flex: 0 0 34%;
 }
 
 .fileresult {
@@ -42,10 +71,6 @@
     align-items: center;
     justify-content: center;
     padding: 3px;
-}
-
-.filename {
-  flex: 0 0 66%;
 }
 
 .UploadPopup > .close {
@@ -77,6 +102,8 @@
     flex: 0 0 33%;
 }
 
-.removebutton {
-  flex: 0 0 33%;
+.emptyNotice {
+    position: absolute;
+    left: 8%;
+    top: 40%;
 }

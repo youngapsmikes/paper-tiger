@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Jumbotron, Container} from 'reactstrap';
-import { Row, Col } from 'reactstrap';
+import { ModalBody} from 'reactstrap';
+import { Modal } from 'react-bootstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
@@ -70,25 +70,29 @@ class LoginPage extends Component {
       }
         return (
           <React.Fragment>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-  <a class="navbar-brand" href="#">
-    <img className="nav-image" src="https://image.flaticon.com/icons/svg/1254/1254986.svg"/>
-  </a>
-  
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Services</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">How it Works</a>
-    </li>
-  </ul>
-
-</nav>
 
 <div class="jumbotron jumbotron-fluid text-center">
-    <h1>Paper Tiger</h1>
-    <button type="button" class="btn btn-primary">Login</button>
+<div className="toplevel">
+            <Modal.Dialog>
+            <Modal.Body>
+            <div className="App-body">  
+            <img src={paperTigerlogofinal} height="227.2" width="320"/>
+
+            </div>
+            {/* <img src="https://image.flaticon.com/icons/svg/1254/1254986.svg" class="jumbo-img"/> */}
+
+            <div id="google-button">
+            <GoogleLogin
+              clientId="218437734175-0vhiaomko61rgce732icedd8ehfug697.apps.googleusercontent.com"
+              buttonText="Login"
+              theme="dark"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
+            </div>
+            </Modal.Body>
+            </Modal.Dialog>
+            </div>
 </div>
 
 
@@ -98,18 +102,34 @@ class LoginPage extends Component {
   <div class="row">
     <div class="col-sm-4">
             <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
-      <p>Allow our algorithms to...</p>
+      <p>Allow machine learning to optimize your search results. </p>
     </div>
     <div class="col-sm-4"> 
       <img src="https://image.flaticon.com/icons/svg/1114/1114544.svg" class="img-responsive margin" />
-      <p>Spend less time scouring research journals...</p>
+      <p>Spend less time on irrelevant resources.</p>
     </div>
     <div class="col-sm-4"> 
             <img  src="https://image.flaticon.com/icons/svg/1118/1118324.svg" class="img-responsive margin"/>
-      <p>Get the most relevant...</p>
+      <p>Find papers that will provide you with the most insightful ideas. </p>
     </div>
   </div>
 </div>
+ 
+{/* 
+<div class="container-fluid bg-3 text-center">
+ <div class="row">
+  <div class="col-sm-4">
+    <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
+  </div>
+  <div class="col-sm-8">
+    <p>Allow our algorithms to</p>
+  </div>
+ </div>
+</div>
+ 
+  */}
+
+{/* <img src = "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"/> */}
 
           </React.Fragment>
         );

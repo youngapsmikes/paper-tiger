@@ -191,17 +191,20 @@ def results(request):
 
     pairs = recommend.recommendMain(pdf_list, pdf_names)
 
+    topic_names = ["Application", "Comp Neuro", "Experimental", "Neural Nets", "Stats/Models"]
     for (title, author, why, link, buttons) in pairs:
-        topic1 = buttons[0]
-        topic2 = buttons[1]
-        strength = buttons[2]
-        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': str(topic1), 'topic2': str(topic2), 'strength': strength})
+        topic1 = topic_names[buttons[0]]
+        topic2 = topic_names[buttons[1]]
+        strength1 = buttons[2]
+        strength2 = buttons[3]
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': topic1, 'topic2': topic2, 'strength1': strength1, 'strength2':strength2})
         # p1 = Paper(title=title, author=author)
         # p1.save()
         # curr_proj.project_papers.add(p1)
 
     print(json_list)
     return JsonResponse(json_list, safe = False)
+
 
 @csrf_exempt
 def projects(request):
@@ -260,6 +263,7 @@ def newproject(request):
     user_info.projects.add(curr_proj)
     user_info.save()
 
+
     proj_json = []
     for e in list(user_info.projects.all()):
         proj_json.append({'name': str(e.project_name), 'id': e.pid})
@@ -315,6 +319,31 @@ def in_session(request):
     else:
         return JsonResponse([{"in_session": "false"}], safe = False)
 
+@csrf_exempt 
+def deleteproject(request):
+
+    print("FROM DELETE")
+    request_dict = json.loads(request.body)
+    user_token = request_dict['userID']
+    proj_id = int(request_dict['projectID'])
+
+    user_info = Researcher.objects.get(user=User.objects.get(last_name=user_token))
+
+    try:
+        proj = user_info.projects.get(pid=proj_id)
+        proj.delete()
+        user_info.projects.save()
+    except Exception as e:
+        pass
+
+
+    ## return updated projects
+    proj_json = []
+    for e in list(user_info.projects.all()):
+        proj_json.append({'name': str(e.project_name), 'id': e.pid})
+
+    print(proj_json)
+    return JsonResponse(proj_json, safe = False)
 
 @csrf_exempt
 def exit(request):

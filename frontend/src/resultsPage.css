@@ -1,15 +1,20 @@
 .ResultsPage {
-    opacity: .9  !important;
+    opacity: .9;
     border: 1px black;
-    background-color: aliceblue;
+    box-sizing: border-box;
+    background-color: #fff;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
-    overflow: hidden;
     align-items: stretch;
-    width: 80%;
-    height: 50%;
+    width: 90%;
+    height: 80%;
     position: fixed;
-    top: 25%;
-    left: 10%;
+    top: 10%;
+    left: 5%;
+    border-radius: 18px;
+}
+
+.Results-bg {
+    background-color: darkblue;
 }
