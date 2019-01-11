@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Suggestions from "./suggestions"
 import './resultsPage.css';
-import { Modal } from 'react-bootstrap';
 import UploadSideBar from "./uploadsidebar";
 import PaperTigerHeader from './PaperTigerHeader.js';
 import ArticleResults from './articleResults.jsx';

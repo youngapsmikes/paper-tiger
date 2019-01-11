@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import "./uploadsidebar.css";
-import FileUpload from './FileUpload.jsx';
-import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, ListGroup} from 'react-bootstrap';
 
 class DeleteButton extends Component {
 
