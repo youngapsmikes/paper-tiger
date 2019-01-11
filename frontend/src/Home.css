@@ -10,15 +10,19 @@
     position: static !important;
 }
 .jumbotron {
-    background-image: url('grad-background.svg') !important; 
+    background-image: url('deeper-corrected.jpg') !important; 
     /* background-image: url('https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80') !important; */
     background-size: cover; 
     padding: 1rem 2rem !important;
     width: 100% !important;
     top: 0% !important;
     left: 0% !important;
-    height: 100vh;
+    height: 95vh;
     opacity: 200 !important;
+}
+.toplevel {
+    position: relative !important;
+    top: 22% !important;
 }
 
 .nav-image{
@@ -30,7 +34,7 @@
 }
 .container-fluid{
     position: absolute !important;
-    top: 100% !important;
+    top: 92% !important;
     background-color: white;
     height: 100vh;
 }
