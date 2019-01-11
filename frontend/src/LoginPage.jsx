@@ -40,7 +40,7 @@ class LoginPage extends Component {
             userName: user
           });
 
-          fetch('http://localhost:5000/backend/getusertoken', {
+          fetch('https://paper-tiger-server.herokuapp.com/backend/getusertoken', {
             method: 'POST',
             body: data,
           }).then(resp => resp.json()).then(data => {

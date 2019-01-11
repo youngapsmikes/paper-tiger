@@ -8,7 +8,7 @@ class DeleteButton extends Component {
 
     render() {
         return (
-            <Popup trigger={<Button className="removebutton"> &times; </Button>} 
+            <Popup trigger={<Button className="removebutton"> &times; </Button>}
                 modal>
                 {close => (
                 <div class="UploadPopup">
@@ -25,7 +25,7 @@ class DeleteButton extends Component {
                         close()
                         }}
                         >
-                        Yes 
+                        Yes
                         </Button>
                         <Button
                         className="button"
@@ -33,10 +33,10 @@ class DeleteButton extends Component {
                         close()
                         }}
                         >
-                        No 
+                        No
                         </Button>
                     </div>
-                
+
                 </div>
             )}
                 </Popup>
@@ -75,7 +75,7 @@ class Sideheader extends Component {
             <div class="sideheader">
             <span class="headerText"> Uploaded Files </span>
             <span class="addbutton">
-            <Popup trigger={<Button className="addbutton"> + </Button>} 
+            <Popup trigger={<Button className="addbutton"> + </Button>}
             modal>
             {close => (
                 <div class="UploadPopup">
@@ -100,10 +100,10 @@ class Sideheader extends Component {
                         close()
                         }}
                         >
-                        Continue 
+                        Continue
                         </Button>
                     </div>
-                
+
                 </div>
             )}
                 </Popup>
