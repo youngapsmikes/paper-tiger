@@ -1,5 +1,5 @@
 import os 
-from .scrapePDF import convertMultiple
+from scrapePDF import convertMultiple
 import pandas as pd 
 import numpy as np
 from joblib import dump, load
