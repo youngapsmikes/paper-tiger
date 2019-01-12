@@ -198,7 +198,7 @@ class ProjectSelection extends Component {
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`https://paper-tiger-server.herokuapp.com/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
+        fetch(`http://localhost:5000/backend/projects?userID=${this.props.userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({projects: data, loading: false});
             }).catch((error) => console.log(error));        
@@ -214,7 +214,7 @@ class ProjectSelection extends Component {
             project: projectName,
             userID: this.props.userID});
 
-        fetch('https://paper-tiger-server.herokuapp.com/backend/newproject', {
+        fetch('http://localhost:5000/backend/newproject', {
         method: 'POST',
         body: data,
       }).then(resp => resp.json()).then(data => {
@@ -236,7 +236,7 @@ class ProjectSelection extends Component {
 
         this.setState({loading: true});
 
-        fetch('https://paper-tiger-server.herokuapp.com/backend/deleteproject', {
+        fetch('http://localhost:5000/backend/deleteproject', {
         method: 'POST',
         body: payload,
       }).then(resp => resp.json()).then(data => {

@@ -13,5 +13,7 @@ urlpatterns = [
 	path('logout', views.exit, name = 'logout'),
     path('getusertoken', views.getUserToken, name = 'getusertoken'),
     path('signoutuser', views.signOut, name = 'signoutuser'),
-    path('deleteproject', views.deleteproject, name = 'deleteproject')
+    path('deleteproject', views.deleteproject, name = 'deleteproject'),
+    path('renameproject', views.renameproject, name = 'renameproject'),
+    path('tagorder', views.tagorder, name = 'tagorder')
 ]
