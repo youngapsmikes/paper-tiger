@@ -21,7 +21,8 @@ export default class ResultsPage extends Component {
             files: [{name: "File 1"}, {name: "filel2"}
             ],
             keyInfo: {projectID: '', userID: ''},
-            loading: true,
+            loading: false,
+            tag: null
         };
 
         this.updateStateFiles = this.updateStateFiles.bind(this);
@@ -94,8 +95,6 @@ export default class ResultsPage extends Component {
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
-
-        
     }
 
     addFile(ev) {
@@ -126,8 +125,37 @@ export default class ResultsPage extends Component {
         document.getElementById('uploadedCheck').innerHTML = String.fromCharCode(10004);
     }
 
+    evaluateTag = (giventag) => {
+        this.setState({tag: giventag, loading: true}, () => {this.getTagResults();});
+    }
+
+    getTagResults = () => {
+        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
+
+        const project = this.state.keyInfo.projectID;
+        const user = this.state.keyInfo.userID;
+        const newTag = this.state.tag;
+
+        const payload = JSON.stringify({
+            projectID: project,
+            userID: user,
+            tag: newTag
+        });
+
+        fetch('http://localhost:5000/backend/tagorder', {
+        method: 'POST',
+        body: payload,
+      }).then(resp => resp.json()).then(data => {
+        this.setState({articles: data, loading: false});
+    }).catch((error) => console.log(error));
+    }
+
+    tagGoBack = () => {
+        this.setState({tag: null, loading: true});
+        this.updateStateSuggestions(this.state.keyInfo.projectID, this.state.keyInfo.userID);
+    }
+
     componentDidMount() {
-        
         this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
             () => {this.update();});
     }
@@ -140,7 +168,7 @@ export default class ResultsPage extends Component {
             </header>
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} authPayload={this.props.authPayload} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
-                <ArticleResults loading = {this.state.loading} articles = {this.state.articles} />
+                <ArticleResults loading = {this.state.loading} articles = {this.state.articles} evaluateTag = {this.evaluateTag} back = {this.tagGoBack} tag={this.state.tag}/>
             </div>
             </div>
         )

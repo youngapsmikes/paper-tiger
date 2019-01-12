@@ -7,6 +7,11 @@ import { RingLoader } from 'react-spinners';
 
 
 class LowerRow extends Component {
+    tagSort = (event, tag) => {
+        event.stopPropagation();
+        this.props.evaluateTag(tag);
+    }
+
     render() {
 
         const colorArray = ["#ff0000", "#ffaa00", "#33cc33"];
@@ -37,10 +42,10 @@ class LowerRow extends Component {
             <div className="Author">
             {this.props.author}  
             </div>
-            <div className="badge" style={but1}>
+            <div className="badge" style={but1} onClick={(e) => {this.tagSort(e, this.props.topic1)}}>
             {this.props.topic1}
             </div>
-            <div className="badge" style={but2}>
+            <div className="badge" style={but2} onClick={(e) => {this.tagSort(e, this.props.topic2)}}>
             {this.props.topic2}
             </div>
             <div className="spacing"></div>
@@ -99,35 +104,73 @@ class RecommendationsTable extends Component {
         if (!loading) {
             for (let i = 0; i < this.props.articles.length; i++) {
                 let article = this.props.articles[i];
-                rows.push(<PaperRow author={article.author} title={article.title} why={article.why} link={article.link} topic1={article.topic1} topic2={article.topic2} strength1={article.strength1} strength2={article.strength2}/>);
+                rows.push(<PaperRow author={article.author} title={article.title} why={article.why} link={article.link} topic1={article.topic1} topic2={article.topic2} strength1={article.strength1} strength2={article.strength2} {...this.props} />);
             }
         }
 
         if (loading) {
-            return (
-            <React.Fragment>
-            <div className="Header">Recommended Articles</div>
-            <div className="loading">
-            <p className="loadingText">Machines are learning...</p>
-            <div className='loadingIcon'>
-                <RingLoader
-                sizeUnit={"px"}
-                size={200}
-                color={'#536976'}
-                />
-            </div>  
-            </div>
-            </React.Fragment>
-            );
-        } else {
-            return (
+            if (this.props.tag) {
+                return (
                 <React.Fragment>
-                <div className="Header">Recommended Articles</div>
-                <ListGroup componentClass="ul">
-                    {rows}
-                </ListGroup>
-                </React.Fragment>
-            );
+                    <div className="tagHeader">
+                            <div className="spacing"></div>
+                            <div className="tagText">{this.props.tag}</div>
+                            <Button className="return" onClick={() => {this.props.back()}}> &#9166; </Button>
+                    </div>
+                    <div className="loading">
+                    <p className="loadingText">Machines are learning...</p>
+                    <div className='loadingIcon'>
+                        <RingLoader
+                        sizeUnit={"px"}
+                        size={200}
+                        color={'#536976'}
+                        />
+                    </div>  
+                    </div>
+                    </React.Fragment>
+                    );
+            } else {
+                return (
+                    <React.Fragment>
+                    <div className="Header">Recommended Articles</div>
+                    <div className="loading">
+                    <p className="loadingText">Machines are learning...</p>
+                    <div className='loadingIcon'>
+                        <RingLoader
+                        sizeUnit={"px"}
+                        size={200}
+                        color={'#536976'}
+                        />
+                    </div>  
+                    </div>
+                    </React.Fragment>
+                    );
+            }
+            
+        } else {
+            if (this.props.tag) {
+                return (
+                    <React.Fragment>
+                        <div className="tagHeader">
+                            <div className="spacing"></div>
+                            <div className="tagText">{this.props.tag}</div>
+                            <Button className="return" onClick={() => {this.props.back()}}> &#9166; </Button>
+                        </div>
+                    <ListGroup componentClass="ul">
+                        {rows}
+                    </ListGroup>
+                    </React.Fragment>
+                );
+            } else {
+                return (
+                    <React.Fragment>
+                    <div className="Header">Recommended Articles</div>
+                    <ListGroup componentClass="ul">
+                        {rows}
+                    </ListGroup>
+                    </React.Fragment>
+                );
+            }
         }
     }
 }
@@ -137,7 +180,7 @@ export default class ArticleResults extends Component {
 
         return (
             <div className="Results">
-                <RecommendationsTable loading = {this.props.loading} articles={this.props.articles} />
+                <RecommendationsTable {...this.props} />
             </div>
         );
     }
