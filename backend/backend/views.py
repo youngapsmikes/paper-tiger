@@ -348,7 +348,7 @@ def deleteproject(request):
 
     print(proj_json)
     return JsonResponse(proj_json, safe = False)
-
+@csrf_exempt
 def renameproject(request):
     request_dict = json.loads(request.body)
     user_token = request_dict['userID']
@@ -370,7 +370,7 @@ def renameproject(request):
 
     print(proj_json)
     return JsonResponse(proj_json, safe = False)
-
+@csrf_exempt
 def tagorder(request):
     user_token = request.GET.get('userID')
     project_id = request.GET.get('projectID')
