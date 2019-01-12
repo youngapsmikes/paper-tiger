@@ -45,20 +45,41 @@ def getTopicButtons(topic_vecs):
     return user_buttons 
 
 def sortResults(lda_X, article, dists, tag_idx):
+
     num_results = 100
+
+    for idx, row in enumerate(lda_X):
+        dists[idx] = np.linalg.norm(row-article)
+    index = list(np.argsort(dists)[0:num_results])
+    topic_vecs = list(lda_X[np.argsort(dists)[0:num_results]])
+
+    print(tag_idx)
+    ## sort by topic_vecs comparator 
+    ## grab the index 
     if not (tag_idx == None):
-        for idx, row in enumerate(lda_X):
-            print(article)
-            dists[idx] = np.linalg.norm(row[tag_idx]-article[0][tag_idx])
-        index = list(np.argsort(dists)[0:num_results])
-        topic_vecs = list(lda_X[np.argsort(dists)[0:num_results]])
-        return(index, topic_vecs)
-    else:
-        for idx, row in enumerate(lda_X):
-            dists[idx] = np.linalg.norm(row-article)
-        index = list(np.argsort(dists)[0:num_results])
-        topic_vecs = list(lda_X[np.argsort(dists)[0:num_results]])
-        return (index, topic_vecs)
+        print("FROM HERE")
+        x = list(zip(index, topic_vecs))
+        x  = sorted(x, key=lambda x: x[1][tag_idx], reverse=True)
+        index = list(list(zip(*x))[0])
+        topic_vecs = list(list(zip(*x))[1])
+
+
+    return (index, topic_vecs)
+
+    # num_results = 100
+    # if not (tag_idx == None):
+    #     for idx, row in enumerate(lda_X):
+    #         print(article)
+    #         dists[idx] = np.linalg.norm(row[tag_idx]-article[0][tag_idx])
+    #     index = list(np.argsort(dists)[0:num_results])
+    #     topic_vecs = list(lda_X[np.argsort(dists)[0:num_results]])
+    #     return(index, topic_vecs)
+    # else:
+    #     for idx, row in enumerate(lda_X):
+    #         dists[idx] = np.linalg.norm(row-article)
+    #     index = list(np.argsort(dists)[0:num_results])
+    #     topic_vecs = list(lda_X[np.argsort(dists)[0:num_results]])
+    #     return (index, topic_vecs)
 
 def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors, tag_idx):
     dists = np.zeros((lda_X.shape[0],))
@@ -69,8 +90,6 @@ def recommend_lda(model, lda_X, tf_article, papers, authors, paper_authors, tag_
     # index = list(np.argsort(dists)[1:20])
     # topic_vecs = list(lda_X[np.argsort(dists)[1:20]])
     (index, topic_vecs) = sortResults(lda_X, article, dists, tag_idx)
-    print(index)
-    print(len(topic_vecs))
     paper_ids = papers.iloc[index].id.values
     authors = getAuthors(paper_ids, authors, paper_authors)
     links = getLinks(paper_ids)

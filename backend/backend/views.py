@@ -417,7 +417,7 @@ def tagorder(request):
         # p1.save()
         # curr_proj.project_papers.add(p1)
 
-    print(json_list)
+    # print(json_list)
     return JsonResponse(json_list, safe = False)
 
 
