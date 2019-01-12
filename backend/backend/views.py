@@ -189,7 +189,7 @@ def results(request):
         pdf_names.append(e.title)
         pdf_list.append(e.body)
 
-    pairs = recommend.recommendMain(pdf_list, pdf_names)
+    pairs = recommend.recommendMain(pdf_list, pdf_names, tag = None)
 
     topic_names = ["Application", "Comp Neuro", "Experimental", "Neural Nets", "Stats/Models"]
     print(len(pairs))
@@ -370,16 +370,24 @@ def renameproject(request):
 
     print(proj_json)
     return JsonResponse(proj_json, safe = False)
+
 @csrf_exempt
 def tagorder(request):
-    user_token = request.GET.get('userID')
-    project_id = request.GET.get('projectID')
-    tag = request.GET.get('tag')
 
+    request_dict = json.loads(request.body)
+    user_token = request_dict['userID']
+    proj_id = int(request_dict['projectID'])
+    tag = request_dict['tag']
+    topic_dict = {"Application":0, "Comp Neuro":1, "Experimental":2, "Neural Nets":3, "Stats/Models":4}
+    tag = topic_dict[tag]
+    
+    print("USER TOKEN" + str(user_token))
+    print("Project id" + str(proj_id))
+    print("tag" + str(tag))
 
     curr_user = User.objects.get(last_name=user_token)
-    curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
-    curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
+    curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=proj_id)[0]
+    curr_proj = list(curr_researcher.projects.filter(pid = proj_id))[0]
 
     json_list = []
 
