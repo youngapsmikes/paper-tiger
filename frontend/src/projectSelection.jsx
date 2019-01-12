@@ -6,6 +6,65 @@ import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import history from "./history";
 import { RingLoader } from 'react-spinners';
 
+class RenameForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: ''};
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.changeProjectName(this.props.id, this.state.value);
+        this.props.cleanup();
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                New Project Title: <br />
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <br></br>
+                <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+
+}
+
+class Rename extends Component {
+    
+    
+    render() {
+        return (
+            <Popup trigger={<Button className="addbutton"> &#9998; </Button>}
+            closeOnDocumentClick
+            modal>
+            {close => (
+                <div class="UploadPopup">
+                    <a className="close" onClick={close}> &times; </a>
+
+                    <div class="UploadPopupHeader"><h2>Change Project Title</h2></div>
+                    <p>
+                        Your project is currently named {this.props.name}.
+                    </p>
+                    <RenameForm cleanup={close} {...this.props} />
+                </div>
+            )}
+            </Popup>
+
+        );
+    }
+}
+
 class Project extends Component {
 
     visitProject = (e) => {
@@ -27,6 +86,11 @@ class Project extends Component {
                 <div class="listContent" onClick={this.visitProject}>
                     <div class="spacing"></div>
                     <div class="projectTitle">{this.props.name}</div>
+                    <div className="buttons">
+                    <div className="spacing"></div>
+                    <div class="editButton" onClick={this.preventRedirect}>
+                    <Rename {...this.props}/>
+                    </div>
                     <div class = "removeButton" onClick={this.preventRedirect}>
                         <Popup trigger={<Button className="removebutton"> &times; </Button>} 
                         modal>
@@ -61,6 +125,7 @@ class Project extends Component {
                     )}
                         </Popup>
                     </div>
+                    </div>
                 </div>
                 </li>
             </React.Fragment>
@@ -87,7 +152,7 @@ class ProjectTable extends Component {
         if (!loading) {
             for (let i = 0; i < this.props.projects.length; i++) {
                 let project = this.props.projects[i];
-                rows.push(<Project name = {project.name} id={project.id} userID = {this.props.userID} delete = {this.props.delete}/>);
+                rows.push(<Project name = {project.name} id={project.id} {...this.props}/>);
             }
         }
         
@@ -245,6 +310,30 @@ class ProjectSelection extends Component {
 
     }
 
+    changeProjectName = (projectID, newTitle) => {
+        this.props.authPayload.verifyUser(this.props.userID);
+
+        const project = projectID;
+        const user = this.props.userID;
+        const title = newTitle;
+
+        const payload = JSON.stringify({
+            projectID: project,
+            userID: user,
+            newTitle: title
+        });
+
+        this.setState({loading: true});
+
+        fetch('http://localhost:5000/backend/renameproject', {
+        method: 'POST',
+        body: payload,
+      }).then(resp => resp.json()).then(data => {
+        this.setState({projects: data, loading: false});
+    }).catch((error) => console.log(error));
+
+    }
+
 
     componentDidMount() {
         this.fetchResult();
@@ -254,7 +343,7 @@ class ProjectSelection extends Component {
         return (
             <div class="Projects">
                 <ProjectHeader update={this.fetchResult} userID = {this.props.userID} addProject = {this.addProject}/>
-                <ProjectTable delete = {this.deleteProject} loading = {this.state.loading} projects={this.state.projects} userID = {this.props.userID}/>
+                <ProjectTable delete = {this.deleteProject} changeProjectName={this.changeProjectName} loading = {this.state.loading} projects={this.state.projects} userID = {this.props.userID}/>
             </div>
         );
     }
