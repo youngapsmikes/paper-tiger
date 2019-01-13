@@ -56,7 +56,24 @@ class LowerRow extends Component {
 }
 
 class Why extends Component {
+
+    truncateString = (input) => {
+        var newFile = input.substring(0, 17);
+        newFile = newFile + "...";
+
+        return newFile;
+    }
+
     render() {
+
+        var fileName = this.props.why;
+
+        if (fileName.length > 17) {
+            fileName = this.truncateString(fileName);
+        } else {
+            fileName = fileName + ".";
+        }
+
         return (
             <Popup
                 trigger={<Button className="whyButton"> ? </Button>}
@@ -66,7 +83,7 @@ class Why extends Component {
             >
                 <div className="UploadPopupHeader">
                 <h3>Why?</h3>
-                <span className="whyPopup">This article was recommended due to its similarities to {this.props.why}.</span>
+                <span className="whyPopup">This article was recommended due to its similarities to {fileName}</span>
                 </div>
             </Popup>
             

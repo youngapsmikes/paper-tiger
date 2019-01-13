@@ -12,15 +12,19 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.uploadedPayload > .spacing {
+    flex: 1 0 15%;
 }
 
 .uploadedPayload > .filename {
-    flex: 1 0 66%;
+    flex: 1 0 50%;
 }
 
 .uploadedPayload > .removeButton {
-    flex: 0 0 34%;
+    flex: 1 0 15%;
 }
 
 .sideheader {
@@ -30,8 +34,21 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
+
+.sideheader > .spacing {
+    flex: 1 0 15%;
+}
+
+.sideheader > .headerText {
+    font-size: 2rem;
+    flex: 1 0 50%;
+}
+  
+  .sideheader > .addbutton {
+      flex: 1 0 15%;
+  }
 
 
 .sidemenu {
@@ -52,15 +69,6 @@
     border-bottom: .05rem solid #ddd;
     width: 25vw;
     border-right: .1rem solid black;
-}
-
-.headerText {
-  font-size: 2rem;
-  flex: 1 0 66%;
-}
-
-.sideheader > .addbutton {
-    flex: 0 0 34%;
 }
 
 .fileresult {
@@ -98,12 +106,8 @@
 .UploadPopup > .checkmark {
     color: green;
 }
-.sideheader > .addbutton {
-    flex: 0 0 33%;
-}
 
-.emptyNotice {
-    position: absolute;
-    left: 8%;
-    top: 40%;
+.fileTable > .emptyNotice {
+    position: relative;
+    top: 25vh;
 }

@@ -13,7 +13,7 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             articles:  [
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading: On the rise of smarter computing and the need for robots", why:"Loading", link:"https://www.google.com", topic1:"BDE", topic2:"Deep net", strength1:"1", strength2:"2"},
+  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading: On the rise of smarter computing and the need for robots", why:"123456789112345678921234567893123456789", link:"https://www.google.com", topic1:"BDE", topic2:"Deep net", strength1:"1", strength2:"2"},
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Applications", topic2:"Experimental", strength1:"0", strength2:"1"},
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Neural Nets", topic2:"Stats/Models", strength1:"0", strength2:"2"},
   {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Comp Neuro", topic2:"Deep net", strength1:"1", strength2:"2"},
@@ -21,7 +21,7 @@ export default class ResultsPage extends Component {
             files: [{name: "File 1"}, {name: "filel2"}
             ],
             keyInfo: {projectID: '', userID: ''},
-            loading: false,
+            loading: true,
             tag: null
         };
 
