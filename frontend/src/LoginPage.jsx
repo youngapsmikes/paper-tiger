@@ -5,7 +5,8 @@ import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
 import { Redirect } from 'react-router';
-import paperTigerlogofinal from './paperTigerlogofinal.png'
+import paperTigerlogofinal from './paperTigerlogofinal.png';
+import HomeHeader from "./HomeHeader.jsx";
 
 
 class LoginPage extends Component {
@@ -70,6 +71,12 @@ class LoginPage extends Component {
       }
         return (
           <React.Fragment>
+
+          <div>
+          <header className="homeheader">
+          <HomeHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
+          </header>
+          </div>
 
 <div class="jumbotron jumbotron-fluid text-center">
 <div className="toplevel">
