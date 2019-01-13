@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
-import { Redirect } from 'react-router';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import 'filepond/dist/filepond.min.css';
-import PaperTigerHeader from './PaperTigerHeader.js';
 import ResultsPage from './resultsPage.jsx';
-import Results from './results.jsx';
-import Home from './home.jsx';
 import LoginPage from './LoginPage.jsx';
 import ProjectPage from './projectPage.jsx';
 import AboutPage from './AboutPage.jsx';
@@ -54,7 +49,7 @@ class App extends Component {
 
   verifyUser = (userID) => {
     var authUser = this.getAuthUser();
-    if ((authUser != userID) || (authUser == null)) {
+    if ((authUser !== userID) || (authUser == null)) {
       console.log("USER NOT SIGNED IN");
       console.log("USERID GIVEN IS : " + userID);
       console.log("UserID should be: " + authUser);
