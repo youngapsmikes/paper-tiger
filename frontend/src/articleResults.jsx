@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './articleResults.css';
 import Popup from "reactjs-popup";
-import { Button, ListGroup, ListGroupItem, Label } from 'react-bootstrap';
-import ReactLoading from 'react-loading';
+import { Button, ListGroup} from 'react-bootstrap';
 import { RingLoader } from 'react-spinners';
 
 

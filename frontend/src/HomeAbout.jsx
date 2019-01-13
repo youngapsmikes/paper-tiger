@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { Media } from 'react-bootstrap';
 import './about.css';
 import {withRouter} from 'react-router-dom';
-import PaperTigerHeader from './PaperTigerHeader.js';
+import HomeHeader from './homepageHeader.jsx';
 import diag from './diagram.jpg';
-class AboutPage extends Component {
+class About extends Component {
 
     render() {
         return (
           <div>
           <header>
-          <PaperTigerHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
+          <HomeHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
           </header>
           <Media className="about">
           <div className="toplevel">
@@ -21,7 +21,7 @@ class AboutPage extends Component {
             </span></p>
             <p className="question"><strong><span className="normalText">What is topic modeling?</span></strong></p> 
             <p className="question"><span className="normalText">Topic modeling is a machine learning technique for discovering the latent topics within a document. The specific algorithm we use is Latent Dirichlet Allocation (LDA). LDA assumes that documents are generated in the following way. Each document has two corresponding weighted dice. One dice captures the probabilities of various topics. For news, these topics could be categories like politics, culture, or science. Every topic also has a corresponding word dice which captures the probabilities of different words under a given topic. For example, words like "fake news" might be more common under a "politics" topic than a "sports" topic. By assuming this process for generating documents, LDA can then learn topics from a set of documents in an unsupervised way.</span></p>
-            <img className="diagram" alt="" src={diag} />
+            <img className="diagram" src={diag} />
             <p className="question"><strong><span className="normalText">How does this inference procedure work?</span></strong></p>
             <p className="question"><span className="normalText">We'll have to be hand-wavy here. Basically, the algorithm begins by randomly assigning  words to topics. The algorithm then examines the co-occurences of words throughout different documents and the words that appear frequently within a particular document. By understanding these patterns and trends, the algorithm infers the topics.</span></p>
             <p className="title"><strong><span className="titleText">Behind the Site</span></strong></p>
@@ -34,4 +34,4 @@ class AboutPage extends Component {
       }
 }
 
-export default withRouter(AboutPage);
+export default withRouter(About);

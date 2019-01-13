@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { ModalBody} from 'reactstrap';
 import { Modal } from 'react-bootstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
+import HomeHeader from './homepageHeader.jsx';
 import { Redirect } from 'react-router';
 import paperTigerlogofinal from './paperTigerlogofinal.png'
-
 
 class LoginPage extends Component {
   constructor(props) {
@@ -71,12 +70,18 @@ class LoginPage extends Component {
         return (
           <React.Fragment>
 
+          <div>
+          <header className="homeheader">
+          <HomeHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
+          </header>
+          </div>
+
 <div class="jumbotron jumbotron-fluid text-center">
 <div className="toplevel">
             <Modal.Dialog>
             <Modal.Body>
             <div className="App-body">  
-            <img src={paperTigerlogofinal} height="227.2" width="320"/>
+            <img src={paperTigerlogofinal} height="227.2" width="320" alt="logo"/>
 
             </div>
             {/* <img src="https://image.flaticon.com/icons/svg/1254/1254986.svg" class="jumbo-img"/> */}
@@ -98,18 +103,19 @@ class LoginPage extends Component {
 
   
 <div class="container-fluid bg-3 text-center">    
-  <h3 class="margin"></h3><br></br>
+  {/* <h3 class="margin"></h3><br></br> */}
+  <br></br>
   <div class="row">
     <div class="col-sm-4">
-            <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin"/>
+            <img src="https://image.flaticon.com/icons/svg/1122/1122567.svg" class="img-responsive margin" alt="icon-1"/>
       <p>Allow machine learning to optimize your search results. </p>
     </div>
     <div class="col-sm-4"> 
-      <img src="https://image.flaticon.com/icons/svg/1114/1114544.svg" class="img-responsive margin" />
+      <img src="https://image.flaticon.com/icons/svg/1114/1114544.svg" class="img-responsive margin" alt="icon-2"/>
       <p>Spend less time on irrelevant resources.</p>
     </div>
     <div class="col-sm-4"> 
-            <img  src="https://image.flaticon.com/icons/svg/1118/1118324.svg" class="img-responsive margin"/>
+            <img  src="https://image.flaticon.com/icons/svg/1118/1118324.svg" class="img-responsive margin" alt="icon-3"/>
       <p>Find papers that will provide you with the most insightful ideas. </p>
     </div>
   </div>

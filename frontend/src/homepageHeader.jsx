@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import paperTigerlogofinal from './paperTigerlogofinal.png'
-import './paperTigerHeader.css'
 import {
     Collapse,
     Navbar,
@@ -11,7 +10,7 @@ import {
     NavLink, } from 'reactstrap';
 import history from "./history";
 
-export default class PaperTigerHeader extends Component {
+export default class HomeHeader extends Component {
     constructor(props) {
         super(props);
     
@@ -42,21 +41,20 @@ export default class PaperTigerHeader extends Component {
         return (
           <div>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/" onClick={this.homePage}><img src={paperTigerlogofinal} height="45.44" width="64" alt=""/>
+                <NavbarBrand href="/" onClick={this.homePage}><img src={paperTigerlogofinal} height="45.44" width="64"/>
                 </NavbarBrand>
               <NavbarBrand onClick={this.homePage} href="/">paper tiger</NavbarBrand>
               <NavbarToggler onClick={this.toggle} />
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
-                  <NavItem>
-                    <NavLink href={"/about/" + this.props.userID}>About</NavLink>
+                <NavItem>
+                    <NavLink href={"/abt/" + this.props.userID}>About</NavLink>
                   </NavItem>
-                  <NavItem>
-                    <NavLink href={"/projects/" + this.props.userID}>{this.props.authPayload.user}'s Projects</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href={"/"} onClick={this.logOut}>Logout</NavLink>
-                  </NavItem>
+
+                <NavItem>
+                    <NavLink href={"/"}>Login</NavLink>
+                </NavItem>
+
                 </Nav>
               </Collapse>
             </Navbar>
