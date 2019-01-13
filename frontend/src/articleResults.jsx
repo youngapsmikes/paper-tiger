@@ -112,6 +112,7 @@ class PaperRow extends Component {
 
 class RecommendationsTable extends Component {
     render() {
+        console.log(this);
 
         const loading = this.props.loading;
 
@@ -195,9 +196,9 @@ export default class ArticleResults extends Component {
     render() {
 
         return (
-            <div className="Results">
+                <div className="resultsSection">
                 <RecommendationsTable {...this.props} />
-            </div>
+                </div>
         );
     }
 }

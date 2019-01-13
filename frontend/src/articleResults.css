@@ -42,6 +42,7 @@
     text-align: center;
     font-size: 2em;
     border-bottom: 2px solid black;
+    flex: 0 1 auto;
 }
 
 .loading {
@@ -126,4 +127,13 @@ html {
 
 .tagHeader > .return {
     flex: 0 0 10%;
+    font-weight: 1000;
+}
+
+.resultsSection {
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    justify-content: flex-start;
 }

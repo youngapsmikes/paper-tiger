@@ -3,7 +3,6 @@ import { Modal } from 'react-bootstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
-import HomeHeader from './homepageHeader.jsx';
 import { Redirect } from 'react-router';
 import paperTigerlogofinal from './paperTigerlogofinal.png';
 import HomeHeader from "./HomeHeader.jsx";
