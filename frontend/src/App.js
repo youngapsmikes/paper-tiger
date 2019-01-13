@@ -12,7 +12,7 @@ import LoginPage from './LoginPage.jsx';
 import ProjectPage from './projectPage.jsx';
 import AboutPage from './AboutPage.jsx';
 import history from "./history";
-import RedirecPage from "./redirectPage.jsx";
+import RedirectPage from "./redirectPage.jsx";
 
 class App extends Component {
 
@@ -101,7 +101,7 @@ class App extends Component {
           <Route path="/results/:userID/:projectID" render={(props) =><ResultsPage {...props} authPayload={authPayload} />} />
           <Route exact path="/" render={(props) =><LoginPage {...props} authPayloadSpecial = {authPayloadSpecial} />} />
           <Route path="/projects/:userID" render={(props) =><ProjectPage {...props} authPayload={authPayload}/>} />
-          <Route path="/redirect" render={(props) =><RedirecPage {...props} authPayload={authPayload}/>} />
+          <Route path="/redirect" render={(props) =><RedirectPage {...props} authPayload={authPayload}/>} />
         </Switch>
         
       </div>
