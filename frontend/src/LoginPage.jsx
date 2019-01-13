@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import './Home.css';
 import { GoogleLogin } from 'react-google-login';
 import {withRouter} from 'react-router-dom';
+import HomeHeader from './homepageHeader.jsx';
 import { Redirect } from 'react-router';
 import paperTigerlogofinal from './paperTigerlogofinal.png'
 
@@ -70,6 +71,12 @@ class LoginPage extends Component {
       }
         return (
           <React.Fragment>
+
+          <div>
+          <header className="homeheader">
+          <HomeHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
+          </header>
+          </div>
 
 <div class="jumbotron jumbotron-fluid text-center">
 <div className="toplevel">

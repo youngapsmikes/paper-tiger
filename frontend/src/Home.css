@@ -10,6 +10,7 @@
     position: static !important;
 }
 .jumbotron {
+    z-index: -1 !important;
     background-image: url('deeper-corrected.jpg') !important; 
     background-size: cover; 
     padding: 1rem 2rem !important;
@@ -54,6 +55,8 @@
     text-align: center;
     padding-top: 15px !important;
 }
+
+
 /* 
 .nav-link {
     font-size: 41px !important;
