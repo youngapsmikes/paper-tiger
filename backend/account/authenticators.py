@@ -2,7 +2,6 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth.models import User
 from .models import Researcher
-from uuid import uuid4
 
 class GoogleBackend(object):
 
