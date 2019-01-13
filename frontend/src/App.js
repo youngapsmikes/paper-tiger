@@ -69,7 +69,7 @@ class App extends Component {
       userToken: authUser
     });
 
-    fetch('http://localhost:5000/backend/signoutuser', {
+    fetch('https://paper-tiger-server.herokuapp.com/backend/signoutuser', {
       method: 'POST',
       body: data,
     }).catch((error) => console.log(error));

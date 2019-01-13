@@ -37,12 +37,12 @@ export default class ResultsPage extends Component {
         console.log("DATA REQUEST MADE " + projectID + 
         " / " + userID);
 
-        fetch(`http://localhost:5000/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
+        fetch(`https://paper-tiger-server.herokuapp.com/backend/results?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
 
-        fetch(`http://localhost:5000/backend/saved?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
+        fetch(`https://paper-tiger-server.herokuapp.com/backend/saved?projectID=${projectID}&userID=${userID}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({files: data});
             }).catch((error) => console.log(error));
@@ -63,7 +63,7 @@ export default class ResultsPage extends Component {
 
         this.setState({loading: true});
 
-        fetch('http://localhost:5000/backend/removefile', {
+        fetch('https://paper-tiger-server.herokuapp.com/backend/removefile', {
         method: 'POST',
         body: payload,
       }).then(resp => resp.json()).then(data => {
@@ -84,7 +84,7 @@ export default class ResultsPage extends Component {
         let seed = (new Date()).getSeconds();
         let messageID = Math.floor(Math.random(seed) * 1000000) + 1;
 
-        fetch(`http://localhost:5000/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
+        fetch(`https://paper-tiger-server.herokuapp.com/backend/results?projectID=${project}&userID=${user}&messageID=${messageID}`)
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
@@ -107,7 +107,7 @@ export default class ResultsPage extends Component {
         data.append('userID', user);
         data.append('projectID', project);
     
-        fetch('http://localhost:5000/backend/saved', {
+        fetch('https://paper-tiger-server.herokuapp.com/backend/saved', {
             method: 'POST',
             body: data,
         }).then(resp => resp.json()).then(data => {
@@ -135,7 +135,7 @@ export default class ResultsPage extends Component {
             tag: newTag
         });
 
-        fetch('http://localhost:5000/backend/tagorder', {
+        fetch('https://paper-tiger-server.herokuapp.com/backend/tagorder', {
         method: 'POST',
         body: payload,
       }).then(resp => resp.json()).then(data => {
