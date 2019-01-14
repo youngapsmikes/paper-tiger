@@ -1,6 +1,5 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 
 class FileUpload extends React.Component {
     constructor(props) {

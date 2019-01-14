@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import "./uploadsidebar.css";
-import FileUpload from './FileUpload.jsx';
-import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, ListGroup} from 'react-bootstrap';
 
 class DeleteButton extends Component {
 
@@ -52,6 +51,7 @@ class PDFupload extends Component {
             <React.Fragment>
                 <li className="list-group-mine">
                 <div class="uploadedPayload">
+                <div class="spacing"></div>
                 <span class="filename">
                 {this.props.filename}
                 </span>
@@ -73,6 +73,7 @@ class Sideheader extends Component {
     render() {
         return (
             <div class="sideheader">
+            <span class="spacing"></span>
             <span class="headerText"> Uploaded Files </span>
             <span class="addbutton">
             <Popup trigger={<Button className="addbutton"> + </Button>}
@@ -133,12 +134,9 @@ class FileTable extends Component {
         }
 
         return (
-            <div class ="fileTable">
             <ListGroup componentClass="ul">
                 {rows}
             </ListGroup>
-            </div>
-
         );
     }
 }

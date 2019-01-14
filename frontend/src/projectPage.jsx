@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './projectPage.css';
-import { Modal } from 'react-bootstrap';
 import ProjectSelection from "./projectSelection";
 import { withRouter } from 'react-router-dom';
 import PaperTigerHeader from './PaperTigerHeader.js';

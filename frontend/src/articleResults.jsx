@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './articleResults.css';
 import Popup from "reactjs-popup";
-import { Button, ListGroup, ListGroupItem, Label } from 'react-bootstrap';
-import ReactLoading from 'react-loading';
+import { Button, ListGroup} from 'react-bootstrap';
 import { RingLoader } from 'react-spinners';
 
 
 class LowerRow extends Component {
+    tagSort = (event, tag) => {
+        event.stopPropagation();
+        this.props.evaluateTag(tag);
+    }
+
     render() {
 
         const colorArray = ["#ff0000", "#ffaa00", "#33cc33"];
@@ -37,10 +41,10 @@ class LowerRow extends Component {
             <div className="Author">
             {this.props.author}  
             </div>
-            <div className="badge" style={but1}>
+            <div className="badge" style={but1} onClick={(e) => {this.tagSort(e, this.props.topic1)}}>
             {this.props.topic1}
             </div>
-            <div className="badge" style={but2}>
+            <div className="badge" style={but2} onClick={(e) => {this.tagSort(e, this.props.topic2)}}>
             {this.props.topic2}
             </div>
             <div className="spacing"></div>
@@ -51,7 +55,24 @@ class LowerRow extends Component {
 }
 
 class Why extends Component {
+
+    truncateString = (input) => {
+        var newFile = input.substring(0, 17);
+        newFile = newFile + "...";
+
+        return newFile;
+    }
+
     render() {
+
+        var fileName = this.props.why;
+
+        if (fileName.length > 17) {
+            fileName = this.truncateString(fileName);
+        } else {
+            fileName = fileName + ".";
+        }
+
         return (
             <Popup
                 trigger={<Button className="whyButton"> ? </Button>}
@@ -61,7 +82,7 @@ class Why extends Component {
             >
                 <div className="UploadPopupHeader">
                 <h3>Why?</h3>
-                <span className="whyPopup">This article was recommended due to its similarities to {this.props.why}.</span>
+                <span className="whyPopup">This article was recommended due to its similarities to {fileName}</span>
                 </div>
             </Popup>
             
@@ -91,6 +112,7 @@ class PaperRow extends Component {
 
 class RecommendationsTable extends Component {
     render() {
+        console.log(this);
 
         const loading = this.props.loading;
 
@@ -99,35 +121,73 @@ class RecommendationsTable extends Component {
         if (!loading) {
             for (let i = 0; i < this.props.articles.length; i++) {
                 let article = this.props.articles[i];
-                rows.push(<PaperRow author={article.author} title={article.title} why={article.why} link={article.link} topic1={article.topic1} topic2={article.topic2} strength1={article.strength1} strength2={article.strength2}/>);
+                rows.push(<PaperRow author={article.author} title={article.title} why={article.why} link={article.link} topic1={article.topic1} topic2={article.topic2} strength1={article.strength1} strength2={article.strength2} {...this.props} />);
             }
         }
 
         if (loading) {
-            return (
-            <React.Fragment>
-            <div className="Header">Recommended Articles</div>
-            <div className="loading">
-            <p className="loadingText">Machines are learning...</p>
-            <div className='loadingIcon'>
-                <RingLoader
-                sizeUnit={"px"}
-                size={200}
-                color={'#536976'}
-                />
-            </div>  
-            </div>
-            </React.Fragment>
-            );
-        } else {
-            return (
+            if (this.props.tag) {
+                return (
                 <React.Fragment>
-                <div className="Header">Recommended Articles</div>
-                <ListGroup componentClass="ul">
-                    {rows}
-                </ListGroup>
-                </React.Fragment>
-            );
+                    <div className="tagHeader">
+                            <div className="spacing"></div>
+                            <div className="tagText">{this.props.tag}</div>
+                            <Button className="return" onClick={() => {this.props.back()}}> &#9166; </Button>
+                    </div>
+                    <div className="loading">
+                    <p className="loadingText">Machines are learning...</p>
+                    <div className='loadingIcon'>
+                        <RingLoader
+                        sizeUnit={"px"}
+                        size={200}
+                        color={'#536976'}
+                        />
+                    </div>  
+                    </div>
+                    </React.Fragment>
+                    );
+            } else {
+                return (
+                    <React.Fragment>
+                    <div className="Header">Recommended Articles</div>
+                    <div className="loading">
+                    <p className="loadingText">Machines are learning...</p>
+                    <div className='loadingIcon'>
+                        <RingLoader
+                        sizeUnit={"px"}
+                        size={200}
+                        color={'#536976'}
+                        />
+                    </div>  
+                    </div>
+                    </React.Fragment>
+                    );
+            }
+            
+        } else {
+            if (this.props.tag) {
+                return (
+                    <React.Fragment>
+                        <div className="tagHeader">
+                            <div className="spacing"></div>
+                            <div className="tagText">{this.props.tag}</div>
+                            <Button className="return" onClick={() => {this.props.back()}}> &#9166; </Button>
+                        </div>
+                    <ListGroup componentClass="ul">
+                        {rows}
+                    </ListGroup>
+                    </React.Fragment>
+                );
+            } else {
+                return (
+                    <React.Fragment>
+                    <div className="Header">Recommended Articles</div>
+                    <ListGroup componentClass="ul">
+                        {rows}
+                    </ListGroup>
+                    </React.Fragment>
+                );
+            }
         }
     }
 }
@@ -136,9 +196,9 @@ export default class ArticleResults extends Component {
     render() {
 
         return (
-            <div className="Results">
-                <RecommendationsTable loading = {this.props.loading} articles={this.props.articles} />
-            </div>
+                <div className="resultsSection">
+                <RecommendationsTable {...this.props} />
+                </div>
         );
     }
 }

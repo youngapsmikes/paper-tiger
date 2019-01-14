@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Suggestions from "./suggestions"
 import './resultsPage.css';
-import { Modal } from 'react-bootstrap';
 import UploadSideBar from "./uploadsidebar";
 import PaperTigerHeader from './PaperTigerHeader.js';
 import ArticleResults from './articleResults.jsx';
@@ -12,16 +10,12 @@ export default class ResultsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles:  [
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading: On the rise of smarter computing and the need for robots", why:"Loading", link:"https://www.google.com", topic1:"BDE", topic2:"Deep net", strength1:"1", strength2:"2"},
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Applications", topic2:"Experimental", strength1:"0", strength2:"1"},
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Neural Nets", topic2:"Stats/Models", strength1:"0", strength2:"2"},
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"Comp Neuro", topic2:"Deep net", strength1:"1", strength2:"2"},
-  {author: "Please be patient. Machines are learning", title: "Recommendations Currently Loading", why:"Loading", link:"https://www.google.com", topic1:"BDE", topic2:"Deep net", strength1:"1", strength2:"2"},],
-            files: [{name: "File 1"}, {name: "filel2"}
+            articles:  [],
+            files: [
             ],
             keyInfo: {projectID: '', userID: ''},
-            loading: true,
+            loading: false,
+            tag: null
         };
 
         this.updateStateFiles = this.updateStateFiles.bind(this);
@@ -94,8 +88,6 @@ export default class ResultsPage extends Component {
             .then(resp => resp.json()).then(data => {
                 this.setState({articles: data, loading: false});
             }).catch((error) => console.log(error));
-
-        
     }
 
     addFile(ev) {
@@ -126,8 +118,37 @@ export default class ResultsPage extends Component {
         document.getElementById('uploadedCheck').innerHTML = String.fromCharCode(10004);
     }
 
+    evaluateTag = (giventag) => {
+        this.setState({tag: giventag, loading: true}, () => {this.getTagResults();});
+    }
+
+    getTagResults = () => {
+        this.props.authPayload.verifyUser(this.state.keyInfo.userID);
+
+        const project = this.state.keyInfo.projectID;
+        const user = this.state.keyInfo.userID;
+        const newTag = this.state.tag;
+
+        const payload = JSON.stringify({
+            projectID: project,
+            userID: user,
+            tag: newTag
+        });
+
+        fetch('https://paper-tiger-server.herokuapp.com/backend/tagorder', {
+        method: 'POST',
+        body: payload,
+      }).then(resp => resp.json()).then(data => {
+        this.setState({articles: data, loading: false});
+    }).catch((error) => console.log(error));
+    }
+
+    tagGoBack = () => {
+        this.setState({tag: null, loading: true});
+        this.updateStateSuggestions(this.state.keyInfo.projectID, this.state.keyInfo.userID);
+    }
+
     componentDidMount() {
-        
         this.setState({keyInfo: {projectID: this.props.match.params.projectID, userID: this.props.match.params.userID}},
             () => {this.update();});
     }
@@ -140,7 +161,7 @@ export default class ResultsPage extends Component {
             </header>
             <div className="ResultsPage">
                 <UploadSideBar keyInfo = {this.state.keyInfo} files = {this.state.files} authPayload={this.props.authPayload} update= {this.update} deleterequest={this.deleterequest} add={this.addFile} updateStateSuggestions = {this.updateStateSuggestions} updateStateFiles = {this.updateStateFiles}/>
-                <ArticleResults loading = {this.state.loading} articles = {this.state.articles} />
+                <ArticleResults loading = {this.state.loading} articles = {this.state.articles} evaluateTag = {this.evaluateTag} back = {this.tagGoBack} tag={this.state.tag}/>
             </div>
             </div>
         )

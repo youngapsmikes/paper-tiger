@@ -189,9 +189,10 @@ def results(request):
         pdf_names.append(e.title)
         pdf_list.append(e.body)
 
-    pairs = recommend.recommendMain(pdf_list, pdf_names)
+    pairs = recommend.recommendMain(pdf_list, pdf_names, tag = None)
 
     topic_names = ["Application", "Comp Neuro", "Experimental", "Neural Nets", "Stats/Models"]
+    print(len(pairs))
     for (title, author, why, link, buttons) in pairs:
         topic1 = topic_names[buttons[0]]
         topic2 = topic_names[buttons[1]]
@@ -258,10 +259,13 @@ def newproject(request):
     # ## have to do some logic to check the project ids
     pid = user_info.max_id + 1
     # print(pid)
+
+    ## 
     user_info.max_id = pid
     curr_proj = Project.objects.create(pid = pid, project_name=project_name)
     user_info.projects.add(curr_proj)
     user_info.save()
+
 
 
     proj_json = []
@@ -344,6 +348,79 @@ def deleteproject(request):
 
     print(proj_json)
     return JsonResponse(proj_json, safe = False)
+@csrf_exempt
+def renameproject(request):
+    request_dict = json.loads(request.body)
+    user_token = request_dict['userID']
+    proj_id = int(request_dict['projectID'])
+    newTitle = str(request_dict['newTitle'])
+
+    user_info = Researcher.objects.get(user=User.objects.get(last_name=user_token))
+
+    try:
+        proj = user_info.projects.get(pid=proj_id)
+        proj.project_name = str(newTitle)
+        proj.save()    
+    except Exception as e:
+        pass
+
+    proj_json = []
+    for e in list(user_info.projects.all()):
+        proj_json.append({'name': str(e.project_name), 'id': e.pid})
+
+    print(proj_json)
+    return JsonResponse(proj_json, safe = False)
+
+@csrf_exempt
+def tagorder(request):
+
+    request_dict = json.loads(request.body)
+    user_token = request_dict['userID']
+    proj_id = int(request_dict['projectID'])
+    tag = request_dict['tag']
+    topic_dict = {"Application":0, "Comp Neuro":1, "Experimental":2, "Neural Nets":3, "Stats/Models":4}
+    tag = topic_dict[tag]
+    
+    print("USER TOKEN" + str(user_token))
+    print("Project id" + str(proj_id))
+    print("tag" + str(tag))
+
+    curr_user = User.objects.get(last_name=user_token)
+    curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=proj_id)[0]
+    curr_proj = list(curr_researcher.projects.filter(pid = proj_id))[0]
+
+    json_list = []
+
+    papers = list(curr_proj.project_papers.all())
+
+    if len(papers) < 1:
+        return JsonResponse(json_list, safe = False)
+
+    pdf_names = []
+    pdf_list = []
+
+    ## create pdf names list and pdf list to pass into recommender
+    for e in papers:
+        pdf_names.append(e.title)
+        pdf_list.append(e.body)
+
+    pairs = recommend.recommendMain(pdf_list, pdf_names, tag)
+
+    topic_names = ["Application", "Comp Neuro", "Experimental", "Neural Nets", "Stats/Models"]
+    for (title, author, why, link, buttons) in pairs:
+        topic1 = topic_names[buttons[0]]
+        topic2 = topic_names[buttons[1]]
+        strength1 = buttons[2]
+        strength2 = buttons[3]
+        json_list.append({'author': author, 'title': title, 'why':why, 'link': link, 'topic1': topic1, 'topic2': topic2, 'strength1': strength1, 'strength2':strength2})
+        # p1 = Paper(title=title, author=author)
+        # p1.save()
+        # curr_proj.project_papers.add(p1)
+
+    # print(json_list)
+    return JsonResponse(json_list, safe = False)
+
+
 
 @csrf_exempt
 def exit(request):

@@ -1,6 +1,4 @@
 .ResultsPage {
-    opacity: .9;
-    border: 1px black;
     box-sizing: border-box;
     background-color: #fff;
     display: flex;
@@ -13,8 +11,4 @@
     top: 10%;
     left: 5%;
     border-radius: 18px;
-}
-
-.Results-bg {
-    background-color: darkblue;
 }

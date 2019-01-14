@@ -42,6 +42,7 @@
     text-align: center;
     font-size: 2em;
     border-bottom: 2px solid black;
+    flex: 0 1 auto;
 }
 
 .loading {
@@ -106,3 +107,33 @@ html {
     padding-right: 5px;
 }
 
+.tagHeader {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-content: center;
+    text-align: center;
+    font-size: 2em;
+    border-bottom: 2px solid black;
+}
+
+.tagHeader > .spacing {
+    flex: 0 0 10%;
+}
+
+.tagHeader > .tagText {
+    flex: 0 0 34%;
+}
+
+.tagHeader > .return {
+    flex: 0 0 10%;
+    font-weight: 1000;
+}
+
+.resultsSection {
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    justify-content: flex-start;
+}
