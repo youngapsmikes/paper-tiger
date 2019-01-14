@@ -34,7 +34,7 @@ class AboutPage extends Component {
             <p className="title"><strong><span className="titleText">Behind the Site</span></strong></p>
             <p className="question"><span className="normalText">paper tiger is a COS333 project made by Quinn Donohue &rsquo;20, Michael Li &rsquo;20, Bisrat Moges &rsquo;20, and Michelle Yuen &rsquo;20, and advised by Jace Lu and Bob Dondero.</span></p>            
             <p className="title"><strong><span className="titleText">Acknowledgments</span></strong></p>
-            <p className="question"><span className="normalText">Icons on the homepage were made by <a href="https://www.flaticon.com/authors/eucalyp">Eucalyp</a> and <a href="https://www.flaticon.com/authors/photo3idea-studio"> photo3idea-studio</a> from <a href="https://www.flaticon.com">www.flaticon.com</a>.</span></p>
+            <p className="question"><span className="normalText">Icons on the homepage were made by <a href="https://www.flaticon.com/authors/eucalyp">Eucalyp</a> and <a href="https://www.flaticon.com/authors/photo3idea-studio"> photo3idea-studio</a> from <a href="https://www.flaticon.com">www.flaticon.com</a>. The diagram above was made by <a href="https://aws.amazon.com/blogs/machine-learning/introduction-to-the-amazon-sagemaker-neural-topic-model/">Amazon</a>.</span></p>
 
             </div>
             </Media>
