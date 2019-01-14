@@ -11,6 +11,7 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.responseGoogle = this.responseGoogle.bind(this);
+    this.getUserToken = this.getUserToken.bind(this);
   }
   responseGoogle(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -24,35 +25,51 @@ class LoginPage extends Component {
           var id_token = googleUser.getAuthResponse().id_token;
           // Sending the token to the backend
           console.log("ID Token: " + id_token);
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '/account/login/');
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-          xhr.onload = function() {
-            console.log('Signed in as: ' + xhr.responseText);
-          };
-          xhr.send('idtoken=' + id_token);
-          console.log(this);
+
+          
           var email = profile.getEmail();
           var user = email.substring(0, email.lastIndexOf("@"));
+          var name = profile.getGivenName();
 
-          const data = JSON.stringify({
-            userName: user
-          });
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:5000/account/login/');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          /* xhr.onload = function() {
+            this.getUserToken(user, name);
+          }; */
+          xhr.onreadystatechange = function (e) {
+            if (xhr.readyState == 4) {
+              if (xhr.status == 200) {
+                this.getUserToken(user, name);
+              } else {
+                console.error(xhr.statusText);
+              }
+            }
+          }.bind(this);
+          xhr.send('idtoken=' + id_token);
+          
+  }
+ 
 
-          fetch('http://localhost:5000/backend/getusertoken', {
-            method: 'POST',
-            body: data,
-          }).then(resp => resp.json()).then(data => {
-            console.log(data);
-            this.props.authPayloadSpecial.authenticateUser(data[0].token, profile.getGivenName());
-            this.setState({redirect: true, userID: data[0].token});
-          }).catch((error) => console.log(error));
-    const DEBUG = false;
+  getUserToken = (user, givenName) => {
+    console.log(this);
+    console.log(user);
+    console.log(givenName);
+    const data = JSON.stringify({
+      userName: user
+    });
 
-    if (DEBUG) {
-      this.props.authPayloadSpecial.authenticateUser(12345, "Quinn");
-      this.setState({redirect: true, userID: 12345});
-    }
+    fetch('http://localhost:5000/backend/getusertoken', {
+      method: 'POST',
+      body: data,
+    }).then(resp => resp.json()).then(data => {
+      console.log(data);
+      console.log("FUCKED");
+      this.props.authPayloadSpecial.authenticateUser(data[0].token, givenName);
+      console.log("authenticated correctly");
+      this.setState({redirect: true, userID: data[0].token}, () => {console.log("State changed successfully"); console.log(this);});
+    }).catch((error) => console.log(error));
+
   }
       state = {
       redirect: false,
@@ -142,4 +159,4 @@ class LoginPage extends Component {
       }
 }
 
-export default withRouter(LoginPage);
+export default withRouter(LoginPage)
