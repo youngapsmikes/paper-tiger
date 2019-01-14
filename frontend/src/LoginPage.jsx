@@ -72,7 +72,7 @@ class LoginPage extends Component {
 
           <div>
           <header className="homeheader">
-          <HomeHeader userID={this.props.match.params.userID} authPayload={this.props.authPayload}/>
+          <HomeHeader/>
           </header>
           </div>
 
