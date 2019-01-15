@@ -42,6 +42,14 @@ def getUserToken(request):
     ## if token is not None 
     user_name = json.loads(request.body)['userName']
     # user_name = request.POST.get('userName')
+
+    print(user_name)
+    print("get all users")
+    users = User.objects.all()
+    print(len(users))
+    for u in users:
+        print(u)
+
     curr_user = User.objects.get(username=user_name)
     rand_token = str(uuid4())
 
@@ -53,12 +61,13 @@ def getUserToken(request):
 @csrf_exempt
 def signOut(request):
     print("FROM sign out")
-    user_token = request.POST.get('userID')
+    user_token = json.loads(request.body)['userToken']
+    # user_token = request.POST.get('userID')
     ## receiving token
     curr_user = User.objects.get(last_name = user_token)
     curr_user.last_name = "None"
 
-    return JsonResponse()
+    return JsonResponse([], safe = False)
 
 @csrf_exempt
 def saved(request):
