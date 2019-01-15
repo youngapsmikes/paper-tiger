@@ -19,7 +19,7 @@ class FileUpload extends React.Component {
       data.append('userID', user);
       data.append('projectID', project);
   
-      fetch('https://paper-tiger-server.herokuapp.com/backend/saved', {
+      fetch('http://localhost:5000/backend/saved', {
         method: 'POST',
         body: data,
       }).then((response) => {

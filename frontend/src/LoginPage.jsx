@@ -32,7 +32,7 @@ class LoginPage extends Component {
           var name = profile.getGivenName();
 
           var xhr = new XMLHttpRequest();
-          xhr.open('POST', 'https://paper-tiger-server.herokuapp.com/account/login/');
+          xhr.open('POST', 'http://localhost:5000/account/login/');
           xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
           /* xhr.onload = function() {
             this.getUserToken(user, name);
@@ -59,7 +59,7 @@ class LoginPage extends Component {
       userName: user
     });
 
-    fetch('https://paper-tiger-server.herokuapp.com/backend/getusertoken', {
+    fetch('http://localhost:5000/backend/getusertoken', {
       method: 'POST',
       body: data,
     }).then(resp => resp.json()).then(data => {

@@ -110,24 +110,27 @@ def saved(request):
 
              # scrape the current uploaded file and save paper
              text = scrapePDF.convertMultiple(pdfDir)
-             p1 = Paper(title = file_name, body = text)
-             p1.save()
+             try:         
+                 p1 = Paper(title = file_name, body = text)
+                 p1.save()
 
-             # remove the temp directory
-             shutil.rmtree(pdfDir)
+                 # remove the temp directory
+                 shutil.rmtree(pdfDir)
 
-             # save paper to researcher's projects
-             curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
-             curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
-             print("LEN OF QUERY SET")
-             print(len(list(curr_researcher.projects.filter(pid = project_id))))
-             curr_proj.project_papers.add(p1)
+                 # save paper to researcher's projects
+                 curr_researcher = Researcher.objects.filter(user=curr_user, projects__pid=project_id)[0]
+                 curr_proj = list(curr_researcher.projects.filter(pid = project_id))[0]
+                 print("LEN OF QUERY SET")
+                 print(len(list(curr_researcher.projects.filter(pid = project_id))))
+                 curr_proj.project_papers.add(p1)
 
-             for e in list(curr_proj.project_papers.all()):
-                proj_json.append({'name': str(e.title)})
+                 for e in list(curr_proj.project_papers.all()):
+                    proj_json.append({'name': str(e.title)})
 
 
-             saved = True
+                 saved = True
+             except Exception as e:
+                return JsonResponse(proj_json, safe = False)
         else:
             MyProfileForm = ProfileForm()
         print("SAVE PROFILE")
