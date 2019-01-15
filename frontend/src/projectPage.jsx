@@ -6,7 +6,7 @@ import PaperTigerHeader from './PaperTigerHeader.js';
 
 
 
-class ResultsPage extends Component {
+class ProjectPage extends Component {
 
     render() {
         return (
@@ -22,4 +22,4 @@ class ResultsPage extends Component {
     }
 }
 
-export default withRouter(ResultsPage)
+export default withRouter(ProjectPage)
