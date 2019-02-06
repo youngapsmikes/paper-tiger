@@ -7,4 +7,6 @@ Currently, our recommendations are formed from all papers submitted at the [Neur
 
 ## The Team 
 
-This site was initially created as a team project for [COS 333: Advanced Programming Systems](https://www.cs.princeton.edu/courses/archive/fall18/cos333/). The members were [me](https://github.com/BisratM), [Quinn Donohue](https://github.com/qdonohue), [Michelle Yuen](https://github.com/qdonohue). 
+This site was initially created as a team project for [COS 333: Advanced Programming Systems](https://www.cs.princeton.edu/courses/archive/fall18/cos333/). The members were [me](https://github.com/BisratM), [Quinn Donohue](https://github.com/qdonohue), [Michael Li](https://github.com/youngapsmikes), and [Michelle Yuen](https://github.com/mjyuen). 
+
+
